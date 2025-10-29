@@ -4,129 +4,226 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register for SUDGEC 2025</title>
+  <title>SUDGEC 2025 Registration</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
-<body
-  class="min-h-screen flex items-center justify-center bg-[url('/assets/img/banner.jpg')] bg-cover bg-center bg-no-repeat relative text-slate-800">
-  <div class="absolute inset-0 bg-gradient-to-b from-green-900/70 via-green-800/70 to-green-900/80 backdrop-blur-sm">
-  </div>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-green-100 to-green-200 relative text-slate-800">
+
+  <!-- Background -->
+  <div class="absolute inset-0 bg-[url('/assets/img/banner.jpg')] bg-cover bg-center opacity-20"></div>
 
   <!-- Registration Form -->
-  <main id="formSection"
-    class="relative z-10 w-full max-w-md bg-white/95 dark:bg-slate-800/80 rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-md">
+  <main id="formSection" class="relative z-10 w-full max-w-3xl bg-white/95 rounded-3xl shadow-2xl p-10 space-y-8 backdrop-blur-md">
     <div class="text-center">
       <img src="/assets/img/logo.BpdcY0v0.png" alt="SUDGEC Logo" class="w-20 h-20 mx-auto mb-3">
-      <h1 class="text-2xl font-extrabold text-green-800 dark:text-green-100">
-        Register to Attend SUDGEC 2025
-      </h1>
-      <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">
-        Fill in your details below to confirm your participation in the
-        <strong>Sustainable Development Goals Evaluation Conference</strong>.
+      <h1 class="text-3xl font-extrabold text-green-800">SUDGEC 2025 Participant Registration</h1>
+      <p class="text-slate-600 mt-2">
+        Sustainable Development Goals Evaluation Conference  
+        <br><span class="text-sm text-slate-500">December 2–4, 2025 • Ibom E-Library, Uyo</span>
       </p>
     </div>
 
-    <form id="registerForm" class="space-y-4">
-      <div>
-        <label for="firstName" class="block text-sm font-medium text-slate-700 dark:text-slate-200">First Name</label>
-        <input id="firstName" type="text" required
-          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
-      </div>
-      <div>
-        <label for="lastName" class="block text-sm font-medium text-slate-700 dark:text-slate-200">Last Name</label>
-        <input id="lastName" type="text" required
-          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
-      </div>
-      <div>
-        <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-200">Email Address</label>
-        <input id="email" type="email" required
-          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
-      </div>
+    <form id="registerForm" class="space-y-8">
 
-      <button type="submit"
-        class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
-        Register to Attend
+      <!-- Participant Information -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Participant Information</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="fullName" placeholder="Full Name" required class="form-input">
+          <input id="title" placeholder="Title/Position" class="form-input">
+          <input id="institution" placeholder="Institution/Organization" class="form-input">
+          <input id="department" placeholder="Department" class="form-input">
+          <input id="email" type="email" placeholder="Email" required class="form-input">
+          <input id="phone" placeholder="Phone Number" class="form-input">
+        </div>
+      </section>
+
+      <!-- Registration Type -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Registration Type</h2>
+        <div class="space-y-2 text-slate-700">
+          <label><input type="radio" name="regType" value="Early Bird ($200)" class="mr-2">Early Bird ($200) - Before Nov 20</label><br>
+          <label><input type="radio" name="regType" value="Regular ($300)" class="mr-2">Regular ($300) - After Nov 20</label><br>
+          <label><input type="radio" name="regType" value="Student Early ($150)" class="mr-2">Student Early ($150) - Before Nov 20</label><br>
+          <label><input type="radio" name="regType" value="Student Late ($250)" class="mr-2">Student Late ($250) - After Nov 20</label>
+        </div>
+      </section>
+
+      <!-- Conference Participation -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Conference Participation</h2>
+        <div class="space-y-3">
+          <label><input type="checkbox" id="isPresenter" class="mr-2">Presenter</label>
+          <input id="presentationTitle" placeholder="Title of Presentation" class="form-input">
+          <select id="sessionPreference" class="form-input">
+            <option value="">Session Preference</option>
+            <option value="Oral">Oral</option>
+            <option value="Poster">Poster</option>
+            <option value="Both">Both</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Payment Information -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Payment Information</h2>
+        <div class="space-y-3">
+          <select id="paymentMethod" class="form-input">
+            <option value="">Select Payment Method</option>
+            <option>Bank Transfer</option>
+            <option>Credit Card</option>
+            <option>Other</option>
+          </select>
+          <input id="transactionId" placeholder="Transaction ID / Reference Number" class="form-input">
+        </div>
+      </section>
+
+      <!-- Accommodation -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Accommodation</h2>
+        <div class="space-y-3">
+          <label><input type="checkbox" id="hotelReservation" class="mr-2">Hotel Reservation</label>
+          <select id="accommodationType" class="form-input">
+            <option value="">Type of Accommodation</option>
+            <option>Single</option>
+            <option>Double</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Dietary Restrictions -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Dietary Restrictions</h2>
+        <div class="space-y-3">
+          <label><input type="checkbox" id="vegetarian" class="mr-2">Vegetarian</label>
+          <input id="otherDiet" placeholder="Other Dietary Restrictions" class="form-input">
+        </div>
+      </section>
+
+      <!-- Declaration -->
+      <section>
+        <h2 class="text-lg font-semibold text-green-700 border-b pb-2 mb-4">Declaration</h2>
+        <p class="text-sm text-slate-700 mb-3">
+          I confirm that the information provided is accurate and complete. I understand that the registration fee is non-refundable.
+        </p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="signature" placeholder="Signature" class="form-input">
+          <input id="date" type="date" class="form-input">
+        </div>
+      </section>
+
+      <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+        Submit Registration
       </button>
     </form>
   </main>
 
   <!-- Confirmation Screen -->
-  <main id="confirmation"
-    class="hidden relative z-10 w-full max-w-lg bg-white/95 dark:bg-slate-800/80 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
+  <main id="confirmation" class="hidden relative z-10 w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
     <div class="flex justify-center">
-      <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700 dark:text-green-300" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
         </svg>
       </div>
     </div>
 
-    <h2 class="text-2xl font-extrabold text-green-700 dark:text-green-200">🎉 Congratulations!</h2>
-    <p class="text-slate-700 dark:text-slate-200 font-medium">
-      You have successfully registered for the <span class="font-semibold">Sustainable Development Goals Evaluation
-        Conference (SUDGEC 2025)</span>.
+    <h2 class="text-2xl font-extrabold text-green-700">🎉 Registration Successful!</h2>
+    <p class="text-slate-700 font-medium">
+      Thank you for registering for <strong>SUDGEC 2025</strong>.  
+      A confirmation email has been sent to your inbox.
     </p>
 
-    <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-      📅 <strong>Date:</strong> December 2nd – 4th, 2025<br />
-      📍 <strong>Venue:</strong> Ibom E-Library, IBB Way, Uyo, Akwa Ibom State
-    </div>
-
-    <p class="text-green-700 dark:text-green-300 text-sm">
-      A confirmation email with event details has been sent to your inbox.
-    </p>
-
-    <a href="index.html"
-      class="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition">
+    <a href="index.html" class="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition">
       Return to Home
     </a>
   </main>
 
   <script>
+    tailwind.config = {
+      theme: { extend: { colors: { primary: "#047857" } } }
+    };
+
     (function () {
-      emailjs.init("FsRfW-MnD022Dlzor"); // Replace with your EmailJS public key
+      emailjs.init("FsRfW-MnD022Dlzor"); // 🔑 Your EmailJS public key
     })();
+
+    // Add Tailwind styles to all inputs
+    document.querySelectorAll('.form-input').forEach(el => {
+      el.classList.add(
+        'w-full', 'px-4', 'py-2', 'rounded-md', 'border', 'border-slate-300',
+        'bg-transparent', 'focus:ring-2', 'focus:ring-green-500', 'outline-none'
+      );
+    });
 
     document.getElementById('registerForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const email = document.getElementById('email').value.trim();
+      const data = {
+        fullName: document.getElementById('fullName').value,
+        title: document.getElementById('title').value,
+        institution: document.getElementById('institution').value,
+        department: document.getElementById('department').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        regType: document.querySelector('input[name="regType"]:checked')?.value || '',
+        isPresenter: document.getElementById('isPresenter').checked ? 'Yes' : 'No',
+        presentationTitle: document.getElementById('presentationTitle').value,
+        sessionPreference: document.getElementById('sessionPreference').value,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        transactionId: document.getElementById('transactionId').value,
+        hotelReservation: document.getElementById('hotelReservation').checked ? 'Yes' : 'No',
+        accommodationType: document.getElementById('accommodationType').value,
+        vegetarian: document.getElementById('vegetarian').checked ? 'Yes' : 'No',
+        otherDiet: document.getElementById('otherDiet').value,
+        signature: document.getElementById('signature').value,
+        date: document.getElementById('date').value,
+      };
 
-      document.getElementById('formSection').classList.add('hidden');
-      document.getElementById('confirmation').classList.remove('hidden');
+      const message = `
+        SUDGEC 2025 Registration Form Submission:
+
+        Full Name: ${data.fullName}
+        Title/Position: ${data.title}
+        Institution: ${data.institution}
+        Department: ${data.department}
+        Email: ${data.email}
+        Phone: ${data.phone}
+        Registration Type: ${data.regType}
+
+        Presenter: ${data.isPresenter}
+        Presentation Title: ${data.presentationTitle}
+        Session Preference: ${data.sessionPreference}
+
+        Payment Method: ${data.paymentMethod}
+        Transaction ID: ${data.transactionId}
+
+        Hotel Reservation: ${data.hotelReservation}
+        Accommodation Type: ${data.accommodationType}
+
+        Vegetarian: ${data.vegetarian}
+        Other Diet: ${data.otherDiet}
+
+        Signature: ${data.signature}
+        Date: ${data.date}
+      `;
 
       emailjs.send("service_6bb6y4a", "template_ocln91b", {
-        to_name: firstName,
-        to_email: email,
-        subject: "Congratulations! You’re Registered for SUDGEC 2025",
-        message: `
-        Dear ${firstName} ${lastName},
-
-        Congratulations! 🎉 You have been successfully registered to attend the Sustainable Development Goals Evaluation Conference (SUDGEC 2025).
-
-        📅 Date: December 2nd – 4th, 2025
-        📍 Venue: Ibom E-Library, IBB Way, Uyo, Akwa Ibom State
-
-        This event brings together policymakers, researchers, and professionals across Africa to evaluate progress toward the SDGs and celebrate impactful innovation.
-
-        We look forward to seeing you there!
-
-        Best regards,  
-        — The SUDGEC Organizing Team  
-        🌍 sustainsudgec.org
-        `
+        to_name: data.fullName,
+        to_email: data.email,
+        subject: "SUDGEC 2025 Registration Confirmation",
+        message,
       }).then(() => {
-        console.log("✅ Email sent successfully!");
-      }).catch((err) => {
-        console.error("❌ EmailJS Error:", err);
+        document.getElementById('formSection').classList.add('hidden');
+        document.getElementById('confirmation').classList.remove('hidden');
+      }).catch(err => {
+        alert("❌ Failed to send email. Please try again later.");
+        console.error(err);
       });
     });
   </script>
-</body>
 
+</body>
 </html>
