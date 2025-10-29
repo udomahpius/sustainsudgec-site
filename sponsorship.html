@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SUDGEC 2025 | Sponsorship & Exhibition Opportunities</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo.BpdcY0v0.png">
+  <meta name="description"
+    content="Sponsor and Exhibit at the Sustainable Development Goals Evaluation Conference 2025" />
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0b6cf6',
+            darkgreen: {
+              DEFAULT: '#013220',   // Deep forest green
+              light: '#025e3c',     // Slightly lighter tone
+              dark: '#001a11',      // Very dark green-black
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 25s linear infinite;
+    width: 200%;
+  }
+</style>
+
+<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100">
+
+  <!-- 🌿 HEADER -->
+  <header
+    class="bg-white/80 dark:bg-darkgreen/90 backdrop-blur sticky top-0 z-50 border-b border-slate-200 dark:border-green-800 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded bg-primary/10 dark:bg-green-800 flex items-center justify-center text-primary dark:text-green-200 font-bold">
+          <img src="/assets/img/logo.BpdcY0v0.png" alt="" srcset="">
+        </div>
+
+        <span class="font-semibold text-lg dark:text-white">SUdgeC</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center text-sm">
+        <a href="index.html" class="hover:text-primary dark:hover:text-green-300 transition">Home</a>
+        <a href="about.html" class="hover:text-primary dark:hover:text-green-300 transition">About</a>
+        <a href="sponsorship.html" class="hover:text-primary dark:hover:text-green-300 transition">Sponsorship</a>
+        <a href="awards.html" class="hover:text-primary dark:hover:text-green-300 transition">Awards</a>
+        <a href="gallery.html" class="hover:text-primary dark:hover:text-green-300 transition">Gallery</a>
+        <a href="contact.html" class="hover:text-primary dark:hover:text-green-300 transition">Contact</a>
+        <a href="register.html"
+          class="ml-2 px-4 py-2 rounded-md bg-primary text-white hover:opacity-90 transition dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdown" class=""></span>
+        </a>
+
+
+
+        <!-- 🌗 Dark Mode Toggle -->
+        <button id="darkToggle" aria-label="Toggle dark mode"
+          class="ml-3 p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+
+          <!-- Moon icon (for light mode) -->
+          <svg id="moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+
+          <!-- Sun icon (for dark mode) -->
+          <svg id="sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m8.485-8.485l.707.707M3.515 3.515l.707.707M21 12h1M2 12H1m15.364 6.364l.707.707M6.343 6.343l.707.707M4 12a8 8 0 1016 0 8 8 0 00-16 0z" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile nav toggles -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="darkToggleMobile" aria-label="Toggle dark mode"
+          class="p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+          <svg id="moonMobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <button id="mobileToggle" aria-label="Open menu" class="p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav"
+      class="md:hidden hidden bg-white dark:bg-darkgreen border-t border-slate-200 dark:border-green-800">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a href="index.html" class="py-2">Home</a>
+        <a href="about.html" class="py-2">About</a>
+        <a href="sponsorship.html" class="py-2">Sponsorship</a>
+        <a href="awards.html" class="py-2">Awards</a>
+        <a href="gallery.html" class="py-2">Gallery</a>
+        <a href="contact.html" class="py-2">Contact</a>
+        <!-- <a href="donate.html" class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">Donate</a> -->
+        <a href="register.html"
+          class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdownmobile" class=""></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- 🌍 MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 py-12 space-y-12">
+
+    <!-- Hero Banner -->
+    <section class="relative rounded-2xl overflow-hidden shadow-lg">
+      <!-- Background image -->
+      <img src="assets/img/c17.jpg" alt="Conference sponsorship" class="w-full h-64 object-cover brightness-75">
+
+      <!-- Gradient overlay for blending -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-green-800/70 via-green-600/60 to-transparent dark:from-darkgreen dark:via-green-900/80 dark:to-transparent mix-blend-multiply">
+      </div>
+
+      <!-- Text content -->
+      <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6">
+        <h1 class="text-3xl md:text-4xl font-bold drop-shadow-md">Become a Sponsor or Exhibitor</h1>
+        <p class="mt-3 max-w-2xl text-sm md:text-base opacity-95">
+          Showcase your organization at the Sustainable Development Goals Evaluation Conference 2025.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Intro -->
+    <section class="relative rounded-2xl p-8 my-8 shadow-md overflow-hidden
+  bg-gradient-to-br from-green-50 via-white to-green-100 
+  dark:from-green-900 dark:via-darkgreen dark:to-green-800 transition-colors duration-700">
+
+      <div class="relative z-10">
+        <h1 class="text-3xl font-bold text-primary dark:text-green-300">Sponsorship & Exhibition</h1>
+        <p class="mt-4 text-slate-700 dark:text-slate-300">
+          We invite you to participate in <strong>SUDGEC 2025</strong> as a sponsor, exhibitor, or branding partner.
+          Join policymakers, researchers, and development professionals to accelerate SDG progress in Africa and beyond.
+        </p>
+      </div>
+
+      <!-- Optional subtle pattern overlay -->
+      <div
+        class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,_#16a34a_1px,_transparent_0)] [background-size:20px_20px]">
+      </div>
+    </section>
+
+
+    <!-- Branding Opportunities -->
+    <section class="relative rounded-2xl overflow-hidden shadow-md my-12
+  bg-gradient-to-r from-green-50 via-white to-green-100 
+  dark:from-green-900 dark:via-darkgreen dark:to-green-800 transition-colors duration-700">
+
+      <div class="grid md:grid-cols-2 items-center">
+        <!-- 🖼️ Image Side -->
+        <div class="h-64 md:h-full">
+          <img src="assets/img/c7.jpg" alt="Business Branding Opportunities"
+            class="w-full h-full object-cover brightness-90 md:rounded-l-2xl">
+        </div>
+
+        <!-- ✨ Text Side -->
+        <div class="p-8 md:p-12">
+          <h2 class="text-2xl font-semibold text-primary dark:text-green-300">Business Branding Opportunities</h2>
+          <p class="mt-3 text-slate-700 dark:text-slate-300">
+            Promote your brand and engage with global development leaders at <strong>SUDGEC 2025</strong>.
+            Explore a range of sponsorship and branding options to highlight your organization’s impact.
+          </p>
+          <ul class="list-disc pl-6 mt-4 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>Conference Venue Branding</li>
+            <li>Exhibition Booths</li>
+            <li>Sponsorship Levels (Platinum, Gold, Silver)</li>
+            <li>Souvenir Program Advertisements</li>
+            <li>Digital Promotion & Media Coverage</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Gallery Section -->
+    <section>
+      <h2 class="text-2xl font-semibold text-primary dark:text-green-300 mb-4">Branding & Exhibition Highlights</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <img src="assets/img/c14.jpg" alt="Exhibition booth"
+          class="w-full h-48 object-cover rounded-xl shadow hover:scale-105 transition-transform duration-500">
+        <img src="assets/img/c3.jpg" alt="Networking area"
+          class="w-full h-48 object-cover rounded-xl shadow hover:scale-105 transition-transform duration-500">
+        <img src="assets/img/c17.jpg" alt="Conference branding"
+          class="w-full h-48 object-cover rounded-xl shadow hover:scale-105 transition-transform duration-500">
+      </div>
+    </section>
+
+    <!-- 🌿 Benefits of Sponsorship -->
+    <section class="relative w-full bg-fixed bg-center bg-cover rounded-2xl overflow-hidden shadow-lg my-12"
+      style="background-image: url('/assets/img/c13.jpg');">
+
+      <!-- Gradient Overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-green-900/80 via-black/70 to-green-800/80 dark:from-green-900/70 dark:via-green-950/60 dark:to-green-700/60">
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10 max-w-4xl mx-auto text-center px-6 md:px-10 py-16 text-white">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-100">Benefits of Sponsorship</h2>
+        <p class="mt-4 text-green-50 text-base md:text-lg">
+          Partnering with <strong>SUDGEC 2025</strong> provides unmatched visibility and global networking
+          opportunities in sustainable development.
+        </p>
+
+        <ul class="mt-8 text-left max-w-2xl mx-auto list-disc list-inside space-y-3 text-green-100/90">
+          <li>Increase visibility and credibility in the development sector.</li>
+          <li>Reach a global audience of policymakers, professionals, and researchers.</li>
+          <li>Showcase your products and services to an international audience.</li>
+          <li>Network with key decision-makers and stakeholders.</li>
+        </ul>
+
+        <!-- Optional Call-to-Action Button -->
+        <div class="mt-10">
+          <a href="register.html"
+            class="inline-block px-6 py-3 rounded-lg bg-primary hover:bg-green-600 text-white font-medium transition">
+            Become a Sponsor
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Packages -->
+    <section>
+      <h2 class="text-2xl font-semibold text-primary dark:text-green-300">Packages & Pricing</h2>
+      <div class="mt-4 grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow text-center">
+          <img src="assets/img/sdgs.IFaO-nuX.webp" alt="Platinum sponsor" class="mx-auto h-16 mb-3">
+          <h3 class="font-semibold text-xl text-primary dark:text-green-300">Platinum Sponsor</h3>
+          <p class="mt-2 text-sm">₦100M (Group A) / ₦50M (B) / ₦25M (C) / ₦15M (D)</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow text-center">
+          <img src="assets/img/logo.BpdcY0v0.png" alt="Gold sponsor" class="mx-auto h-16 mb-3">
+          <h3 class="font-semibold text-xl text-primary dark:text-green-300">Gold Sponsor</h3>
+          <p class="mt-2 text-sm">₦50M (A) / ₦25M (B) / ₦15M (C) / ₦5M (D)</p>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow text-center">
+          <img src="assets/img/unicef.B0TgXDvt.png" alt="Exhibition booth" class="mx-auto h-16 mb-3">
+          <h3 class="font-semibold text-xl text-primary dark:text-green-300">Exhibition Booths</h3>
+          <p class="mt-2 text-sm">₦50M (Size A) / ₦25M (B) / ₦10M (C)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Discounts -->
+    <section>
+      <h2 class="text-2xl font-semibold text-primary dark:text-green-300">Early Bird Discount</h2>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">
+        • Before <strong>October 30, 2025</strong> — 15% discount<br>
+        • Before <strong>November 15, 2025</strong> — 10% discount
+      </p>
+    </section>
+
+    <!-- Payment -->
+    <section>
+      <h2 class="text-2xl font-semibold text-primary dark:text-green-300">Payment Details</h2>
+      <p class="mt-3 text-slate-700 dark:text-slate-300">
+        <strong>Bank:</strong> TAJ BANK<br>
+        <strong>Account Name:</strong> SUDGEC Project International<br>
+        <strong>Account Number:</strong> 0012949853
+      </p>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-16 bg-gradient-to-br from-green-50 via-green-100 to-green-200 
+      dark:from-green-800 dark:via-green-900 dark:to-darkgreen text-center py-12 rounded-2xl shadow-inner">
+      <h2 class="text-2xl font-bold text-primary dark:text-green-200 mb-3">
+        Ready to Showcase Your Brand?
+      </h2>
+      <p class="text-slate-700 dark:text-slate-300 mb-6">
+        Join leading organizations in promoting sustainable development.
+      </p>
+      <a href="contact.html"
+        class="px-6 py-3 bg-primary text-white rounded-md text-sm font-medium hover:opacity-90 transition dark:bg-green-700 dark:hover:bg-green-600">
+        Contact Us to Sponsor
+      </a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-200 py-10 mt-12">
+    <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
+      <div>
+        <div class="font-semibold text-white">Sustain SUDGEC</div>
+        <p class="mt-2 text-sm text-slate-300">Building a sustainable future through global collaboration.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="about.html" class="hover:underline">About</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact</h4>
+        <p class="text-sm text-slate-300">info@sustainsudgec.org<br />+234 7075994055</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
+  </footer>
+
+
+  <!-- 🌙 Dark Mode, Countdown, and Mobile Nav Script -->
+  <script src="assets/js/main.js"></script>
+  </script>
+</body>
+
+</html>

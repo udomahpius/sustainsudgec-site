@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SUDGEC 2025 | Sustainable Development Goals Evaluation Awards</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo.BpdcY0v0.png">
+  <meta name="description" content="Recognizing Excellence in Sustainable Development across Africa" />
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0b6cf6',
+            darkgreen: {
+              DEFAULT: '#013220',   // Deep forest green
+              light: '#025e3c',     // Slightly lighter tone
+              dark: '#001a11',      // Very dark green-black
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 25s linear infinite;
+    width: 200%;
+  }
+</style>
+
+<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100">
+
+  <!-- 🌿 HEADER -->
+  <header
+    class="bg-white/80 dark:bg-darkgreen/90 backdrop-blur sticky top-0 z-50 border-b border-slate-200 dark:border-green-800 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded bg-primary/10 dark:bg-green-800 flex items-center justify-center text-primary dark:text-green-200 font-bold">
+          <img src="/assets/img/logo.BpdcY0v0.png" alt="" srcset="">
+        </div>
+
+        <span class="font-semibold text-lg dark:text-white">SUdgeC</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center text-sm">
+        <a href="index.html" class="hover:text-primary dark:hover:text-green-300 transition">Home</a>
+        <a href="about.html" class="hover:text-primary dark:hover:text-green-300 transition">About</a>
+        <a href="sponsorship.html" class="hover:text-primary dark:hover:text-green-300 transition">Sponsorship</a>
+        <a href="awards.html" class="hover:text-primary dark:hover:text-green-300 transition">Awards</a>
+        <a href="gallery.html" class="hover:text-primary dark:hover:text-green-300 transition">Gallery</a>
+        <a href="contact.html" class="hover:text-primary dark:hover:text-green-300 transition">Contact</a>
+        <a href="register.html"
+          class="ml-2 px-4 py-2 rounded-md bg-primary text-white hover:opacity-90 transition dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdown" class=""></span>
+        </a>
+
+
+
+        <!-- 🌗 Dark Mode Toggle -->
+        <button id="darkToggle" aria-label="Toggle dark mode"
+          class="ml-3 p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+
+          <!-- Moon icon (for light mode) -->
+          <svg id="moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+
+          <!-- Sun icon (for dark mode) -->
+          <svg id="sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m8.485-8.485l.707.707M3.515 3.515l.707.707M21 12h1M2 12H1m15.364 6.364l.707.707M6.343 6.343l.707.707M4 12a8 8 0 1016 0 8 8 0 00-16 0z" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile nav toggles -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="darkToggleMobile" aria-label="Toggle dark mode"
+          class="p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+          <svg id="moonMobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <button id="mobileToggle" aria-label="Open menu" class="p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav"
+      class="md:hidden hidden bg-white dark:bg-darkgreen border-t border-slate-200 dark:border-green-800">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a href="index.html" class="py-2">Home</a>
+        <a href="about.html" class="py-2">About</a>
+        <a href="sponsorship.html" class="py-2">Sponsorship</a>
+        <a href="awards.html" class="py-2">Awards</a>
+        <a href="gallery.html" class="py-2">Gallery</a>
+        <a href="contact.html" class="py-2">Contact</a>
+        <!-- <a href="donate.html" class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">Donate</a> -->
+        <a href="register.html"
+          class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdownmobile" class=""></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- 🌍 HERO SECTION -->
+  <section class="relative h-[400px] flex items-center justify-center text-center overflow-hidden">
+    <img src="assets/img/c16.jpg" alt="Awards background"
+      class="absolute inset-0 w-full h-full object-cover brightness-50">
+    <div class="absolute inset-0 bg-gradient-to-b from-green-800/70 via-green-900/60 to-black/70"></div>
+    <div class="relative z-10 max-w-3xl mx-auto text-white px-6">
+      <h1 class="text-4xl md:text-5xl font-bold">Sustainable Development Goals Evaluation Awards 2025</h1>
+      <p class="mt-4 text-lg text-slate-100">Honouring excellence and innovation across Africa and beyond.</p>
+    </div>
+  </section>
+
+  <!-- 🌿 AWARD ANNOUNCEMENT -->
+  <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
+    <section class="bg-white/70 dark:bg-green-950/40 backdrop-blur-md rounded-2xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary dark:text-green-300 mb-4">Award Conferment I</h2>
+      <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+        We are pleased to inform you that you have been nominated for the <strong>United Nations' Sustainable
+          Development Goals Evaluation Awards</strong>.
+        This prestigious recognition celebrates your exceptional contributions to advancing the <strong>SDGs</strong>
+        and promoting sustainable growth within your community and nation.
+      </p>
+
+      <div class="mt-6 flex flex-col md:flex-row gap-8 items-center">
+        <img src="assets/img/c11.jpg" alt="Award Ceremony" class="w-full md:w-1/2 rounded-xl shadow-lg object-cover">
+        <div class="flex-1 text-slate-700 dark:text-slate-300 space-y-4">
+          <p>The award conferment will take place during the <strong>Sustainable Development Goals Evaluation Conference
+              and Awards (SUDGEC 2025)</strong>.</p>
+          <p><strong>Date:</strong> November 25th, 2025<br>
+            <strong>Venue:</strong> Ibom E-Library, IBB Way, Uyo, Akwa Ibom State, Nigeria<br>
+            <strong>Time:</strong> 10:00 AM Daily (November 26–28, 2025)
+          </p>
+          <p>Please complete and return your <strong>Nominee Information Form</strong> and <strong>Award Witness
+              Form</strong> as soon as possible for processing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🏆 CATEGORIES SECTION -->
+    <section class="relative rounded-2xl overflow-hidden shadow-xl">
+      <div class="absolute inset-0 bg-gradient-to-r from-green-800/80 via-green-700/60 to-green-900/70"></div>
+      <div class="relative z-10 p-10 text-white">
+        <h2 class="text-3xl font-bold mb-4">Award Categories</h2>
+        <p class="mb-6 text-slate-200">Recognizing innovation, excellence, and impact across multiple Sustainable
+          Development domains.</p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Category 1 -->
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">1. SDGs Champion Award</h3>
+            <p>Honouring individuals or institutions that have made significant contributions to achieving the SDGs.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">2. Green Economy Award</h3>
+            <p>Recognizing innovative approaches to sustainable economic development.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">3. Climate Action Award</h3>
+            <p>Honouring efforts to reduce carbon emissions and mitigate climate change.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">4. Education for All Award</h3>
+            <p>Recognizing initiatives that promote access to quality education.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">5. Healthcare Innovation Award</h3>
+            <p>Celebrating innovation in healthcare delivery and community wellness.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">6. Poverty Reduction Award</h3>
+            <p>Recognizing significant efforts to reduce poverty and promote empowerment.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">7. Environmental Conservation Award</h3>
+            <p>Honouring impactful initiatives in environmental protection and climate resilience.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">8. Good Governance Award</h3>
+            <p>Recognizing transparency, accountability, and ethical leadership in governance.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4">
+            <h3 class="font-semibold text-xl mb-2">9. Science and Technology Award</h3>
+            <p>Honouring innovation in science, technology, and digital transformation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📞 CONTACT INFO -->
+    <section class="bg-white/70 dark:bg-green-950/40 backdrop-blur-md rounded-2xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary dark:text-green-300 mb-4">Contact & Organization</h2>
+      <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+        <strong>Organized by:</strong> SUDGEC Project, The Presidency, and UNDP Abuja Nigeria<br>
+        <strong>In conjunction with:</strong> Federal Ministries of Budget, Finance, Humanitarian Affairs, Labour, and
+        Information.<br>
+        <strong>Office:</strong> Room 106, 1st Floor, Federal Secretariat, Calabar, Cross River State, Nigeria.<br><br>
+        <strong>Website:</strong> <a href="https://sudgecproject.com"
+          class="text-primary dark:text-green-300 underline">sudgecproject.com</a><br>
+        <strong>Email:</strong> <a href="mailto:info@sudgecproject.com"
+          class="text-primary dark:text-green-300 underline">info@sudgecproject.com</a><br>
+        <strong>Phone:</strong> +234 701 599 1813 | +234 707 599 4055
+      </p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-200 py-10 mt-12">
+    <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
+      <div>
+        <div class="font-semibold text-white">Sustain SUDGEC</div>
+        <p class="mt-2 text-sm text-slate-300">Building a sustainable future through global collaboration.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="about.html" class="hover:underline">About</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact</h4>
+        <p class="text-sm text-slate-300">info@sustainsudgec.org<br />+234 7075994055</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
+  </footer>
+
+
+  <!-- <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script> -->
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

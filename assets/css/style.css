@@ -1,0 +1,16 @@
+
+/* Custom small utilities and smooth animations */
+:root { --smooth: 200ms; }
+
+/* simple fade-in on load */
+.fade-in { opacity: 0; transform: translateY(6px); animation: fadeIn 600ms ease forwards; }
+@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+/* subtle image shadow */
+img { transition: transform 250ms ease, filter 250ms ease; }
+
+/* scroll-to-top button (created dynamically in JS) */
+#scrollTopBtn { position: fixed; right: 18px; bottom: 18px; display: none; z-index: 60; }
+
+/* dark mode adjustments if needed */
+.dark img { filter: brightness(0.95) contrast(1.02); }

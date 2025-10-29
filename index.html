@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SUDGEC 2025 | Sustainable Development Goals Evaluation Conference & Awards</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo.BpdcY0v0.png">
+  <meta name="description" content="Sustain SUdgeC — community-led sustainable development" />
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0b6cf6',
+            darkgreen: {
+              DEFAULT: '#013220',   // Deep forest green
+              light: '#025e3c',     // Slightly lighter tone
+              dark: '#001a11',      // Very dark green-black
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 25s linear infinite;
+    width: 200%;
+  }
+</style>
+
+<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100">
+
+  <!-- 🌿 HEADER -->
+  <header
+    class="bg-white/80 dark:bg-darkgreen/90 backdrop-blur sticky top-0 z-50 border-b border-slate-200 dark:border-green-800 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded bg-primary/10 dark:bg-green-800 flex items-center justify-center text-primary dark:text-green-200 font-bold">
+          <img src="/assets/img/logo.BpdcY0v0.png" alt="" srcset="">
+        </div>
+
+        <span class="font-semibold text-lg dark:text-white">SUdgeC</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center text-sm">
+        <a href="index.html" class="hover:text-primary dark:hover:text-green-300 transition">Home</a>
+        <a href="about.html" class="hover:text-primary dark:hover:text-green-300 transition">About</a>
+        <a href="sponsorship.html" class="hover:text-primary dark:hover:text-green-300 transition">Sponsorship</a>
+        <a href="awards.html" class="hover:text-primary dark:hover:text-green-300 transition">Awards</a>
+        <a href="gallery.html" class="hover:text-primary dark:hover:text-green-300 transition">Gallery</a>
+        <a href="contact.html" class="hover:text-primary dark:hover:text-green-300 transition">Contact</a>
+        <a href="register.html"
+          class="ml-2 px-4 py-2 rounded-md bg-primary text-white hover:opacity-90 transition dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdown" class=""></span>
+        </a>
+
+
+
+        <!-- 🌗 Dark Mode Toggle -->
+        <button id="darkToggle" aria-label="Toggle dark mode"
+          class="ml-3 p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+
+          <!-- Moon icon (for light mode) -->
+          <svg id="moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+
+          <!-- Sun icon (for dark mode) -->
+          <svg id="sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 3v1m0 16v1m8.485-8.485l.707.707M3.515 3.515l.707.707M21 12h1M2 12H1m15.364 6.364l.707.707M6.343 6.343l.707.707M4 12a8 8 0 1016 0 8 8 0 00-16 0z" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile nav toggles -->
+      <div class="md:hidden flex items-center gap-2">
+        <button id="darkToggleMobile" aria-label="Toggle dark mode"
+          class="p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
+          <svg id="moonMobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <button id="mobileToggle" aria-label="Open menu" class="p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobileNav"
+      class="md:hidden hidden bg-white dark:bg-darkgreen border-t border-slate-200 dark:border-green-800">
+      <div class="px-4 py-3 flex flex-col gap-2">
+        <a href="index.html" class="py-2">Home</a>
+        <a href="about.html" class="py-2">About</a>
+        <a href="sponsorship.html" class="py-2">Sponsorship</a>
+        <a href="awards.html" class="py-2">Awards</a>
+        <a href="gallery.html" class="py-2">Gallery</a>
+        <a href="contact.html" class="py-2">Contact</a>
+        <!-- <a href="donate.html" class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">Donate</a> -->
+        <a href="register.html"
+          class="py-2 rounded-md bg-primary text-white text-center dark:bg-green-700 dark:hover:bg-green-600">
+          Register Now
+          <span id="countdownmobile" class=""></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🌍 HERO SECTION -->
+  <section
+    class="w-full py-20 bg-gradient-to-r from-green-50 via-white to-green-50 dark:bg-gradient-to-r dark:from-darkgreen dark:via-green-800 dark:to-darkgreen transition-colors" data-aos="fade-up">
+
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div class="flex flex-col justify-center">
+        <h1
+          class="text-4xl sm:text-5xl font-extrabold leading-tight bg-white/80 dark:bg-white/20 rounded-xl shadow-md backdrop-blur-sm transform transition hover:-translate-y-1 hover:shadow-lg p-10">
+          Empowering Africa through Sustainable Development
+        </h1>
+        <p class="mt-5 text-lg text-slate-700 dark:text-slate-200">
+          The <span class="font-semibold text-primary dark:text-green-300">Sustainable Development Goals Evaluation
+            Conference (SUDGEC)</span>
+          unites policymakers, professionals, researchers, and institutions to assess global and local progress toward
+          achieving the SDGs.
+          With over a decade of impact, SUDGEC serves as a platform for dialogue, collaboration, and recognition of
+          excellence across Africa and beyond.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="index.html#story"
+            class="px-6 py-3 bg-primary text-white font-semibold rounded-md shadow hover:shadow-lg hover:scale-[1.03] transition-all dark:bg-green-700 dark:hover:bg-green-600">
+            Explore Initiatives
+          </a>
+          <a href="contact.html"
+            class="px-6 py-3 border border-slate-200 text-slate-700 rounded-md font-semibold hover:bg-slate-50 dark:border-green-700 dark:text-green-200 dark:hover:bg-green-800 transition-all">
+            Join the Conversation
+          </a>
+        </div>
+
+        <div class="mt-6 text-sm text-slate-500 dark:text-green-300">
+          Trusted by African leaders · Global recognition · A decade of sustainable impact
+        </div>
+      </div>
+
+      <div class="rounded-xl overflow-hidden transform transition duration-700 hover:scale-105">
+        <img src="/assets/img/sdgs.IFaO-nuX.webp" alt="SUDGEC Conference"
+          class="w-full h-auto object-cover object-center">
+      </div>
+    </div>
+  </section>
+  <!-- 🎟️ Upcoming Event Banner -->
+  <section class="w-full relative bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-700"
+    style="background-image: url('/assets/img/coat-of-arms.DoJ_xOiP.png');">
+    <!-- Gradient & Overlay Blend -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-green-800/70 via-green-900/60 to-black/70 dark:from-green-900/50 dark:via-green-300/40 dark:to-green-400/50">
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight drop-shadow-lg">
+        SUDGEC 2025 • Evaluation Conference & Awards
+      </h1>
+      <p class="mt-4 text-lg max-w-3xl mx-auto text-white/90 drop-shadow-md">
+        Join policymakers, professionals, researchers & institutions in assessing progress toward the SDGs across Africa
+        and beyond. Secure your seat now!
+      </p>
+      <p class="mt-4 text-lg max-w-3xl mx-auto text-white/90 drop-shadow-md">
+        For Sustainable Development Goals Evaluation Conference &amp; Awards
+      </p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="register.html"
+          class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-md text-white font-semibold shadow hover:scale-[1.02] transition">
+          Register Now
+        </a>
+        <a href="sponsorship.html"
+          class="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-slate-900 transition">
+          View Agenda
+        </a>
+      </div>
+
+      <div class="mt-6 text-sm opacity-80 drop-shadow-sm">
+        📅 Date: 1 – 3 December 2025 • 📍 Watbridge Hotel, Uyo, Nigeria | ⏰ 10:00 AM Daily
+
+
+      </div>
+
+    </div>
+  </section>
+  <!-- 🏛️ About / Introduction Preview -->
+  <section
+    class="w-full py-20 bg-gradient-to-br from-green-50 via-white to-green-100 dark:from-gray-800 dark:via-gray-900 dark:to-darkgreen transition-colors duration-700">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center" id="story">
+
+      <!-- Text Content -->
+      <div class="space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-green-800 dark:text-green-100">
+          OUR STORY AND IMPACT JOURNEY
+        </h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+          <strong>SUDGEC</strong> is a premier international programme that brings together policy makers, development
+          professionals, researchers, and institutions from various sectors to evaluate the progress toward achieving
+          Sustainable
+          Development Goals (SDGs) around the world.
+        </p>
+        <a href="about.html"
+          class="inline-block px-6 py-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-md shadow transition">
+          Read More →
+        </a>
+      </div>
+
+      <!-- Image Side -->
+      <!-- Image Side -->
+      <div class="relative">
+        <div class="overflow-hidden rounded-2xl shadow-2xl">
+          <img src="/assets/img/c16.jpg" alt="SUDGEC Conference & Awards"
+            class="w-full h-[400px] object-cover transform hover:scale-105 transition duration-700 ease-out" />
+          <!-- Enhanced overlay for better blending -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-green-900/50 via-green-800/20 to-transparent mix-blend-multiply dark:mix-blend-overlay rounded-2xl">
+          </div>
+        </div>
+        <!-- Optional subtle glow border -->
+        <div class="absolute inset-0 rounded-2xl ring-1 ring-white/20 dark:ring-green-700/40 pointer-events-none"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- 🌿 WHAT WE DO -->
+  <main class="w-full py-20 bg-gradient-to-r from-green-200 via-white to-green-50 
+             dark:bg-gradient-to-br dark:from-[#0d1f0f] dark:via-[#102b12] dark:to-[#0a1a0c]
+             transition-colors duration-700">
+
+    <section style="background-image: url('assets/img/story.jpg');" class="relative w-full py-20 bg-cover bg-center bg-no-repeat 
+           bg-gradient-to-br from-green-100 via-green-100 to-green-200 
+           dark:from-[#103018] dark:via-[#0b2412] dark:to-[#051608]
+           bg-blend-soft-light dark:bg-blend-overlay 
+           transition-all duration-700 ease-in-out rounded-3xl overflow-hidden shadow-2xl">
+
+      <!-- Layered overlays for lighting + readability -->
+      <div class="absolute inset-0 bg-white/30 dark:bg-black/50 backdrop-blur-[3px] mix-blend-soft-light"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-tr from-green-900/30 via-transparent to-transparent dark:from-black/60">
+      </div>
+
+      <!-- Title + Description -->
+      <div class="relative z-10 text-center py-8 max-w-3xl mx-auto px-6">
+        <h2 class="text-4xl font-extrabold tracking-tight text-green-900 dark:text-green-50 drop-shadow-sm">
+          What We Do
+        </h2>
+        <p class="mt-6 text-base md:text-lg text-slate-700 dark:text-green-50/90 bg-white/70 dark:bg-white/10 
+                rounded-2xl p-6 shadow-lg backdrop-blur-md border border-white/20">
+          The Sustainable Development Goals Evaluation Conference (SUDGEC) unites policymakers, professionals,
+          researchers,
+          and institutions to assess progress toward achieving the SDGs. With over a decade of impact,
+          SUDGEC serves as a platform for dialogue, collaboration, and recognition of excellence across Africa and
+          beyond.
+        </p>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="relative z-10 mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-12">
+
+        <!-- Card -->
+        <div class="group p-6 rounded-2xl bg-white/80 dark:bg-[#0e2a16]/60 shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl transition-all duration-500">
+          <h3 class="font-semibold text-green-900 dark:text-green-100 text-lg mb-2">SDG Evaluation & Research</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80">
+            Evidence-based assessments that measure progress and guide Africa’s journey toward the Sustainable
+            Development Goals.
+          </p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-white/80 dark:bg-[#0e2a16]/60 shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl transition-all duration-500">
+          <h3 class="font-semibold text-green-900 dark:text-green-100 text-lg mb-2">Policy Dialogue & Advocacy</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80">
+            SUDGEC fosters inclusive policy discussions, advocacy, and partnerships to promote transparency and
+            sustainability.
+          </p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-white/80 dark:bg-[#0e2a16]/60 shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl transition-all duration-500">
+          <h3 class="font-semibold text-green-900 dark:text-green-100 text-lg mb-2">Capacity Building & Training</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80">
+            Empowering individuals and institutions with data-driven tools, methodologies, and professional capacity
+            development.
+          </p>
+        </div>
+
+        <div class="group p-6 rounded-2xl bg-white/80 dark:bg-[#0e2a16]/60 shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl transition-all duration-500">
+          <h3 class="font-semibold text-green-900 dark:text-green-100 text-lg mb-2">Awards & Recognition</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80">
+            Celebrating transformative contributions and innovations driving sustainable development across Africa and
+            beyond.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 🌍 SDG Evaluation Conference & Awards Section -->
+  <section class="relative w-full py-20 bg-white dark:bg-green-950 overflow-hidden">
+    <!-- Background gradient overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/90 dark:from-green-950/90 dark:via-green-900/85 dark:to-green-950/90">
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6">
+      <!-- Title -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-green-800 dark:text-green-100 leading-tight">
+          SUSTAINABLE DEVELOPMENT GOALS<br class="hidden sm:block" />
+          EVALUATION CONFERENCE & AWARDS
+        </h2>
+        <p class="mt-4 text-slate-700 dark:text-green-100/90 text-base max-w-3xl mx-auto">
+          A premier platform advancing Africa’s commitment to achieving the UN Sustainable Development Goals.
+        </p>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- Left: Single Big Image -->
+        <div class="relative w-full rounded-2xl overflow-hidden shadow-xl">
+          <img src="/assets/img/akk.png" alt="SUDGEC Conference Leaders and Partners"
+            class="w-full h-[420px] object-cover object-center rounded-2xl transform hover:scale-[1.02] transition duration-500" />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 dark:from-green-900/40 dark:to-transparent">
+          </div>
+        </div>
+
+        <!-- Right: Text Content -->
+        <div class="space-y-4 text-slate-800 dark:text-green-100 leading-relaxed">
+          <p>
+            <span class="font-semibold text-green-700 dark:text-green-300">Organized by:</span><br />
+            <span class="font-medium">SUDGEC Project, The Presidency, and UNDP Abuja Nigeria</span>
+          </p>
+
+          <p>
+            <span class="font-semibold text-green-700 dark:text-green-300">In Conjunction With:</span><br />
+            The Federal Ministry of Budget and Economic Development,<br />
+            The Federal Ministry of Finance,<br />
+            The Federal Ministry of Humanitarian Affairs and Poverty Reduction,<br />
+            The Federal Ministry of Labour and Productivity,<br />
+            and The Federal Ministry of Information, Abuja Nigeria.
+          </p>
+
+          <p>
+            <span class="font-semibold text-green-700 dark:text-green-300">Management Office:</span><br />
+            Room 106, 1st Floor, Federal Secretariat Calabar,<br />
+            Cross River State, Nigeria.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 🤝 Partnership Carousel Section -->
+  <section class="w-full py-16 bg-white dark:bg-green-900/90 overflow-hidden">
+    <div class="max-w-6xl mx-auto mb-3 px-6 text-center">
+      <h2
+        class="uppercase text-4xl sm:text-5xl font-extrabold leading-tight bg-white/80 dark:bg-white/20 rounded-xl shadow-md backdrop-blur-sm transform transition  p-10">
+        Award Nominees / Expected VIPs / Who Is Who at SUDGEC 2025 — List One
+      </h2>
+
+
+      <!-- Carousel Container -->
+      <div class="relative w-full overflow-hidden mt-5">
+        <div class="flex animate-scroll space-x-12">
+          <!-- Duplicate set for seamless looping -->
+          <div class="flex space-x-12">
+            <img src="/assets/img/1.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/2.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/3.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/4.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/5.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/6.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/7.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/8.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/9.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/10.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/11.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/12.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/13.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/14.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/15.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/16.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/17.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/18.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+
+
+            <img src="/assets/img/19.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/20.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/21.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/22.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/23.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/24.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+
+            <img src="/assets/img/25.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/26.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/27.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/28.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/29.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/30.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+
+            <img src="/assets/img/31.PNG" alt="Partner 1"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/32.PNG" alt="Partner 2"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/33.PNG" alt="Partner 3"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/34.PNG" alt="Partner 4"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/35.PNG" alt="Partner 5"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+            <img src="/assets/img/36.PNG" alt="Partner 6"
+              class="h-auto w-full object-contain opacity-90 hover:opacity-100 transition" />
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+  <!-- 🏨 HOTEL RECOMMENDATIONS -->
+  <section class="w-full relative bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-700"
+    style="background-image: url('/assets/img/hotel.png');">
+    <!-- Gradient & Overlay Blend -->
+    <!-- <div
+      class="absolute inset-0 bg-gradient-to-b from-green-800/70 via-green-900/60 to-black/70 dark:from-green-900/50 dark:via-green-300/40 dark:to-green-400/50">
+    </div> -->
+
+    <!-- Light Linear Overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-white/60 via-green-200/50 to-transparent dark:from-black/50 dark:via-green-900/100 dark:to-transparent backdrop-blur-sm">
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-green-900 dark:text-green-100">
+        Recommended Hotels for SUDGEC 2025 Participants
+      </h2>
+      <p class="mt-3 text-sm md:text-base text-dark dark:text-green-100/90 max-w-2xl mx-auto">
+        (Please contact any of the hotels below directly for your booking)
+      </p>
+
+      <!-- Hotels Grid -->
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 🏨 Ibom -->
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/ibomhotel.jpeg" alt="Ibom Hotel & Golf Resort"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Ibom Hotel & Golf Resort</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">Nwaniba Road, Uyo</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +234 808 057 411</p>
+        </div>
+
+        <!-- 🏨 Ceedapeg -->
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Ceedapeg.jpeg" alt="Ceedapeg Hotels"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Ceedapeg Hotels</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+            Plot 29–34, Chief Odiong/Donald Etiebet Street, Ewet Housing, Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +234 903 349 1703</p>
+        </div>
+
+        <!-- 🏨 Watbridge -->
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Watbridge.jpeg" alt="Watbridge Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Watbridge Hotel</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">Off IBB Way, Uyo</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +234 903 815 1033</p>
+        </div>
+
+        <!-- 🏨 Fresh Spring -->
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Spring.jpeg" alt="Fresh Spring Hotels"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Fresh Spring Hotels & Towers</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+            49 Akpa Ube St., Off IBB Way, Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +234 703 359 8551</p>
+        </div>
+
+        <!-- 🏨 Lahana -->
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Lahana.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Lahana Hotel</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+            5 Bassey Esau St., Off Aka Itiam St., Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +234 810 616 0004</p>
+        </div>
+
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/dueua.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Dveua Hotels </h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+            Opposite Pepsi Junction, Abak Rd. Uyo, 
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2349013831243</p>
+        </div>
+
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Monty.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Monty </h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+             Suites No. 37 general EdetAkpan Avenue (4 Lane)
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347038091700</p>
+        </div>
+
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Rosmohr.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Rosmohr Hotels</h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+             A 126, C49 Ewet Housing Estate Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2348163897557</p>
+        </div>
+
+        <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/RBIT.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">RBIT Hotel and Suites </h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+             Plot 55 Unit C, Ewet Housing Estate Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347089569339</p>
+        </div>
+
+        <!-- <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
+                  border border-green-900/10 dark:border-green-300/10 
+                  backdrop-blur-md transition hover:-translate-y-1 hover:shadow-2xl">
+          <img src="assets/img/Uranus.jpeg" alt="Lahana Hotel"
+            class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
+          <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Uranus Hotel </h3>
+          <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
+            No. 36 B Aka ltiam Street off Nsikak Edouk Avenue Uyo
+          </p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347087568895</p>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- 🔍 Fullscreen Image Viewer -->
+    <div id="imageModal"
+      class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center">
+      <button id="closeModal"
+        class="absolute top-6 right-6 text-white text-4xl font-bold hover:text-green-400">&times;</button>
+      <img id="modalImage" src="" alt="Hotel Preview"
+        class="max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl transition-transform duration-300 transform scale-100 cursor-zoom-in">
+    </div>
+
+  </section>
+
+
+
+ <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-200 py-10 mt-12">
+    <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
+      <div>
+        <div class="font-semibold text-white">Sustain SUDGEC</div>
+        <p class="mt-2 text-sm text-slate-300">Building a sustainable future through global collaboration.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="text-sm text-slate-300 space-y-1">
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="about.html" class="hover:underline">About</a></li>
+          <li><a href="contact.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Contact</h4>
+        <p class="text-sm text-slate-300">info@sustainsudgec.org<br />+234 7075994055</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
+  </footer>
+
+
+  <!-- Scripts -->
+  <!-- 🌀 Carousel Animation Styles -->
+
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+      AOS.init({
+      duration: 900,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  </script>
+
+
+  <!-- ✅ JS for Fullscreen Zoomable Image -->
+  <script>
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+    const images = document.querySelectorAll('.hotel-img');
+    let zoom = 1;
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        zoom = 1;
+        modalImg.style.transform = 'scale(1)';
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Zoom with scroll
+    modalImg.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoom += e.deltaY * -0.001;
+      zoom = Math.min(Math.max(zoom, 1), 3);
+      modalImg.style.transform = `scale(${zoom})`;
+    });
+  </script>
+
+  <script>
+    (() => {
+      const html = document.documentElement;
+
+      // Elements (desktop + mobile toggles + icons)
+      const darkToggle = document.getElementById('darkToggle');
+      const darkToggleMobile = document.getElementById('darkToggleMobile');
+      const moonIcon = document.getElementById('moon');      // desktop moon svg
+      const sunIcon = document.getElementById('sun');       // desktop sun svg
+      const moonMobile = document.getElementById('moonMobile'); // mobile svg (path inside)
+
+      // Countdown element (optional, present in header)
+      const countdownEl = document.getElementById('countdown');
+      const countdownElMobile = document.getElementById('countdownmobile');
+
+      // Initialize theme from localStorage or system preference
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+
+      // Helper to refresh desktop icons visibility (for immediate visual swap)
+      function refreshDesktopIcons() {
+        const isDark = html.classList.contains('dark');
+        if (moonIcon && sunIcon) {
+          // Tailwind already uses dark:block / dark:hidden, but sometimes we want JS clarity:
+          moonIcon.classList.toggle('hidden', isDark);
+          sunIcon.classList.toggle('hidden', !isDark);
+        }
+      }
+
+      // Helper to update mobile icon path (moon <-> sun)
+      function refreshMobileIcon() {
+        if (!moonMobile) return;
+        const isDark = html.classList.contains('dark');
+        const pathEl = moonMobile.querySelector('path');
+        if (!pathEl) return;
+        if (isDark) {
+          // Sun path
+          pathEl.setAttribute('d', 'M12 3v1m0 16v1m8.485-8.485l.707.707M3.515 3.515l.707.707M21 12h1M2 12H1m15.364 6.364l.707.707M6.343 6.343l.707.707M4 12a8 8 0 1016 0 8 8 0 00-16 0z');
+        } else {
+          // Moon path
+          pathEl.setAttribute('d', 'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z');
+        }
+      }
+
+      // Unified toggle function
+      function toggleDarkMode() {
+        html.classList.toggle('dark');
+        const isDarkNow = html.classList.contains('dark');
+        localStorage.setItem('theme', isDarkNow ? 'dark' : 'light');
+        refreshDesktopIcons();
+        refreshMobileIcon();
+      }
+
+      // Attach listeners (guarded)
+      if (darkToggle) darkToggle.addEventListener('click', toggleDarkMode);
+      if (darkToggleMobile) darkToggleMobile.addEventListener('click', toggleDarkMode);
+
+      // Make sure icons reflect initial state
+      refreshDesktopIcons();
+      refreshMobileIcon();
+
+      // --- Countdown (to Dec 1, 2025 00:00 local) ---
+      if (countdownEl) {
+        const target = new Date('2025-12-01T00:00:00');
+        function pad(n) { return n < 10 ? '0' + n : n; }
+        function updateCountdown() {
+          const now = new Date();
+          const diff = target - now;
+          if (diff <= 0) {
+            countdownEl.textContent = '🎉 SUDGEC 2025 is live!';
+            return;
+          }
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+          countdownEl.textContent = `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m: ${pad(secs)}s`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+      // --- Countdown (to Dec 1, 2025 00:00 local) ---
+      if (countdownElMobile) {
+        const target = new Date('2025-12-01T00:00:00');
+        function pad(n) { return n < 10 ? '0' + n : n; }
+        function updateCountdown() {
+          const now = new Date();
+          const diff = target - now;
+          if (diff <= 0) {
+            countdownElMobile.textContent = '🎉 SUDGEC 2025 is live!';
+            return;
+          }
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+          countdownElMobile.textContent = `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m: ${pad(secs)}s`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      // If user clears system preference while on page, optionally sync (only when user hasn't explicitly set theme)
+      try {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          if (!localStorage.getItem('theme')) {
+            if (e.matches) html.classList.add('dark'); else html.classList.remove('dark');
+            refreshDesktopIcons(); refreshMobileIcon();
+          }
+        });
+      } catch (e) {
+        // older browsers: ignore
+      }
+    })();
+  </script>
+
+  <script>
+    // --- CONTACT FORM (demo) ---
+    const contactForm = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+    if (contactForm) {
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        if (formMsg) {
+          formMsg.classList.remove('hidden');
+          setTimeout(() => formMsg.classList.add('hidden'), 3000);
+        }
+        contactForm.reset();
+      });
+    }
+
+
+    // --- SCROLL TO TOP ---
+    const scrollBtn = document.createElement('button');
+    scrollBtn.id = 'scrollTopBtn';
+    scrollBtn.className = 'p-3 rounded-full bg-primary text-white shadow-lg fixed right-5 bottom-5 hidden';
+    scrollBtn.innerHTML = '&#8679;';
+    document.body.appendChild(scrollBtn);
+
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', () => {
+      scrollBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    // --- SIMPLE FADE-IN ANIMATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.fade-in').forEach((el, i) => {
+        el.style.animationDelay = `${i * 80}ms`;
+        el.classList.add('fade-in');
+      });
+    });
+
+
+
+
+
+    // --- YEAR SETUP ---
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // --- MOBILE NAV ---
+    const mobileToggle = document.getElementById('mobileToggle');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        const nav = document.getElementById('mobileNav');
+        if (nav) nav.classList.toggle('hidden');
+      });
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register for SUDGEC 2025</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body
+  class="min-h-screen flex items-center justify-center bg-[url('/assets/img/banner.jpg')] bg-cover bg-center bg-no-repeat relative text-slate-800">
+  <div class="absolute inset-0 bg-gradient-to-b from-green-900/70 via-green-800/70 to-green-900/80 backdrop-blur-sm">
+  </div>
+
+  <!-- Registration Form -->
+  <main id="formSection"
+    class="relative z-10 w-full max-w-md bg-white/95 dark:bg-slate-800/80 rounded-3xl shadow-2xl p-8 space-y-6 backdrop-blur-md">
+    <div class="text-center">
+      <img src="/assets/img/logo.BpdcY0v0.png" alt="SUDGEC Logo" class="w-20 h-20 mx-auto mb-3">
+      <h1 class="text-2xl font-extrabold text-green-800 dark:text-green-100">
+        Register to Attend SUDGEC 2025
+      </h1>
+      <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">
+        Fill in your details below to confirm your participation in the
+        <strong>Sustainable Development Goals Evaluation Conference</strong>.
+      </p>
+    </div>
+
+    <form id="registerForm" class="space-y-4">
+      <div>
+        <label for="firstName" class="block text-sm font-medium text-slate-700 dark:text-slate-200">First Name</label>
+        <input id="firstName" type="text" required
+          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
+      </div>
+      <div>
+        <label for="lastName" class="block text-sm font-medium text-slate-700 dark:text-slate-200">Last Name</label>
+        <input id="lastName" type="text" required
+          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-200">Email Address</label>
+        <input id="email" type="email" required
+          class="mt-1 w-full px-4 py-2 rounded-md border border-slate-300 dark:border-slate-600 bg-transparent focus:ring-2 focus:ring-green-500 outline-none" />
+      </div>
+
+      <button type="submit"
+        class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+        Register to Attend
+      </button>
+    </form>
+  </main>
+
+  <!-- Confirmation Screen -->
+  <main id="confirmation"
+    class="hidden relative z-10 w-full max-w-lg bg-white/95 dark:bg-slate-800/80 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
+    <div class="flex justify-center">
+      <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700 dark:text-green-300" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-extrabold text-green-700 dark:text-green-200">🎉 Congratulations!</h2>
+    <p class="text-slate-700 dark:text-slate-200 font-medium">
+      You have successfully registered for the <span class="font-semibold">Sustainable Development Goals Evaluation
+        Conference (SUDGEC 2025)</span>.
+    </p>
+
+    <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+      📅 <strong>Date:</strong> December 2nd – 4th, 2025<br />
+      📍 <strong>Venue:</strong> Ibom E-Library, IBB Way, Uyo, Akwa Ibom State
+    </div>
+
+    <p class="text-green-700 dark:text-green-300 text-sm">
+      A confirmation email with event details has been sent to your inbox.
+    </p>
+
+    <a href="index.html"
+      class="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition">
+      Return to Home
+    </a>
+  </main>
+
+  <script>
+    (function () {
+      emailjs.init("FsRfW-MnD022Dlzor"); // Replace with your EmailJS public key
+    })();
+
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      document.getElementById('formSection').classList.add('hidden');
+      document.getElementById('confirmation').classList.remove('hidden');
+
+      emailjs.send("service_6bb6y4a", "template_ocln91b", {
+        to_name: firstName,
+        to_email: email,
+        subject: "Congratulations! You’re Registered for SUDGEC 2025",
+        message: `
+        Dear ${firstName} ${lastName},
+
+        Congratulations! 🎉 You have been successfully registered to attend the Sustainable Development Goals Evaluation Conference (SUDGEC 2025).
+
+        📅 Date: December 2nd – 4th, 2025
+        📍 Venue: Ibom E-Library, IBB Way, Uyo, Akwa Ibom State
+
+        This event brings together policymakers, researchers, and professionals across Africa to evaluate progress toward the SDGs and celebrate impactful innovation.
+
+        We look forward to seeing you there!
+
+        Best regards,  
+        — The SUDGEC Organizing Team  
+        🌍 sustainsudgec.org
+        `
+      }).then(() => {
+        console.log("✅ Email sent successfully!");
+      }).catch((err) => {
+        console.error("❌ EmailJS Error:", err);
+      });
+    });
+  </script>
+</body>
+
+</html>
