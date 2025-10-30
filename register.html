@@ -268,14 +268,21 @@
         Date: ${data.date}
       `;
 
-      emailjs.send("service_6bb6y4a", "template_abc123", {
-        from_name: data.fullName,
-        message
-      }).then(() => {
-        document.getElementById('formSection').classList.add('hidden');
-        document.getElementById('confirmation').classList.remove('hidden');
-      });
+          emailjs.send("service_6bb6y4a", "template_abc123", {
+  from_name: data.fullName,
+  from_email: data.email,
+  message: message,
+})
+.then(() => {
+  document.getElementById('formSection').classList.add('hidden');
+  document.getElementById('confirmation').classList.remove('hidden');
+})
+.catch(err => {
+  console.error("❌ Email sending failed:", err);
+});
+
     });
+
   </script>
 
 </body>
