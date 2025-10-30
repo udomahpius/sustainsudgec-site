@@ -267,12 +267,13 @@
 
         Date: ${data.date}
       `;
-
-          emailjs.send("service_6bb6y4a", "template_ocln91b", {
-  from_name: data.fullName,
-  from_email: data.email,
+emailjs.send("service_6bb6y4a", "template_ocln91b", {
+  to_name: data.fullName,
+  to_email: data.email, // 👈 required for recipient
+  from_name: "SUDGEC 2025 Organizing Team",
   message: message,
 })
+
 .then(() => {
   document.getElementById('formSection').classList.add('hidden');
   document.getElementById('confirmation').classList.remove('hidden');
