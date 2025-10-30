@@ -169,8 +169,10 @@
   </section>
 
   <!-- GALLERY GRID -->
-  <section
-    class="py-16 bg-gradient-to-br from-green-50 via-green-100 to-green-200 dark:from-green-800 dark:via-green-900 dark:to-green-950">
+  <section class="pb-16 bg-gradient-to-br from-green-50 via-green-100 to-green-200 dark:from-green-800 dark:via-green-900 dark:to-green-950">
+      <div class="mb-2"> 
+      <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center d-none"> 
+    </div>
     <div class="max-w-7xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-green-800 dark:text-green-100 mb-10 text-center">Photo Highlights</h2>
 
@@ -191,8 +193,8 @@
     <button id="nextBtn" class="arrow-btn absolute right-6">&gt;</button>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="bg-slate-900 text-slate-200 py-10 mt-12">
+ <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-200 py-10 ">
     <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
       <div>
         <div class="font-semibold text-white">Sustain SUDGEC</div>
@@ -208,11 +210,13 @@
       </div>
       <div>
         <h4 class="font-semibold mb-2">Contact</h4>
-        <p class="text-sm text-slate-300">info@sustainsudgec.org<br />+234 7075994055</p>
+        <p class="text-sm text-slate-300">info@sustainsudgec.org<br />+234 70159918130</p>
       </div>
     </div>
     <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
   </footer>
+
+
 
   <!-- SCRIPT -->
   <script>
@@ -239,6 +243,7 @@
     function openViewer(index) {
       currentIndex = index;
       viewerImg.src = images[currentIndex];
+      viewerImg.style.width = "300px"
       viewer.classList.remove('hidden');
       setTimeout(() => viewer.classList.add('opacity-100'), 10);
     }
