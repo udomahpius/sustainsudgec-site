@@ -143,12 +143,14 @@
         </div>
       </section>
 
-      <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+      <div class="flex gap-3">
+        <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
         Submit Registration
       </button>
-       <button type="submit" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+       <button type="button" class="navigate-to-payment w-full py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
         Already Register Proceed to Payment
-      </button>
+      </button> 
+      </div>
     </form>
   </main>
 
@@ -402,7 +404,11 @@ document.getElementById("downloadReceipt").addEventListener("click", () => {
   pdf.save("SUDGEC2025_Receipt.pdf");
 });
 
-
+  </script>
+  <script>
+    document.querySelector(".navigate-to-payment").addEventListener("click", () =>{
+      document.location.assign("/payment.html")
+    })
   </script>
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
