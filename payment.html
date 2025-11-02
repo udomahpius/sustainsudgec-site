@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SUDGEC 2025 | Secure Payment Portal</title>
+
+  <!-- TailwindCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- Flutterwave -->
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* 🌄 Blended Background */
+    body {
+      background-image: url('./assets/img/coat-of-arms.DoJ_xOiP.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-color: rgba(4, 70, 40, 0.7);
+      background-blend-mode: overlay;
+      font-family: 'Poppins', sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 🌟 Card Container */
+    .card {
+      background: linear-gradient(to bottom right, #ffffffee, #f6fff7ee);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 100, 50, 0.2);
+    }
+
+    .form-input {
+      border: 1px solid #d1d5db;
+      transition: all 0.3s ease;
+      padding-left: 2.5rem;
+    }
+    .form-input:focus {
+      border-color: #047857;
+      box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.2);
+      outline: none;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #047857;
+      pointer-events: none;
+    }
+
+    .pulse:hover {
+      animation: pulse 0.5s ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .loader {
+      border: 4px solid #d1fae5;
+      border-top: 4px solid #047857;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .title-line {
+      height: 3px;
+      width: 60px;
+      background: linear-gradient(to right, #047857, #16a34a);
+      margin: 0 auto 12px;
+      border-radius: 2px;
+    }
+
+    .notice {
+      background-color: #fefce8;
+      border-left: 4px solid #f59e0b;
+      padding: 0.75rem;
+      font-size: 0.875rem;
+      color: #92400e;
+      border-radius: 6px;
+      margin-top: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-center items-center p-6 text-gray-800">
+
+  <!-- 💳 Payment Form -->
+  <main id="paymentContainer"
+    class="card w-full max-w-md rounded-3xl shadow-2xl p-8 text-center space-y-6 backdrop-blur-md border border-green-100">
+
+    <div class="flex justify-center mb-2">
+      <img src="https://sustainsudgecorg.org/assets/logo.BpdcY0v0.png"
+           alt="SUDGEC Logo" class="w-16 h-16 rounded-lg shadow-md" />
+    </div>
+
+    <h2 class="text-3xl font-extrabold text-green-800">SUDGEC 2025 Payment</h2>
+    <div class="title-line"></div>
+    <p class="text-gray-600 text-sm leading-relaxed">Complete your registration payment securely below.</p>
+
+    <div class="space-y-4 text-left">
+      <div class="relative">
+        <i class="input-icon fas fa-user"></i>
+        <input id="fullName" type="text" placeholder="Full Name" class="form-input w-full rounded-md p-2.5" required>
+      </div>
+
+      <div class="relative">
+        <i class="input-icon fas fa-envelope"></i>
+        <input id="email" type="email" placeholder="Email Address" class="form-input w-full rounded-md p-2.5" required>
+      </div>
+
+      <div class="relative">
+        <i class="input-icon fas fa-phone-alt"></i>
+        <input id="phone" type="tel" placeholder="Phone Number" class="form-input w-full rounded-md p-2.5" required>
+      </div>
+
+      <div>
+        <label class="block font-medium text-gray-700 mb-1">Registration Type</label>
+        <select id="regType" class="form-input w-full rounded-md p-2.5">
+          <option value="">Select Category</option>
+          <option value="Local Delegate">Local Delegate — ₦350,000</option>
+          <option value="International Delegate">International Delegate — $3,000</option>
+        </select>
+      </div>
+
+      <!-- 💬 Info Note -->
+      <div id="paymentNote" class="hidden notice">
+        <strong>Notice for International Delegates:</strong><br>
+        Due to transaction limits, payments above <strong>$1,000</strong> must be made in three installments ($1,000 each).<br>
+        Please complete all three payments to confirm your registration.
+      </div>
+    </div>
+
+    <button id="payNow"
+      class="pulse w-full py-3 mt-5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition-all">
+      Proceed to Secure Payment
+    </button>
+
+    <div id="loading" class="hidden mt-4">
+      <div class="loader"></div>
+      <p class="text-sm text-gray-600 mt-2">Processing payment... please wait</p>
+    </div>
+  </main>
+
+  <!-- ✅ Success Receipt -->
+  <main id="receiptScreen"
+    class="hidden card w-full max-w-md rounded-3xl shadow-2xl p-8 text-center space-y-5 border border-green-100 backdrop-blur-md">
+    <div class="flex justify-center">
+      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center animate-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-extrabold text-green-800">Payment Successful!</h2>
+    <p class="text-gray-700 text-sm">Thank you for registering for <span class="font-semibold text-green-700">SUDGEC 2025</span>.</p>
+
+    <div id="receiptDetails"
+      class="text-left bg-green-50 border border-green-200 rounded-md p-5 text-sm text-gray-700 leading-6"></div>
+
+    <button id="downloadReceipt"
+      class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+      Download Receipt
+    </button>
+
+    <a href="index.html"
+      class="block mt-3 text-sm text-green-700 underline hover:text-green-900 transition">
+      Return to Home
+    </a>
+  </main>
+
+  <script>
+    const loader = document.getElementById("loading");
+    const payBtn = document.getElementById("payNow");
+    const regType = document.getElementById("regType");
+    const paymentNote = document.getElementById("paymentNote");
+
+    regType.addEventListener("change", () => {
+      if (regType.value === "International Delegate") {
+        paymentNote.classList.remove("hidden");
+      } else {
+        paymentNote.classList.add("hidden");
+      }
+    });
+
+    payBtn.addEventListener("click", function () {
+      const name = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const regTypeVal = regType.value;
+
+      if (!name || !email || !phone || !regTypeVal) {
+        alert("⚠️ Please complete all fields before proceeding.");
+        return;
+      }
+
+      let amountValue, currency;
+      if (regTypeVal === "Local Delegate") {
+        amountValue = 350000;
+        currency = "NGN";
+      } else if (regTypeVal === "International Delegate") {
+        amountValue = 1000; // Max per transaction
+        currency = "USD";
+      }
+
+      loader.classList.remove("hidden");
+      payBtn.disabled = true;
+
+      FlutterwaveCheckout({
+        public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X",
+        tx_ref: "SUDGEC_" + Date.now(),
+        amount: amountValue,
+        currency: currency,
+        payment_options: currency === "USD" ? "card" : "card, banktransfer, ussd",
+        customer: { email, phone_number: phone, name },
+        customizations: {
+          title: "SUDGEC 2025 Conference Fee",
+          description: "Payment for SUDGEC 2025 Registration",
+          logo: "https://sustainsudgecorg.org/assets/logo.BpdcY0v0.png"
+        },
+        callback: function (response) {
+          loader.classList.add("hidden");
+          payBtn.disabled = false;
+
+          if (response.status === "successful") {
+            document.getElementById("paymentContainer").classList.add("hidden");
+            document.getElementById("receiptScreen").classList.remove("hidden");
+
+            const receiptHTML = `
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>Registration Type:</strong> ${regTypeVal}</p>
+              <p><strong>Amount Paid:</strong> ${currency} ${amountValue.toLocaleString()}</p>
+              <p><strong>Transaction Reference:</strong> ${response.tx_ref}</p>
+              <p><strong>Status:</strong> ${response.status}</p>
+              <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+            `;
+            document.getElementById("receiptDetails").innerHTML = receiptHTML;
+
+            fetch("https://sustainsudgecorg.org/payment-confirm.php", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name, email, phone, regType: regTypeVal,
+                amount: amountValue, currency, tx_ref: response.tx_ref,
+                status: response.status
+              }),
+            });
+          } else {
+            alert("❌ Payment was not completed or cancelled.");
+          }
+        },
+        onclose: () => {
+          loader.classList.add("hidden");
+          payBtn.disabled = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

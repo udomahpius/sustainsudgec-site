@@ -149,26 +149,63 @@
     </form>
   </main>
 
-  <!-- Confirmation Screen -->
-  <main id="confirmation" class="hidden relative z-10 w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
-    <div class="flex justify-center">
-      <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
+<!-- Confirmation Screen -->
+<main id="confirmation" class="hidden relative z-10 w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
+  <div class="flex justify-center">
+    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
     </div>
+  </div>
 
-    <h2 class="text-2xl font-extrabold text-green-700">🎉 Registration Successful!</h2>
-    <p class="text-slate-700 font-medium">
-      Thank you for registering for <strong>SUDGEC 2025</strong>.  
-      A confirmation email has been sent to your inbox.
-    </p>
+  <h2 class="text-2xl font-extrabold text-green-700">🎉 Registration Successful!</h2>
+  <p class="text-slate-700 font-medium">
+    Thank you for registering for <strong>SUDGEC 2025</strong>.<br>
+    A confirmation email has been sent to your inbox.
+  </p>
 
-    <a href="index.html" class="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition">
+  <button id="proceedToPayment"
+    class="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition hover:scale-[1.02]">
+    Proceed to Payment
+  </button>
+
+  <a href="index.html"
+    class="block mt-3 text-sm text-green-700 underline hover:text-green-900 transition">
+    Return to Home
+  </a>
+</main>
+
+<!-- ✅ Confirmation Screen -->
+<main id="confirmation" class="hidden relative z-10 w-full max-w-xl bg-white/95 rounded-3xl shadow-2xl p-10 text-center space-y-5 backdrop-blur-md">
+  <div class="flex justify-center">
+    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-extrabold text-green-700">🎉 Registration Successful!</h2>
+  <p class="text-slate-700 font-medium">
+    Thank you for registering for <strong>SUDGEC 2025</strong>.  
+    A confirmation email has been sent to your inbox.
+  </p>
+
+  <div class="flex flex-col space-y-3">
+    <a href="index.html"
+      class="inline-block px-6 py-3 bg-gray-200 hover:bg-gray-300 text-slate-700 font-semibold rounded-md shadow-md transition">
       Return to Home
     </a>
-  </main>
+
+    <!-- Proceed to Payment Button -->
+    <button id="proceedPayment"
+      class="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md shadow-md transition">
+      Proceed to Payment
+    </button>
+  </div>
+</main>
+
 
   <script>
     tailwind.config = { theme: { extend: { colors: { primary: "#047857" } } } };
@@ -274,17 +311,124 @@ emailjs.send("service_6bb6y4a", "template_ocln91b", {
   message: message,
 })
 
+// After successful registration + email sent
 .then(() => {
   document.getElementById('formSection').classList.add('hidden');
   document.getElementById('confirmation').classList.remove('hidden');
+
+  // ✅ Add Proceed to Payment redirect
+  const proceedBtn = document.getElementById("proceedPayment");
+  proceedBtn.addEventListener("click", () => {
+    const fullName = encodeURIComponent(document.getElementById("fullName").value);
+    const email = encodeURIComponent(document.getElementById("email").value);
+    const phone = encodeURIComponent(document.getElementById("phone").value);
+    const regType = encodeURIComponent(document.querySelector('input[name="regType"]:checked')?.value || '');
+    const amount = encodeURIComponent(document.getElementById("amount").value);
+
+    // Redirect to payment page with user data in the URL
+    window.location.href = `payment.html?name=${fullName}&email=${email}&phone=${phone}&regType=${regType}&amount=${amount}`;
+  });
 })
-.catch(err => {
-  console.error("❌ Email sending failed:", err);
-});
+
 
     });
 
+
+
+
+
+// When "Proceed to Payment" is clicked
+document.getElementById("proceedToPayment").addEventListener("click", function () {
+  const fullName = document.getElementById("fullName").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const regType = document.querySelector('input[name="regType"]:checked')?.value || '';
+  const rawAmount = document.getElementById("amount").value;
+
+  // Parse numeric amount accurately
+  let amountValue = parseFloat(rawAmount.replace(/[₦$,]/g, '').replace(/,/g, ''));
+  let currency = regType.includes("International") ? "USD" : "NGN";
+
+  // Flutterwave Checkout
+  FlutterwaveCheckout({
+    public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X", // replace with your Flutterwave public key
+    tx_ref: "SUDGEC_" + Date.now(),
+    amount: amountValue,
+    currency: currency,
+    payment_options: "card, banktransfer, ussd",
+    customer: {
+      email: email,
+      phone_number: phone,
+      name: fullName,
+    },
+    meta: {
+      registration_type: regType,
+    },
+    customizations: {
+      title: "SUDGEC 2025 Conference Fee",
+      description: "Payment for SUDGEC 2025 registration",
+      logo: "https://sustainsudgecorg.org/assets/logo.BpdcY0v0.png",
+    },
+    callback: function (data) {
+      if (data.status === "successful") {
+        // ✅ Show Receipt Screen
+        document.getElementById("confirmation").classList.add("hidden");
+        document.getElementById("receiptScreen").classList.remove("hidden");
+
+        // Render payment details
+        const detailsHTML = `
+          <p><strong>Name:</strong> ${fullName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Registration Type:</strong> ${regType}</p>
+          <p><strong>Amount Paid:</strong> ${currency} ${amountValue.toLocaleString()}</p>
+          <p><strong>Transaction Reference:</strong> ${data.tx_ref}</p>
+          <p><strong>Payment Status:</strong> ${data.status}</p>
+          <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+        `;
+        document.getElementById("receiptDetails").innerHTML = detailsHTML;
+
+        // Save to DB
+        fetch("https://sustainsudgecorg.org/payment-confirm.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: fullName,
+            email: email,
+            phone: phone,
+            amount: amountValue,
+            tx_ref: data.tx_ref,
+            currency: currency,
+            regType: regType,
+            payment_status: data.status,
+          }),
+        }).then(res => res.json()).then(console.log);
+      } else {
+        alert("❌ Payment not completed or cancelled.");
+      }
+    },
+    onclose: function () {
+      console.log("Payment modal closed");
+    },
+  });
+});
+
+// 📄 Generate downloadable PDF receipt
+document.getElementById("downloadReceipt").addEventListener("click", () => {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+
+  const receiptContent = document.getElementById("receiptDetails").innerText;
+  pdf.setFont("helvetica", "normal");
+  pdf.text("SUDGEC 2025 - Payment Receipt", 20, 20);
+  pdf.text(receiptContent, 20, 40);
+  pdf.save("SUDGEC2025_Receipt.pdf");
+});
+
+
   </script>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </body>
 </html>
