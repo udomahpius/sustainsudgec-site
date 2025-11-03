@@ -1,16 +1,30 @@
 <?php
+// === DEBUG MODE (temporary, disable after testing) ===
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
 if (!isset($_SESSION['admin'])) {
   header("Location: index.php");
   exit();
 }
+
+// === Database connection ===
 include "../db.php";
 
+// === Fetch registrations ===
+$rows = [];
 $result = $conn->query("SELECT * FROM registrations ORDER BY created_at DESC");
 
-// Totals
+if (!$result) {
+  die("Database query failed: " . $conn->error);
+}
+
+// === Totals ===
 $total_ngn = 0;
 $total_usd = 0;
+
+// Disable ONLY_FULL_GROUP_BY mode
 $conn->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
 
 while ($row = $result->fetch_assoc()) {
@@ -29,42 +43,55 @@ while ($row = $result->fetch_assoc()) {
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body class="bg-green-50 min-h-screen">
-  <header class="bg-green-700 text-white p-4 flex justify-between items-center">
+  <!-- Header -->
+  <header class="bg-green-700 text-white p-4 flex justify-between items-center shadow-md">
     <h1 class="text-xl font-bold">SUDGEC 2025 Registration & Payment Dashboard</h1>
-    <a href="logout.php" class="bg-white text-green-700 px-3 py-1 rounded-md font-semibold hover:bg-green-100">Logout</a>
+    <a href="logout.php" class="bg-white text-green-700 px-3 py-1 rounded-md font-semibold hover:bg-green-100 transition">
+      Logout
+    </a>
   </header>
 
+  <!-- Main Section -->
   <main class="p-6 space-y-6">
-    <div class="flex justify-between items-center">
-      <input id="searchBox" type="text" placeholder="Search by name, email, or institution..." class="border p-2 rounded-md w-1/3 focus:ring-green-500">
-      <button id="exportBtn" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Export to Excel</button>
+    <!-- Search + Export -->
+    <div class="flex justify-between items-center flex-wrap gap-4">
+      <input id="searchBox" 
+             type="text" 
+             placeholder="🔍 Search by name, email, or institution..." 
+             class="border p-2 rounded-md w-full sm:w-1/3 focus:ring-green-500 focus:outline-none">
+      <button id="exportBtn" 
+              class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
+        Export to Excel
+      </button>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-4 flex justify-around">
-      <div class="text-green-700 font-bold">💰 Total NGN: ₦<?= number_format($total_ngn, 2) ?></div>
-      <div class="text-green-700 font-bold">💵 Total USD: $<?= number_format($total_usd, 2) ?></div>
-      <div class="text-gray-600">🧾 Total Records: <?= count($rows) ?></div>
+    <!-- Totals -->
+    <div class="bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row justify-around items-center gap-4">
+      <div class="text-green-700 font-bold text-lg">💰 Total NGN: ₦<?= number_format($total_ngn, 2) ?></div>
+      <div class="text-green-700 font-bold text-lg">💵 Total USD: $<?= number_format($total_usd, 2) ?></div>
+      <div class="text-gray-600 text-lg">🧾 Total Records: <?= count($rows) ?></div>
     </div>
 
-    <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow-lg border border-green-100">
       <table id="regTable" class="min-w-full text-sm text-gray-700">
         <thead class="bg-green-600 text-white">
           <tr>
-            <th class="px-4 py-2">Full Name</th>
-            <th class="px-4 py-2">Email</th>
-            <th class="px-4 py-2">Phone</th>
-            <th class="px-4 py-2">Institution</th>
-            <th class="px-4 py-2">Reg Type</th>
-            <th class="px-4 py-2">Amount</th>
-            <th class="px-4 py-2">Payment Method</th>
-            <th class="px-4 py-2">Transaction ID</th>
-            <th class="px-4 py-2">Date</th>
-            <th class="px-4 py-2">Presenter</th>
+            <th class="px-4 py-2 text-left">Full Name</th>
+            <th class="px-4 py-2 text-left">Email</th>
+            <th class="px-4 py-2 text-left">Phone</th>
+            <th class="px-4 py-2 text-left">Institution</th>
+            <th class="px-4 py-2 text-left">Reg Type</th>
+            <th class="px-4 py-2 text-left">Amount</th>
+            <th class="px-4 py-2 text-left">Payment Method</th>
+            <th class="px-4 py-2 text-left">Transaction ID</th>
+            <th class="px-4 py-2 text-left">Date</th>
+            <th class="px-4 py-2 text-left">Presenter</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($rows as $row): ?>
-          <tr class="border-b hover:bg-green-50">
+          <tr class="border-b hover:bg-green-50 transition">
             <td class="px-4 py-2"><?= htmlspecialchars($row['fullName']) ?></td>
             <td class="px-4 py-2"><?= htmlspecialchars($row['email']) ?></td>
             <td class="px-4 py-2"><?= htmlspecialchars($row['phone']) ?></td>
@@ -82,8 +109,9 @@ while ($row = $result->fetch_assoc()) {
     </div>
   </main>
 
+  <!-- Scripts -->
   <script>
-    // Live search
+    // 🔎 Live Search
     const searchBox = document.getElementById('searchBox');
     searchBox.addEventListener('input', function() {
       const filter = searchBox.value.toLowerCase();
@@ -93,7 +121,7 @@ while ($row = $result->fetch_assoc()) {
       });
     });
 
-    // Export to Excel
+    // 📊 Export to Excel
     document.getElementById('exportBtn').addEventListener('click', function() {
       const table = document.getElementById('regTable');
       const wb = XLSX.utils.table_to_book(table, { sheet: "Registrations" });
