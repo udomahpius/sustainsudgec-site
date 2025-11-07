@@ -334,16 +334,24 @@
 
 <!-- 🎉 Success Modal -->
 <div id="successModal" class="fixed inset-0 hidden bg-black/70 justify-center items-center z-50">
-  <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl p-10 text-center max-w-md w-full">
-    <h2 class="text-2xl font-bold text-green-700 dark:text-yellow-400 mb-4">🎉 Congratulations!</h2>
-    <p class="text-slate-700 dark:text-slate-300 mb-6">
-      Your registration has been successfully submitted.  
+  <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl p-10 text-center max-w-md w-full relative animate-fadeIn">
+    <!-- Close Icon -->
+    <button class="closeSuccess absolute top-3 right-4 text-slate-600 dark:text-yellow-400 hover:text-red-500 text-2xl font-bold">&times;</button>
+
+    <h2 class="text-3xl font-bold text-green-700 dark:text-yellow-400 mb-4">🎉 Congratulations!</h2>
+    <p class="text-slate-700 dark:text-slate-300 mb-8">
+      Your contractor registration has been successfully submitted.<br>
       You can now download your confirmation in PDF format.
     </p>
-    <a id="downloadPDF" href="#" class="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 dark:bg-yellow-400 dark:text-slate-900 dark:hover:bg-yellow-300 transition">Download PDF</a>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a id="downloadPDF" href="#" target="_blank"
+         class="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 dark:bg-yellow-400 dark:text-slate-900 dark:hover:bg-yellow-300 transition">⬇️ Download PDF</a>
+      <a href="index.html"
+         class="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition">🏠 Return Home</a>
+    </div>
   </div>
 </div>
-
 
     <!-- 🌱 Mission & Vision -->
     <section class="max-w-6xl mx-auto py-16 px-6 space-y-16">
@@ -494,8 +502,6 @@
   const openFormBtn = document.getElementById('openFormBtn');
   const closeFormBtn = document.getElementById('closeFormBtn');
   const formOverlay = document.getElementById('formOverlay');
-  const successModal = document.getElementById('successModal');
-  const downloadPDF = document.getElementById('downloadPDF');
 
   // Open form modal
   openFormBtn.addEventListener('click', () => {
@@ -515,7 +521,10 @@
   const form = document.getElementById('contractorForm');
   const toggleBtn = document.getElementById('toggleBankInfo');
   const bankInfo = document.getElementById('bankInfo');
+  const successModal = document.getElementById('successModal');
+  const downloadPDF = document.getElementById('downloadPDF');
 
+  // 🔁 Toggle Bank Info
   toggleBtn.addEventListener('click', () => {
     bankInfo.classList.toggle('hidden');
     toggleBtn.textContent = bankInfo.classList.contains('hidden')
@@ -523,6 +532,7 @@
       : 'Hide Bank Payment Info ▲';
   });
 
+  // 📨 Form Submission
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
@@ -532,18 +542,91 @@
         method: 'POST',
         body: formData
       });
-
       const result = await response.json();
+
       if (result.success) {
-        alert('✅ Registration successful! PDF generated at: ' + result.pdf_url);
-        form.reset();
+        document.getElementById('formOverlay').classList.add('hidden');
+        document.body.style.overflow = '';
+
+        successModal.classList.remove('hidden');
+        successModal.classList.add('flex');
+        downloadPDF.href = result.pdf_url;
+
+        // 🎊 Confetti burst
+        launchConfetti();
       } else {
         alert('❌ Error: ' + result.message);
       }
     } catch (err) {
-      alert('Network or server error: ' + err.message);
+      alert('⚠️ Network or server error: ' + err.message);
     }
   });
+
+  // ❌ Close modal
+  successModal.addEventListener('click', (e) => {
+    if (e.target.id === 'successModal' || e.target.classList.contains('closeSuccess')) {
+      successModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // 🎉 Confetti Animation
+  function launchConfetti() {
+    const duration = 2500;
+    const animationEnd = Date.now() + duration;
+    const defaults = { spread: 360, startVelocity: 45, ticks: 60, zIndex: 1000 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    (function frame() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) return;
+
+      const particleCount = 12 * (timeLeft / duration);
+      const angle = randomInRange(55, 125);
+      const originX = Math.random();
+
+      createConfetti(particleCount, angle, originX);
+      requestAnimationFrame(frame);
+    })();
+  }
+
+  // 💫 Simple Confetti Generator
+  function createConfetti(count, angle, originX) {
+    for (let i = 0; i < count; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '8px';
+      confetti.style.height = '14px';
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      confetti.style.left = `${originX * 100}%`;
+      confetti.style.top = '0';
+      confetti.style.opacity = '0.8';
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+
+      const fallDuration = 2 + Math.random() * 2;
+      const horizontalMove = (Math.random() - 0.5) * 200;
+
+      confetti.animate(
+        [
+          { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate(${horizontalMove}px, 100vh) rotate(720deg)`, opacity: 0.8 }
+        ],
+        {
+          duration: fallDuration * 1000,
+          easing: 'ease-out',
+          iterations: 1,
+        }
+      );
+
+      setTimeout(() => confetti.remove(), fallDuration * 1000);
+    }
+  }
 </script>
 
 </body>
