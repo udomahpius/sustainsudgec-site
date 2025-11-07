@@ -1,6 +1,10 @@
 <?php
-// ✅ Use manual Dompdf installation
-require_once(__DIR__ . "/../dompdf/autoload.inc.php"); // Adjust path if needed
+// ✅ Automatically find Dompdf
+$dompdf_path = $_SERVER['DOCUMENT_ROOT'] . "/dompdf/autoload.inc.php";
+if (!file_exists($dompdf_path)) {
+    die(json_encode(["success" => false, "message" => "Dompdf not found at $dompdf_path"]));
+}
+require_once($dompdf_path);
 
 use Dompdf\Dompdf;
 
@@ -23,6 +27,8 @@ function generateRegistrationPDF($company, $person, $category, $file_path) {
     $dompdf->setPaper('A4', 'portrait');
     $dompdf->render();
 
-    file_put_contents($file_path, $dompdf->output());
+    if (!file_put_contents($file_path, $dompdf->output())) {
+        die(json_encode(["success" => false, "message" => "Failed to write PDF to $file_path"]));
+    }
 }
 ?>
