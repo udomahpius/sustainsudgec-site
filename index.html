@@ -9,6 +9,8 @@
   <meta name="description" content="Sustain SUdgeC — community-led sustainable development" />
 
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 
   <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -82,16 +84,19 @@
           class="ml-3 p-2 rounded hover:bg-slate-100 dark:hover:bg-green-800 transition">
 
           <!-- Moon icon (for light mode) -->
-          <svg id="moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="moon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
           </svg>
 
           <!-- Sun icon (for dark mode) -->
-          <svg id="sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg id="sun" class="w-5 h-5 hidden dark:block text-yellow-400" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 3v1m0 16v1m8.485-8.485l.707.707M3.515 3.515l.707.707M21 12h1M2 12H1m15.364 6.364l.707.707M6.343 6.343l.707.707M4 12a8 8 0 1016 0 8 8 0 00-16 0z" />
           </svg>
+
         </button>
       </nav>
 
@@ -134,15 +139,14 @@
 
   <!-- 🌍 HERO SECTION -->
   <section
-    class="w-full md:pt-20  bg-gradient-to-r from-green-100 via-white to-green-50 dark:bg-gradient-to-r dark:from-darkgreen dark:via-green-800 dark:to-darkgreen transition-colors" data-aos="fade-up">
+    class="w-full md:pt-20  bg-gradient-to-r from-green-100 via-white to-green-50 dark:bg-gradient-to-r dark:from-darkgreen dark:via-green-800 dark:to-darkgreen transition-colors"
+    data-aos="fade-up">
     <!-- For small devices (phones, small tablets, etc.) -->
 
-<!-- For small devices (below md) -->
-<div class="block md:hidden mb-3">
-  <img src="/assets/img/sub-logo.png" 
-       alt="SUDGEC Conference"
-       class="w-full h-auto object-cover object-center">
-</div>
+    <!-- For small devices (below md) -->
+    <div class="block md:hidden mb-3">
+      <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center">
+    </div>
 
 
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -181,14 +185,12 @@
           class="w-full h-auto object-cover object-center">
       </div>
     </div>
-   <!-- For large devices (desktop, tablets, etc.) -->
+    <!-- For large devices (desktop, tablets, etc.) -->
 
-<!-- For large devices (md and up) -->
-<div class="hidden md:block">
-  <img src="/assets/img/sub-logo.png" 
-       alt="SUDGEC Conference"
-       class="w-full h-auto object-cover object-center">
-</div>
+    <!-- For large devices (md and up) -->
+    <div class="hidden md:block">
+      <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center">
+    </div>
 
 
 
@@ -225,7 +227,8 @@
       </div>
 
       <div class="mt-6 text-sm opacity-80 drop-shadow-sm">
-        📅 Date: December 2nd through 4th 2025 • 📍 Ibom Led, ( formerly) ibom E- Library) along IBB way, uyo Akwa Ibom State , Nigeria | ⏰ 10:00 AM Daily
+        📅 Date: December 2nd through 4th 2025 • 📍 Ibom Led, ( formerly) ibom E- Library) along IBB way, uyo Akwa Ibom
+        State , Nigeria | ⏰ 10:00 AM Daily
 
 
       </div>
@@ -254,7 +257,7 @@
         </a>
       </div>
 
-      <!-- Image Side -->
+
       <!-- Image Side -->
       <div class="relative">
         <div class="overflow-hidden rounded-2xl shadow-2xl">
@@ -271,6 +274,43 @@
 
     </div>
   </section>
+  <!-- 🌱 Mission Highlight Section (Animated) -->
+  <section class="relative py-20 bg-gradient-to-r from-green-50 via-green-100 to-white 
+         dark:from-green-950 dark:via-green-900 dark:to-slate-900 transition-all duration-700">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+      <!-- Image Side -->
+      <div data-aos="fade-right" data-aos-duration="1000">
+        <img src="/assets/img/mission.jpg" alt="Mission Image"
+          class="rounded-3xl shadow-xl w-full object-cover border-4 border-green-200 dark:border-yellow-400/40">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+      </div>
+
+      <!-- Text Side -->
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-green-800 dark:text-yellow-400 mb-4">
+          Our Mission & Vision
+        </h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          At <strong>SUDGEC</strong>, we are driven by a powerful mission — to empower communities through
+          sustainable development, education, and partnerships that create a brighter and more resilient
+          future for all.
+        </p>
+
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-8">
+          Through innovation, collaboration, and capacity-building, we aim to transform lives across Africa,
+          fostering economic growth, social progress, and environmental sustainability.
+        </p>
+
+        <a href="mission.html" class="inline-block px-6 py-3 bg-green-700 text-white font-semibold rounded-md hover:bg-green-800 
+               dark:bg-yellow-500 dark:text-slate-900 dark:hover:bg-yellow-400 transition duration-300 shadow-lg">
+          Learn More About Our Mission
+        </a>
+      </div>
+    </div>
+  </section>
+
+
 
 
   <!-- 🌿 WHAT WE DO -->
@@ -602,9 +642,9 @@
             class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
           <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Dveua Hotels </h3>
           <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
-            Opposite Pepsi Junction, Abak Rd. Uyo, 
+            Opposite Pepsi Junction, Abak Rd. Uyo,
           </p>
-          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2349013831243</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +2349013831243</p>
         </div>
 
         <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
@@ -614,9 +654,9 @@
             class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
           <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Monty </h3>
           <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
-             Suites No. 37 general EdetAkpan Avenue (4 Lane)
+            Suites No. 37 general EdetAkpan Avenue (4 Lane)
           </p>
-          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347038091700</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +2347038091700</p>
         </div>
 
         <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
@@ -626,9 +666,9 @@
             class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
           <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">Rosmohr Hotels</h3>
           <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
-             A 126, C49 Ewet Housing Estate Uyo
+            A 126, C49 Ewet Housing Estate Uyo
           </p>
-          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2348163897557</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +2348163897557</p>
         </div>
 
         <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
@@ -638,9 +678,9 @@
             class="rounded-xl h-48 w-full object-cover mb-4 shadow-md cursor-pointer hotel-img">
           <h3 class="font-semibold text-lg text-green-900 dark:text-green-100">RBIT Hotel and Suites </h3>
           <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
-             Plot 55 Unit C, Ewet Housing Estate Uyo
+            Plot 55 Unit C, Ewet Housing Estate Uyo
           </p>
-          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347089569339</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +2347089569339</p>
         </div>
 
         <div class="p-5 bg-white/80 dark:bg-white/10 rounded-2xl shadow-lg 
@@ -652,29 +692,29 @@
           <p class="text-sm text-slate-600 dark:text-green-100/80 mt-1">
             No. 36 B Aka ltiam Street off Nsikak Edouk Avenue Uyo
           </p>
-          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞  +2347087568895</p>
+          <p class="text-sm mt-2 text-green-800 dark:text-green-300 font-medium">📞 +2347087568895</p>
         </div>
       </div>
- <!-- 🖼️ Image Modal with Cancel Icon -->
-<div id="imageModal"
-  class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm">
-  <button id="closeModal"
-    class="absolute top-20 right-8 text-white text-4xl font-bold cursor-pointer hover:text-green-400 transition">
-    &times;
-  </button>
-  <img id="modalImage"
-    class="max-w-4xl max-h-[90vh] rounded-xl shadow-2xl border-4 border-white/10 object-contain transition-transform duration-300"
-    alt="Hotel Preview">
-</div>
+      <!-- 🖼️ Image Modal with Cancel Icon -->
+      <div id="imageModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm">
+        <button id="closeModal"
+          class="absolute top-20 right-8 text-white text-4xl font-bold cursor-pointer hover:text-green-400 transition">
+          &times;
+        </button>
+        <img id="modalImage"
+          class="max-w-4xl max-h-[90vh] rounded-xl shadow-2xl border-4 border-white/10 object-contain transition-transform duration-300"
+          alt="Hotel Preview">
+      </div>
     </div>
   </section>
 
 
 
- <!-- FOOTER -->
+  <!-- FOOTER -->
   <footer class="bg-slate-900 text-slate-200 pb-10 ">
-    <div class="mb-2"> 
-      <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center d-none"> 
+    <div class="mb-2">
+      <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference"
+        class="w-full h-auto object-cover object-center d-none">
     </div>
     <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
       <div>
@@ -696,6 +736,17 @@
     </div>
     <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
   </footer>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init({
+      once: true,           // Animate only once
+      offset: 100,          // Start animation a bit before element enters view
+      duration: 800,        // Animation speed (ms)
+      easing: 'ease-in-out' // Smooth effect
+    });
+
+  </script>
 
 
   <!-- Scripts -->
@@ -704,7 +755,7 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-      AOS.init({
+    AOS.init({
       duration: 900,
       once: true,
       easing: 'ease-in-out',
@@ -712,50 +763,50 @@
   </script>
 
 
-<!-- ✅ JS for Fullscreen Zoomable Image with Cancel Icon -->
-<script>
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
-  const closeModal = document.getElementById('closeModal');
-  const images = document.querySelectorAll('.hotel-img');
-  let zoom = 1;
+  <!-- ✅ JS for Fullscreen Zoomable Image with Cancel Icon -->
+  <script>
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+    const images = document.querySelectorAll('.hotel-img');
+    let zoom = 1;
 
-  images.forEach(img => {
-    img.addEventListener('click', () => {
-      modalImg.src = img.src;
-      modalImg.style.width = "500px"
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-      zoom = 1;
-      modalImg.style.transform = 'scale(1)';
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modalImg.style.width = "500px"
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        zoom = 1;
+        modalImg.style.transform = 'scale(1)';
+      });
     });
-  });
 
-  // Close with cancel icon
-  closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.body.style.overflow = '';
-  });
-
-  // Close when clicking outside image
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
+    // Close with cancel icon
+    closeModal.addEventListener('click', () => {
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       document.body.style.overflow = '';
-    }
-  });
+    });
 
-  // Zoom with scroll
-  modalImg.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    zoom += e.deltaY * -0.001;
-    zoom = Math.min(Math.max(zoom, 1), 3);
-    modalImg.style.transform = `scale(${zoom})`;
-  });
-</script>
+    // Close when clicking outside image
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Zoom with scroll
+    modalImg.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoom += e.deltaY * -0.001;
+      zoom = Math.min(Math.max(zoom, 1), 3);
+      modalImg.style.transform = `scale(${zoom})`;
+    });
+  </script>
 
 
   <script>
