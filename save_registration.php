@@ -1,11 +1,11 @@
 <?php
 header('Content-Type: application/json');
 
-// 🛠 Database Connection - Hostinger MySQL
-$servername = "localhost"; // stays localhost for Hostinger
-$username = "u968639263_SUDGEC"; // e.g. u123456789_sudgec_user
+// 🛠 Database Connection
+$servername = "localhost";
+$username = "u968639263_SUDGEC";
 $password = "MaLaChy@2000#";
-$database = "u968639263_SUDGEC"; // e.g. u123456789_sudgec_db
+$database = "u968639263_SUDGEC";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -29,12 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   // ✅ Handle File Uploads
   $uploaded_files = [];
-  if (!empty($_FILES['documents']['name'][0])) {
-    $upload_dir = __DIR__ . "/uploads/";
-    if (!is_dir($upload_dir)) {
-      mkdir($upload_dir, 0777, true);
-    }
+  $upload_dir = __DIR__ . "/uploads/";
+  if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
 
+  if (!empty($_FILES['documents']['name'][0])) {
     foreach ($_FILES['documents']['name'] as $key => $filename) {
       $tmp_name = $_FILES['documents']['tmp_name'][$key];
       $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -60,17 +58,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   );
 
   if ($stmt->execute()) {
-    // ✅ (Optional) Generate PDF confirmation
-    $pdf_dir = "pdfs/";
-    if (!is_dir($pdf_dir)) mkdir($pdf_dir);
-    $pdf_path = $pdf_dir . time() . "_contractor_registration.pdf";
+    // ✅ Create absolute folder path for Hostinger
+    $pdf_dir = $_SERVER['DOCUMENT_ROOT'] . "/pdfs/";
+    if (!is_dir($pdf_dir)) mkdir($pdf_dir, 0777, true);
 
-    if (file_exists("generate_pdf.php")) {
-      include("generate_pdf.php");
+    $pdf_filename = time() . "_contractor_registration.pdf";
+    $pdf_path = $pdf_dir . $pdf_filename;
+    $pdf_url  = "/pdfs/" . $pdf_filename; // Public web path
+
+    // ✅ Generate PDF
+    $generator_path = __DIR__ . "/pdfs/generate_pdf.php";
+    if (file_exists($generator_path)) {
+      include($generator_path);
       generateRegistrationPDF($company, $person, $category, $pdf_path);
     }
 
-    echo json_encode(["success" => true, "pdf_url" => $pdf_path]);
+    echo json_encode(["success" => true, "pdf_url" => $pdf_url]);
   } else {
     echo json_encode(["success" => false, "message" => "Database insert failed: " . $conn->error]);
   }
