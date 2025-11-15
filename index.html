@@ -33,6 +33,37 @@
   </script>
 </head>
 <style>
+  /* Floating Icon Animation */
+  @keyframes floatingIcon {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  .animate-floatingIcon {
+    animation: floatingIcon 3s ease-in-out infinite;
+  }
+
+  /* Smooth Slide-up */
+  @keyframes slideUpSlow {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slideUpSlow {
+    animation: slideUpSlow 1s ease forwards;
+  }
+
+  /* Premium Glow Border Animation */
+  @keyframes premiumGlow {
+    0% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.25); }
+    50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.45); }
+    100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.25); }
+  }
+  .animate-premiumGlow {
+    animation: premiumGlow 4s ease-in-out infinite;
+  }
+</style>
+
+<style>
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -709,6 +740,86 @@
   </section>
 
 
+  <!-- 🔔 Premium Animated Conference Popup -->
+<div id="autoPopup"
+  class="fixed inset-0 hidden items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] 
+         transition-all duration-500">
+
+<div id="popupCard"
+  class="w-full max-w-3xl mx-auto 
+         px-4 sm:px-6 md:px-10 
+         my-5 
+         bg-white dark:bg-slate-900 
+         p-8 pb-10 
+         rounded-3xl shadow-2xl 
+         border border-green-700/30 dark:border-yellow-400/40 
+         relative transform scale-75 opacity-0
+         transition-all duration-700 ease-out animate-premiumGlow
+
+         max-h-[90vh] overflow-y-auto md:max-h-none md:overflow-visible
+">
+
+
+
+    <!-- Close Button -->
+    <button id="closePopup"
+      class="absolute top-4 right-5 text-slate-700 dark:text-yellow-400 text-3xl font-bold hover:text-red-500 transition">
+      &times;
+    </button>
+
+    <!-- Header -->
+    <div class="flex flex-col items-center text-center mb-6 animate-slideUpSlow">
+      <div class="bg-green-700 dark:bg-yellow-400 text-white dark:text-slate-900 p-4 rounded-full mb-4 shadow-xl 
+                  animate-floatingIcon">
+        📢
+      </div>
+
+      <h3 class="text-3xl font-bold text-green-700 dark:text-yellow-400 drop-shadow-md">
+        Important Conference Announcement
+      </h3>
+    </div>
+
+    <!-- Text Content -->
+    <div class="animate-slideUpSlow delay-150">
+      <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-center text-lg mb-4">
+        <strong>Accreditation & Registration Opens:</strong><br>
+        <span class="text-green-700 dark:text-yellow-400 font-semibold">
+          Monday, November 18th, 2025 — 10:00 AM to 4:00 PM Daily
+        </span><br><br>
+
+        <strong>Venue:</strong><br>
+        Ibom LED Center (Former Ibom E-Library Complex),<br>
+        IBB Way, Uyo, Akwa Ibom State.<br><br>
+
+        <strong>For More Info:</strong><br>
+        <span class="text-green-700 dark:text-yellow-400">
+          0815 299 2219, 0815 298 9532
+        </span>
+      </p>
+    </div>
+
+    <!-- Countdown -->
+    <div class="text-center mt-4 animate-slideUpSlow delay-300">
+      <p class="text-sm text-slate-600 dark:text-slate-400">
+        This message will close automatically in
+      </p>
+      <p id="countdownTimer"
+        class="text-4xl font-bold text-green-700 dark:text-yellow-400 mt-1 animate-pulse">
+        60s
+      </p>
+    </div>
+
+    <!-- Button -->
+    <div class="text-center mt-8 animate-slideUpSlow delay-500">
+      <button id="closePopupBtn"
+        class="px-8 py-3 bg-green-700 text-white dark:bg-yellow-400 dark:text-slate-900 rounded-xl 
+               hover:bg-green-800 dark:hover:bg-yellow-300 transition shadow-lg">
+        Okay, Got It
+      </button>
+    </div>
+
+  </div>
+</div>
 
   <!-- FOOTER -->
   <footer class="bg-slate-900 text-slate-200 pb-10 ">
@@ -731,12 +842,69 @@
       </div>
       <div>
         <h4 class="font-semibold mb-2">Contact</h4>
-        <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br />+234 70159918130</p>
+       <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br />08152992219 <br />08152989532  <br> AKWA-CROSS PROJECT MANAGEMENT CENTER: ROOM 106 FIRST FLOOR, FED, SECRETERIAT COMPLEX CALABAR ROAD, CALABAR CROSS RIVER STATE NIGERIA</p>
       </div>
     </div>
     <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
   </footer>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  const popup = document.getElementById("autoPopup");
+  const popupCard = document.getElementById("popupCard");
+  const closePopup = document.getElementById("closePopup");
+  const closePopupBtn = document.getElementById("closePopupBtn");
+  const countdownTimer = document.getElementById("countdownTimer");
+
+  let countdown;
+  let timeLeft = 60;
+
+  function showPopup() {
+    popup.classList.remove("hidden");
+
+    // Animate popup
+    setTimeout(() => {
+      popupCard.style.opacity = "1";
+      popupCard.style.transform = "scale(1)";
+    }, 50);
+
+    // Reset countdown
+    timeLeft = 60;
+    countdownTimer.textContent = timeLeft + "s";
+
+    // Start countdown
+    countdown = setInterval(() => {
+      timeLeft--;
+      countdownTimer.textContent = timeLeft + "s";
+      if (timeLeft <= 0) hidePopup();
+    }, 1000);
+  }
+
+  function hidePopup() {
+    popupCard.style.opacity = "0";
+    popupCard.style.transform = "scale(0.75)";
+
+    setTimeout(() => {
+      popup.classList.add("hidden");
+    }, 300);
+
+    clearInterval(countdown);
+  }
+
+  // Show every 1 minute (60000 ms)
+  setInterval(showPopup, 60000);
+
+  // First popup appears after 5 seconds
+  setTimeout(showPopup, 5000);
+
+  closePopup.addEventListener("click", hidePopup);
+  closePopupBtn.addEventListener("click", hidePopup);
+
+  // Optional: close when clicking outside popup
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) hidePopup();
+  });
+</script>
 
   <script>
     AOS.init({
