@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SUDGEC 2025 | Sustainable Development Goals Evaluation Conference & Awards</title>
   <link rel="icon" type="image/x-icon" href="/assets/img/logo.BpdcY0v0.png">
   <meta name="description" content="Sustain SUdgeC — community-led sustainable development" />
@@ -140,7 +140,7 @@
   }
 </style>
 
-<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100  ">
+<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100  overflow-x-hidden w-full">
 
   <!-- 🌿 HEADER -->
   <header
@@ -230,7 +230,7 @@
 
   <!-- 🌍 HERO SECTION -->
   <section
-    class="w-full md:pt-20  bg-gradient-to-r from-green-100 via-white to-green-50 dark:bg-gradient-to-r dark:from-darkgreen dark:via-green-800 dark:to-darkgreen transition-colors"
+    class="w-full overflow-hidden md:pt-20  bg-gradient-to-r from-green-100 via-white to-green-50 dark:bg-gradient-to-r dark:from-darkgreen dark:via-green-800 dark:to-darkgreen transition-colors"
     data-aos="fade-up">
     <!-- For small devices (phones, small tablets, etc.) -->
 
@@ -660,7 +660,7 @@
 
   </section>
   <!-- 🏨 HOTEL RECOMMENDATIONS -->
-  <section class="w-full py-10 relative bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-700"
+  <section class="w-full py-10 overflow-hidden relative bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-700"
     style="background-image: url('/assets/img/hotel.png');">
     <!-- Gradient & Overlay Blend -->
     <!-- <div
@@ -820,7 +820,7 @@
 
 
   <!-- 🔔 Premium Animated Conference Popup -->
-  <div id="autoPopup" class="fixed inset-0 hidden items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] 
+  <div id="autoPopup" class="fixed inset-0 hidden overflow-hidden items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] 
          transition-all duration-500">
 
     <div id="popupCard" class="w-full max-w-3xl mx-auto 
@@ -833,7 +833,7 @@
          relative transform scale-75 opacity-0
          transition-all duration-700 ease-out animate-premiumGlow
 
-         max-h-[90vh] overflow-y-auto md:max-h-full md:overflow-auto">
+         max-h-[90vh] overflow-y-auto md:max-h-full ">
 
       <!-- Close Button -->
       <button id="closePopup"
@@ -909,7 +909,7 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-slate-900 text-slate-200 pb-10 ">
+  <footer class="bg-slate-900 text-slate-200 pb-10 overflow-hidden w-full ">
     <div class="mb-2">
       <img src="/assets/img/sub-logo.png" alt="SUDGEC Conference"
         class="w-full h-auto object-cover object-center d-none">
@@ -936,7 +936,7 @@
     </div>
     <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
   </footer>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     const popup = document.getElementById("autoPopup");
     const popupCard = document.getElementById("popupCard");
@@ -1021,13 +1021,24 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+  
+  </script>
+  <script>
+    AOS.init({
+      once: true,           // Animate only once
+      offset: 100,          // Start animation a bit before element enters view
+      duration: 800,        // Animation speed (ms)
+      easing: 'ease-in-out' // Smooth effect
+    });
+
+  </script>
+  <script>
     AOS.init({
       duration: 900,
       once: true,
       easing: 'ease-in-out',
     });
   </script>
-
 
   <!-- ✅ JS for Fullscreen Zoomable Image with Cancel Icon -->
   <script>
