@@ -35,29 +35,55 @@
 <style>
   /* Floating Icon Animation */
   @keyframes floatingIcon {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
   }
+
   .animate-floatingIcon {
     animation: floatingIcon 3s ease-in-out infinite;
   }
 
   /* Smooth Slide-up */
   @keyframes slideUpSlow {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
+
   .animate-slideUpSlow {
     animation: slideUpSlow 1s ease forwards;
   }
 
   /* Premium Glow Border Animation */
   @keyframes premiumGlow {
-    0% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.25); }
-    50% { box-shadow: 0 0 25px rgba(34, 197, 94, 0.45); }
-    100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.25); }
+    0% {
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.25);
+    }
+
+    50% {
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.45);
+    }
+
+    100% {
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.25);
+    }
   }
+
   .animate-premiumGlow {
     animation: premiumGlow 4s ease-in-out infinite;
   }
@@ -79,8 +105,42 @@
     width: 200%;
   }
 </style>
+<!-- Simple Fade-in Animations (CSS) -->
+<style>
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(25px);
+    }
 
-<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100">
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .delay-200 {
+    animation-delay: .2s;
+  }
+
+  .delay-300 {
+    animation-delay: .3s;
+  }
+
+  .delay-500 {
+    animation-delay: .5s;
+  }
+
+  .delay-700 {
+    animation-delay: .7s;
+  }
+</style>
+
+<body class="antialiased text-slate-900 bg-slate-50 dark:bg-darkgreen dark:text-slate-100 overflow-x-hidden">
 
   <!-- 🌿 HEADER -->
   <header
@@ -227,45 +287,64 @@
 
   </section>
   <!-- 🎟️ Upcoming Event Banner -->
-  <section class="w-full relative bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-700"
+  <section class="w-full relative bg-cover bg-center bg-no-repeat bg-fixed transition-all duration-700"
     style="background-image: url('/assets/img/coat-of-arms.DoJ_xOiP.png');">
-    <!-- Gradient & Overlay Blend -->
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-green-800/70 via-green-900/60 to-black/70 dark:from-green-900/50 dark:via-green-300/40 dark:to-green-400/50">
+
+    <!-- Stylish Gradient + Dark Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-black/65 to-black/80 backdrop-blur-[2px]">
+    </div>
+
+
+    <!-- Floating Glow Orbs -->
+    <div class="pointer-events-none">
+      <div class="absolute top-20 left-10 w-40 h-40 bg-green-500/20 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 right-10 w-56 h-56 bg-yellow-500/20 rounded-full blur-3xl animate-ping"></div>
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center text-white">
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight drop-shadow-lg">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-28 text-center text-white">
+
+      <!-- Animated Title -->
+      <h1 class="text-4xl sm:text-6xl font-extrabold leading-tight drop-shadow-xl animate-fadeInUp">
         SUDGEC 2025 • Evaluation Conference & Awards
       </h1>
-      <p class="mt-4 text-lg max-w-3xl mx-auto text-white/90 drop-shadow-md">
-        Join policymakers, professionals, researchers & institutions in assessing progress toward the SDGs across Africa
-        and beyond. Secure your seat now!
+      <!-- mt-6 text-base md:text-lg text-slate-700 dark:text-green-50/90 bg-white/70 dark:bg-white/10 
+                rounded-2xl p-6 shadow-lg backdrop-blur-md border border-white/20" -->
+      <!-- Subtitle -->
+      <p
+        class="mt-4 text-lg sm:text-xl max-w-3xl mx-auto text-white/90 drop-shadow-md animate-fadeInUp delay-200  rounded-2xl p-6 shadow-lg backdrop-blur-md border border-white/20">
+        A global gathering of policymakers, professionals, institutions & researchers assessing Africa’s progress
+        toward the Sustainable Development Goals.
       </p>
-      <p class="mt-4 text-lg max-w-3xl mx-auto text-white/90 drop-shadow-md">
-        For Sustainable Development Goals Evaluation Conference &amp; Awards
+
+      <p class="mt-2 text-lg max-w-3xl mx-auto text-white/85 animate-fadeInUp delay-300">
+        Be part of this transformative international event.
       </p>
-      <div class="mt-8 flex justify-center gap-4">
+
+      <!-- Buttons -->
+      <div class="mt-8 flex justify-center gap-4 animate-fadeInUp delay-500">
         <a href="register.html"
-          class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-md text-white font-semibold shadow hover:scale-[1.02] transition">
+          class="px-7 py-3 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold shadow-xl hover:scale-[1.03] transition-transform duration-300">
           Register Now
         </a>
         <a href="sponsorship.html"
-          class="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-slate-900 transition">
+          class="px-7 py-3 border border-white/80 text-white rounded-lg font-semibold hover:bg-white hover:text-slate-900 shadow-md transition duration-300">
           View Agenda
         </a>
       </div>
 
-      <div class="mt-6 text-sm opacity-80 drop-shadow-sm">
-        📅 Date: December 2nd through 4th 2025 • 📍 Ibom Led, ( formerly) ibom E- Library) along IBB way, uyo Akwa Ibom
-        State , Nigeria | ⏰ 10:00 AM Daily
-
-
+      <!-- Updated Event Information -->
+      <div class="mt-8 text-sm sm:text-base opacity-90 drop-shadow-lg animate-fadeInUp delay-700">
+        📅 <strong>December 9th – 11th, 2025</strong> •
+        📍 Ibom Led (formerly Ibom E-Library), IBB Way, Uyo, Akwa Ibom State, Nigeria •
+        ⏰ <strong>10:00 AM Daily</strong>
       </div>
 
     </div>
   </section>
+
+
+
   <!-- 🏛️ About / Introduction Preview -->
   <section
     class="w-full py-20 bg-gradient-to-br from-green-50 via-white to-green-100 dark:from-gray-800 dark:via-gray-900 dark:to-darkgreen transition-colors duration-700">
@@ -741,12 +820,10 @@
 
 
   <!-- 🔔 Premium Animated Conference Popup -->
-<div id="autoPopup"
-  class="fixed inset-0 hidden items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] 
+  <div id="autoPopup" class="fixed inset-0 hidden items-center justify-center bg-black/40 backdrop-blur-sm z-[9999] 
          transition-all duration-500">
 
-<div id="popupCard"
-  class="w-full max-w-3xl mx-auto 
+    <div id="popupCard" class="w-full max-w-3xl mx-auto 
          px-4 sm:px-6 md:px-10 
          my-5 
          bg-white dark:bg-slate-900 
@@ -756,70 +833,80 @@
          relative transform scale-75 opacity-0
          transition-all duration-700 ease-out animate-premiumGlow
 
-         max-h-[90vh] overflow-y-auto md:max-h-none md:overflow-visible
-">
+         max-h-[90vh] overflow-y-auto md:max-h-full md:overflow-auto">
 
+      <!-- Close Button -->
+      <button id="closePopup"
+        class="absolute top-4 right-5 text-slate-700 dark:text-yellow-400 text-3xl font-bold hover:text-red-500 transition">
+        &times;
+      </button>
 
-
-    <!-- Close Button -->
-    <button id="closePopup"
-      class="absolute top-4 right-5 text-slate-700 dark:text-yellow-400 text-3xl font-bold hover:text-red-500 transition">
-      &times;
-    </button>
-
-    <!-- Header -->
-    <div class="flex flex-col items-center text-center mb-6 animate-slideUpSlow">
-      <div class="bg-green-700 dark:bg-yellow-400 text-white dark:text-slate-900 p-4 rounded-full mb-4 shadow-xl 
+      <!-- Header -->
+      <div class="flex flex-col items-center text-center mb-6 animate-slideUpSlow">
+        <div class="bg-green-700 dark:bg-yellow-400 text-white dark:text-slate-900 p-4 rounded-full mb-4 shadow-xl 
                   animate-floatingIcon">
-        📢
+          📢
+        </div>
+
+        <h3 class="text-3xl font-bold text-green-700 dark:text-yellow-400 drop-shadow-md">
+          Important Registration Notice
+        </h3>
       </div>
 
-      <h3 class="text-3xl font-bold text-green-700 dark:text-yellow-400 drop-shadow-md">
-        Important Conference Announcement
-      </h3>
-    </div>
+      <!-- Text Content -->
+      <div class="animate-slideUpSlow delay-150">
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-center text-lg mb-4">
+          <strong>Registration Closing Date:</strong><br>
+          <span class="text-green-700 dark:text-yellow-400 font-semibold text-xl">
+            Registration closes on <u>November 30th, 2025</u>.
+          </span><br><br>
 
-    <!-- Text Content -->
-    <div class="animate-slideUpSlow delay-150">
-      <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-center text-lg mb-4">
-        <strong>Accreditation & Registration Opens:</strong><br>
-        <span class="text-green-700 dark:text-yellow-400 font-semibold">
-          Monday, November 18th, 2025 — 10:00 AM to 4:00 PM Daily
-        </span><br><br>
+          <strong>Accreditation Opens:</strong><br>
+          Monday, November 18th — 10:00 AM to 4:00 PM Daily<br><br>
 
-        <strong>Venue:</strong><br>
-        Ibom LED Center (Former Ibom E-Library Complex),<br>
-        IBB Way, Uyo, Akwa Ibom State.<br><br>
+          <strong>Venue:</strong><br>
+          Ibom LED Center (Former Ibom E-Library),<br>
+          IBB Way, Uyo, Akwa Ibom State.<br><br>
 
-        <strong>For More Info:</strong><br>
-        <span class="text-green-700 dark:text-yellow-400">
-          0815 299 2219, 0815 298 9532
-        </span>
-      </p>
-    </div>
+          <strong>For More Info:</strong><br>
+          <span class="text-green-700 dark:text-yellow-400">
+            0815 299 2219, 0815 298 9532
+          </span>
+        </p>
+      </div>
 
-    <!-- Countdown -->
-    <div class="text-center mt-4 animate-slideUpSlow delay-300">
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        This message will close automatically in
-      </p>
-      <p id="countdownTimer"
-        class="text-4xl font-bold text-green-700 dark:text-yellow-400 mt-1 animate-pulse">
-        60s
-      </p>
-    </div>
+      <!-- Registration Deadline Countdown -->
+      <div id="deadlineWrapper" class="text-center mt-6 animate-slideUpSlow delay-300">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          Registration Ends In:
+        </p>
+        <p id="deadlineCountdown"
+          class="text-3xl font-extrabold tracking-wide text-green-700 dark:text-yellow-400 mt-1 animate-pulse">
+          --d : --h : --m : --s
+        </p>
+      </div>
 
-    <!-- Button -->
-    <div class="text-center mt-8 animate-slideUpSlow delay-500">
-      <button id="closePopupBtn"
-        class="px-8 py-3 bg-green-700 text-white dark:bg-yellow-400 dark:text-slate-900 rounded-xl 
+      <!-- Popup Auto-Close Countdown -->
+      <div class="text-center mt-6 animate-slideUpSlow delay-300">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+          This message will close automatically in
+        </p>
+        <p id="countdownTimer" class="text-4xl font-bold text-green-700 dark:text-yellow-400 mt-1 animate-pulse">
+          60s
+        </p>
+      </div>
+
+      <!-- Button -->
+      <div class="text-center mt-8 animate-slideUpSlow delay-500">
+        <button id="closePopupBtn" class="px-8 py-3 bg-green-700 text-white dark:bg-yellow-400 dark:text-slate-900 rounded-xl 
                hover:bg-green-800 dark:hover:bg-yellow-300 transition shadow-lg">
-        Okay, Got It
-      </button>
-    </div>
+          Okay, Got It
+        </button>
+      </div>
 
+    </div>
   </div>
-</div>
+
 
   <!-- FOOTER -->
   <footer class="bg-slate-900 text-slate-200 pb-10 ">
@@ -842,78 +929,89 @@
       </div>
       <div>
         <h4 class="font-semibold mb-2">Contact</h4>
-       <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br />08152992219 <br />08152989532  <br> AKWA-CROSS PROJECT MANAGEMENT CENTER: ROOM 106 FIRST FLOOR, FED, SECRETERIAT COMPLEX CALABAR ROAD, CALABAR CROSS RIVER STATE NIGERIA</p>
+        <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br />08152992219 <br />08152989532 <br> AKWA-CROSS
+          PROJECT MANAGEMENT CENTER: ROOM 106 FIRST FLOOR, FED, SECRETERIAT COMPLEX CALABAR ROAD, CALABAR CROSS RIVER
+          STATE NIGERIA</p>
       </div>
     </div>
     <div class="mt-8 text-center text-xs text-slate-400">© <span id="year"></span> SUDGEC. All rights reserved.</div>
   </footer>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<script>
-  const popup = document.getElementById("autoPopup");
-  const popupCard = document.getElementById("popupCard");
-  const closePopup = document.getElementById("closePopup");
-  const closePopupBtn = document.getElementById("closePopupBtn");
-  const countdownTimer = document.getElementById("countdownTimer");
-
-  let countdown;
-  let timeLeft = 60;
-
-  function showPopup() {
-    popup.classList.remove("hidden");
-
-    // Animate popup
-    setTimeout(() => {
-      popupCard.style.opacity = "1";
-      popupCard.style.transform = "scale(1)";
-    }, 50);
-
-    // Reset countdown
-    timeLeft = 60;
-    countdownTimer.textContent = timeLeft + "s";
-
-    // Start countdown
-    countdown = setInterval(() => {
-      timeLeft--;
-      countdownTimer.textContent = timeLeft + "s";
-      if (timeLeft <= 0) hidePopup();
-    }, 1000);
-  }
-
-  function hidePopup() {
-    popupCard.style.opacity = "0";
-    popupCard.style.transform = "scale(0.75)";
-
-    setTimeout(() => {
-      popup.classList.add("hidden");
-    }, 300);
-
-    clearInterval(countdown);
-  }
-
-  // Show every 1 minute (60000 ms)
-  setInterval(showPopup, 60000);
-
-  // First popup appears after 5 seconds
-  setTimeout(showPopup, 5000);
-
-  closePopup.addEventListener("click", hidePopup);
-  closePopupBtn.addEventListener("click", hidePopup);
-
-  // Optional: close when clicking outside popup
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) hidePopup();
-  });
-</script>
-
   <script>
-    AOS.init({
-      once: true,           // Animate only once
-      offset: 100,          // Start animation a bit before element enters view
-      duration: 800,        // Animation speed (ms)
-      easing: 'ease-in-out' // Smooth effect
-    });
+    const popup = document.getElementById("autoPopup");
+    const popupCard = document.getElementById("popupCard");
+    const closePopup = document.getElementById("closePopup");
+    const closePopupBtn = document.getElementById("closePopupBtn");
+    const countdownTimer = document.getElementById("countdownTimer");
+    const deadlineCountdown = document.getElementById("deadlineCountdown");
+    const deadlineWrapper = document.getElementById("deadlineWrapper");
 
+    let countdown;
+    let timeLeft = 60;
+
+    // Registration deadline: Nov 30, 2025 @ 11:59 PM
+    const registrationDeadline = new Date("2025-11-30T23:59:59");
+
+    function updateDeadlineCountdown() {
+      const now = new Date();
+      const diff = registrationDeadline - now;
+
+      if (diff <= 0) {
+        deadlineWrapper.style.display = "none"; // hide section on Nov 30
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      deadlineCountdown.textContent =
+        `${d}d : ${h}h : ${m}m : ${s}s`;
+    }
+
+    // Update every second
+    setInterval(updateDeadlineCountdown, 1000);
+
+    function showPopup() {
+      popup.classList.remove("hidden");
+
+      setTimeout(() => {
+        popupCard.style.opacity = "1";
+        popupCard.style.transform = "scale(1)";
+      }, 50);
+
+      timeLeft = 60;
+      countdownTimer.textContent = timeLeft + "s";
+
+      countdown = setInterval(() => {
+        timeLeft--;
+        countdownTimer.textContent = timeLeft + "s";
+        if (timeLeft <= 0) hidePopup();
+      }, 1000);
+    }
+
+    function hidePopup() {
+      popupCard.style.opacity = "0";
+      popupCard.style.transform = "scale(0.75)";
+
+      setTimeout(() => popup.classList.add("hidden"), 300);
+
+      clearInterval(countdown);
+    }
+
+    // Show every 1 minute (60,000 ms)
+    setInterval(showPopup, 60000);
+
+    // First popup appears after 5 seconds
+    setTimeout(showPopup, 5000);
+
+    closePopup.addEventListener("click", hidePopup);
+    closePopupBtn.addEventListener("click", hidePopup);
+
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) hidePopup();
+    });
   </script>
 
 
@@ -1043,47 +1141,65 @@
       refreshDesktopIcons();
       refreshMobileIcon();
 
-      // --- Countdown (to Dec 1, 2025 00:00 local) ---
+      // --- Countdown (to Dec 9, 2025 00:00 local) ---
       if (countdownEl) {
-        const target = new Date('2025-12-01T00:00:00');
-        function pad(n) { return n < 10 ? '0' + n : n; }
+        const target = new Date('2025-12-09T00:00:00');
+
+        function pad(n) {
+          return n < 10 ? '0' + n : n;
+        }
+
         function updateCountdown() {
           const now = new Date();
           const diff = target - now;
+
           if (diff <= 0) {
-            countdownEl.textContent = '🎉 SUDGEC 2025 is live!';
+            countdownEl.textContent = '🎉 SUDGEC 2025 has begun!';
             return;
           }
+
           const days = Math.floor(diff / (1000 * 60 * 60 * 24));
           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const secs = Math.floor((diff % (1000 * 60)) / 1000);
-          countdownEl.textContent = `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m: ${pad(secs)}s`;
+
+          countdownEl.textContent =
+            `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
         }
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-      }
-      // --- Countdown (to Dec 1, 2025 00:00 local) ---
-      if (countdownElMobile) {
-        const target = new Date('2025-12-01T00:00:00');
-        function pad(n) { return n < 10 ? '0' + n : n; }
-        function updateCountdown() {
-          const now = new Date();
-          const diff = target - now;
-          if (diff <= 0) {
-            countdownElMobile.textContent = '🎉 SUDGEC 2025 is live!';
-            return;
-          }
-          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          const secs = Math.floor((diff % (1000 * 60)) / 1000);
-          countdownElMobile.textContent = `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m: ${pad(secs)}s`;
-        }
+
         updateCountdown();
         setInterval(updateCountdown, 1000);
       }
 
+      // --- Countdown (to Dec 9, 2025 00:00 local) ---
+      if (countdownElMobile) {
+        const target = new Date('2025-12-09T00:00:00');
+
+        function pad(n) {
+          return n < 10 ? '0' + n : n;
+        }
+
+        function updateCountdown() {
+          const now = new Date();
+          const diff = target - now;
+
+          if (diff <= 0) {
+            countdownElMobile.textContent = '🎉 SUDGEC 2025 has begun!';
+            return;
+          }
+
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+          countdownElMobile.textContent =
+            `${pad(days)}d Left: ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
       // If user clears system preference while on page, optionally sync (only when user hasn't explicitly set theme)
       try {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {

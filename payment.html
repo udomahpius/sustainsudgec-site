@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,8 +32,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* 🌟 Card Container */
@@ -40,6 +48,7 @@
       background: linear-gradient(to bottom right, #ffffffee, #f6fff7ee);
       transition: all 0.3s ease;
     }
+
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 28px rgba(0, 100, 50, 0.2);
@@ -50,6 +59,7 @@
       transition: all 0.3s ease;
       padding-left: 2.5rem;
     }
+
     .form-input:focus {
       border-color: #047857;
       box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.2);
@@ -68,9 +78,17 @@
     .pulse:hover {
       animation: pulse 0.5s ease-in-out;
     }
+
     @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
     }
 
     .loader {
@@ -82,9 +100,15 @@
       animation: spin 1s linear infinite;
       margin: auto;
     }
+
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .title-line {
@@ -115,8 +139,7 @@
     class="card w-full max-w-md rounded-3xl shadow-2xl p-8 text-center space-y-6 backdrop-blur-md border border-green-100">
 
     <div class="flex justify-center mb-2">
-      <img src="/assets/img/logo.BpdcY0v0.png"
-           alt="SUDGEC Logo" class="w-16 h-16 rounded-lg shadow-md" />
+      <img src="/assets/img/logo.BpdcY0v0.png" alt="SUDGEC Logo" class="w-16 h-16 rounded-lg shadow-md" />
     </div>
 
     <h2 class="text-3xl font-extrabold text-green-800">SUDGEC 2025 Payment</h2>
@@ -151,7 +174,8 @@
       <!-- 💬 Info Note -->
       <div id="paymentNote" class="hidden notice">
         <strong>Notice for International Delegates:</strong><br>
-        Due to transaction limits, payments above <strong>$1,000</strong> must be made in three installments ($1,000 each).<br>
+        Due to transaction limits, payments above <strong>$1,000</strong> must be made in three installments ($1,000
+        each).<br>
         Please complete all three payments to confirm your registration.
       </div>
     </div>
@@ -172,16 +196,16 @@
     class="hidden card w-full max-w-md rounded-3xl shadow-2xl p-8 text-center space-y-5 border border-green-100 backdrop-blur-md">
     <div class="flex justify-center">
       <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center animate-bounce">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" d="M5 13l4 4L19 7" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-700" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
         </svg>
       </div>
     </div>
 
     <h2 class="text-2xl font-extrabold text-green-800">Payment Successful!</h2>
-    <p class="text-gray-700 text-sm">Thank you for registering for <span class="font-semibold text-green-700">SUDGEC 2025</span>.</p>
+    <p class="text-gray-700 text-sm">Thank you for registering for <span class="font-semibold text-green-700">SUDGEC
+        2025</span>.</p>
 
     <div id="receiptDetails"
       class="text-left bg-green-50 border border-green-200 rounded-md p-5 text-sm text-gray-700 leading-6"></div>
@@ -191,8 +215,7 @@
       Download Receipt
     </button>
 
-    <a href="index.html"
-      class="block mt-3 text-sm text-green-700 underline hover:text-green-900 transition">
+    <a href="index.html" class="block mt-3 text-sm text-green-700 underline hover:text-green-900 transition">
       Return to Home
     </a>
   </main>
@@ -287,4 +310,5 @@
     });
   </script>
 </body>
+
 </html>

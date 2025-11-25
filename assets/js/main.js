@@ -39,22 +39,39 @@
   darkToggleMobile?.addEventListener("click", toggleDarkMode);
   refreshIcons();
 
-  const target = new Date("2025-12-01T00:00:00");
-  const pad = (n) => (n < 10 ? "0" + n : n);
-  const updateCountdown = (el) => {
-    const diff = target - new Date();
-    if (diff <= 0) return (el.textContent = "🎉 SUDGEC 2025 is live!");
-    const days = Math.floor(diff / 86400000),
-      hours = Math.floor((diff / 3600000) % 24),
-      mins = Math.floor((diff / 60000) % 60),
-      secs = Math.floor((diff / 1000) % 60);
-    el.textContent = `${pad(days)}d : ${pad(hours)}h : ${pad(mins)}m : ${pad(
-      secs
-    )}s`;
-  };
-  if (countdownEl) setInterval(() => updateCountdown(countdownEl), 1000);
-  if (countdownElMobile)
-    setInterval(() => updateCountdown(countdownElMobile), 1000);
+ // --- Global Countdown Target (Dec 9, 2025, 00:00 local) ---
+const target = new Date("2025-12-09T00:00:00");
+
+// --- Helper to pad numbers ---
+const pad = (n) => (n < 10 ? "0" + n : n);
+
+// --- Main countdown updater ---
+const updateCountdown = (el) => {
+  const now = new Date();
+  const diff = target - now;
+
+  // If event is live
+  if (diff <= 0) {
+    el.textContent = "🎉 SUDGEC 2025 is live!";
+    return;
+  }
+
+  // Time calculations
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+
+  // Output
+  el.textContent = `${pad(days)}d : ${pad(hours)}h : ${pad(mins)}m : ${pad(
+    secs
+  )}s`;
+};
+
+// --- Continuous Updates ---
+if (countdownEl) setInterval(() => updateCountdown(countdownEl), 1000);
+if (countdownElMobile) setInterval(() => updateCountdown(countdownElMobile), 1000);
+
 
   document.getElementById("mobileToggle")?.addEventListener("click", () => {
     document.getElementById("mobileNav").classList.toggle("hidden");
