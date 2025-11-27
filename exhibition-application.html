@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUDGEC 2025 • Business Exhibition Application</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS Animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Flutterwave -->
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+  <style>
+    body {
+      background: url('/assets/img/ex-1.jpg') center/cover no-repeat fixed;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.65));
+    }
+
+    input, textarea, select {
+      transition: 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #0a3d07;
+      box-shadow: 0 0 8px #0a3d07aa;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body class="text-slate-100">
+
+<!-- MAIN BG OVERLAY -->
+<div class="overlay min-h-screen pb-10">
+
+  <!-- HEADER -->
+  <header class="py-10 text-center  rounded-xl shadow-md backdrop-blur-sm transform transition hover:-translate-y-1 hover:shadow-lg p-10" data-aos="fade-down">
+    <img src="/assets/img/logo.BpdcY0v0.png" class="w-24 mx-auto mb-4 drop-shadow-xl" />
+    <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg ">
+      SUDGEC 2025 • Business Exhibition Application
+    </h1>
+    <p class="opacity-90 text-green-200">
+      Sustainable Development Goals Evaluation Conference & Awards  
+    </p>
+
+    <p class="text-sm mt-1 opacity-80 text-gray-200">
+      📅 December <b>9th – 11th</b>, 2025  
+      • 📍 Ibom Led (formerly Ibom E-Library), Uyo, Nigeria  
+    </p>
+
+    <p class="text-xs mt-2 text-red-300 font-semibold animate-pulse">
+      Registration closes November 30th, 2025 ⚠️
+    </p>
+  </header>
+
+  <!-- FORM WRAPPER -->
+  <div class="max-w-4xl mx-auto bg-white/90 backdrop-blur-md shadow-2xl mt-10 p-10 rounded-2xl border border-green-200"
+       data-aos="fade-up">
+        <div class="block  mb-3">
+      <img src="/assets/img/ex-3.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center">
+    </div>
+
+    <h2 class="text-3xl font-bold text-[#0a3d07] mb-8"> Applicant Information</h2>
+
+    <form id="exhibitionForm" class="space-y-6">
+
+      <div>
+        <label class="font-semibold text-gray-800">Organization / Company Name</label>
+        <input name="company_name" required class="w-full px-4 py-2 border rounded-lg text-gray-800">
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-semibold text-gray-800">Contact Person</label>
+          <input name="contact_person" required class="w-full px-4 py-2 border rounded-lg text-gray-800">
+        </div>
+        <div>
+          <label class="font-semibold text-gray-800">Position / Title</label>
+          <input name="position" class="w-full px-4 py-2 border rounded-lg text-gray-800">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="font-semibold text-gray-800">Phone Number</label>
+          <input name="phone" required class="w-full px-4 py-2 border rounded-lg text-gray-800">
+        </div>
+        <div>
+          <label class="font-semibold text-gray-800">Email Address</label>
+          <input name="email" type="email" required class="w-full px-4 py-2 border rounded-lg text-gray-800">
+        </div>
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-800">Website</label>
+        <input name="website" class="w-full px-4 py-2 border rounded-lg text-gray-800">
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-800">Postal Address</label>
+        <textarea name="address" class="w-full px-4 py-2 border rounded-lg text-gray-800"></textarea>
+      </div>
+
+      <h2 class="text-3xl font-bold text-[#0a3d07] mt-10">🌐 Exhibition Details</h2>
+
+      <div>
+        <label class="font-semibold text-gray-800">Type of Organization</label>
+        <select name="org_type" class="w-full px-4 py-2 border rounded-lg text-gray-800">
+          <option>NGO</option>
+          <option>Corporate</option>
+          <option>Startup</option>
+          <option>Government Agency</option>
+          <option>Academic Institution</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-800">Focus Area (related to SDGs)</label>
+        <select name="focus_area" class="w-full px-4 py-2 border rounded-lg text-gray-800">
+          <option>Climate Action</option>
+          <option>Clean Energy</option>
+          <option>Health & Well-being</option>
+          <option>Education</option>
+          <option>Gender Equality</option>
+          <option>Innovation & Infrastructure</option>
+          <option>Responsible Consumption</option>
+          <option>Partnerships</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-800">Products / Services to Exhibit</label>
+        <textarea name="products" class="w-full px-4 py-2 border rounded-lg text-gray-800"></textarea>
+      </div>
+
+      <div>
+        <label class="font-semibold text-gray-800">Booth Size</label>
+        <select name="booth" class="w-full px-4 py-2 border rounded-lg text-gray-800">
+          <option>Standard (3m x 3m)</option>
+          <option>Medium (6m x 3m)</option>
+          <option>Large (Custom)</option>
+        </select>
+      </div>
+
+      <!-- Payment -->
+      <h2 class="text-3xl font-bold text-[#0a3d07] mt-10">💳 Payment</h2>
+
+      <div>
+        <label class="font-semibold text-gray-800">Select Payment Category</label>
+        <select name="fee" id="feeSelect" class="w-full px-4 py-2 border rounded-lg text-gray-800" required>
+          <optgroup label="International Exhibitors">
+            <option value="10">Application Form – $10</option>
+          </optgroup>
+          <optgroup label="Nigerian Exhibitors">
+            <option value="5000">Application Form – ₦5,000</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <button type="button"
+        onclick="payNow()"
+        class="mt-6 w-full py-3 bg-[#0a3d07] text-white font-semibold rounded-lg shadow-lg hover:bg-green-900 transition transform hover:scale-[1.02] active:scale-95">
+        Proceed to Payment
+      </button>
+
+    </form>
+  </div>
+
+</div>
+
+<script>
+AOS.init({ duration: 1200 });
+
+function payNow() {
+
+  const form = document.getElementById("exhibitionForm");
+  const data = Object.fromEntries(new FormData(form).entries());
+  let amount = document.getElementById("feeSelect").value;
+
+  FlutterwaveCheckout({
+    public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X",
+    tx_ref: "SUDGECEXPO_" + Date.now(),
+    amount: amount,
+    currency: amount > 20 ? "NGN" : "USD",
+    customer: {
+      email: data.email,
+      phone_number: data.phone,
+      name: data.contact_person
+    },
+    callback: function (response) {
+      fetch("save-exhibition.php", {
+        method: "POST",
+        body: JSON.stringify({ ...data, payment: response }),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.text())
+      .then(msg => alert("Registration Successful!\n" + msg));
+    },
+    customizations: {
+      title: "SUDGEC 2025 Exhibition Registration",
+      description: "Business Exhibition Application Payment",
+      logo: "/assets/img/logo.png"
+    }
+  });
+}
+</script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+</body>
+</html>

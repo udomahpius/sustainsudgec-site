@@ -384,6 +384,56 @@
 
     </div>
   </section>
+ 
+
+
+  <section class="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center gap-12">
+
+    <!-- TEXT BLOCK -->
+    <div class="lg:w-1/2">
+      <h2 class="text-4xl font-extrabold text-green-800 dark:text-green-400 leading-tight mb-4">
+        Showcase Your Innovations at <br>
+        <span class="text-green-600 dark:text-green-300">SUDGEC 2025 Exhibition</span>
+      </h2>
+
+      <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
+        Calling all organizations, startups, NGOs, entrepreneurs, and innovators!  
+        Secure your exhibition booth at <strong>SUDGEC 2025</strong> and present your solutions to 
+        policymakers, investors, development partners, and over 2,000 attendees.
+      </p>
+
+      <ul class="text-gray-700 dark:text-gray-300 mb-6 space-y-2">
+        <li>✔ Present your products & services to a wide global audience</li>
+        <li>✔ Connect with government agencies & development organizations</li>
+        <li>✔ Network with investors and partners</li>
+        <li>✔ Boost brand visibility and impact</li>
+      </ul>
+
+      <a href="/exhibition-application.html"
+        class="inline-block bg-green-700 hover:bg-green-800
+               dark:bg-green-600 dark:hover:bg-green-500
+               transition text-white font-semibold px-8 py-4 rounded-lg shadow-lg">
+        Apply for Exhibition Slot
+      </a>
+    </div>
+
+    <!-- IMAGE BLOCK -->
+    <div class="lg:w-1/2">
+      <div class="overflow-hidden rounded-xl shadow-xl dark:shadow-green-900/30">
+        <img
+          src="/assets/img/ex-2.jpg"
+          alt="Exhibition Booth"
+          class="w-full h-[380px] object-cover transform hover:scale-105 transition duration-500 
+                 dark:brightness-75 dark:contrast-110"
+        >
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
   <!-- 🌱 Mission Highlight Section (Animated) -->
   <section class="relative py-20 bg-gradient-to-r from-green-50 via-green-100 to-white 
          dark:from-green-950 dark:via-green-900 dark:to-slate-900 transition-all duration-700">
@@ -858,7 +908,7 @@
         <p class="text-slate-700 dark:text-slate-300 leading-relaxed text-center text-lg mb-4">
           <strong>Registration Closing Date:</strong><br>
           <span class="text-green-700 dark:text-yellow-400 font-semibold text-xl">
-            Registration closes on <u>November 30th, 2025</u>.
+            Registration closes on <u>December 8th, 2025</u>.
           </span><br><br>
 
           <strong>Accreditation Opens:</strong><br>
@@ -949,8 +999,8 @@
     let countdown;
     let timeLeft = 60;
 
-    // Registration deadline: Nov 30, 2025 @ 11:59 PM
-    const registrationDeadline = new Date("2025-11-30T23:59:59");
+        // Registration closes on Dec 08, 2025 at 4PM
+    const registrationDeadline = new Date("2025-12-08T23:59:59");
 
     function updateDeadlineCountdown() {
       const now = new Date();

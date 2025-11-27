@@ -10,13 +10,29 @@
 </head>
 <!-- Optional Animations -->
 <style>
-@keyframes slideUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-slideUp { animation: slideUp 0.8s ease-out forwards; }
-.animate-slideUp.delay-150 { animation-delay: 0.15s; }
-.animate-slideUp.delay-300 { animation-delay: 0.3s; }
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-slideUp.delay-150 {
+    animation-delay: 0.15s;
+  }
+
+  .animate-slideUp.delay-300 {
+    animation-delay: 0.3s;
+  }
 </style>
 
 <body
@@ -28,35 +44,37 @@
   <!-- Registration Form -->
   <main id="formSection"
     class="relative z-10 w-full max-w-3xl bg-white/95 rounded-3xl shadow-2xl p-10 space-y-8 backdrop-blur-md">
-   <div class="text-center bg-green-50/50 dark:bg-slate-900/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg max-w-3xl mx-auto mt-8 border border-green-700/30 dark:border-yellow-400/30">
-  
-  <!-- Logo -->
-  <img src="/assets/img/logo.BpdcY0v0.png" 
-       alt="SUDGEC Logo" 
-       class="w-24 h-24 mx-auto mb-4 rounded-full shadow-md animate-bounce" />
+    <div
+      class="text-center bg-green-50/50 dark:bg-slate-900/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg max-w-3xl mx-auto mt-8 border border-green-700/30 dark:border-yellow-400/30">
 
-  <!-- Title -->
-  <h1 class="text-3xl sm:text-4xl font-extrabold text-green-800 dark:text-yellow-400 drop-shadow-lg mb-2 animate-slideUp">
-    SUDGEC 2025 Participant Registration
-  </h1>
+      <!-- Logo -->
+      <img src="/assets/img/logo.BpdcY0v0.png" alt="SUDGEC Logo"
+        class="w-24 h-24 mx-auto mb-4 rounded-full shadow-md animate-bounce" />
 
-  <!-- Subtitle / Info -->
-  <p class="text-slate-600 dark:text-slate-300 mt-2 text-lg leading-relaxed animate-slideUp delay-150">
-    Sustainable Development Goals Evaluation Conference
-    <br>
-    <span class="text-sm text-slate-500 dark:text-slate-400 block mt-1">
-      📅 Date: December 9th - 11th, 2025 • 📍 Ibom LED (formerly Ibom e-Library), IBB Way, Uyo, Akwa Ibom State, Nigeria | ⏰ 10:00 AM Daily
-    </span>
-  </p>
+      <!-- Title -->
+      <h1
+        class="text-3xl sm:text-4xl font-extrabold text-green-800 dark:text-yellow-400 drop-shadow-lg mb-2 animate-slideUp">
+        SUDGEC 2025 Participant Registration
+      </h1>
 
-  <!-- Call to Action -->
-  <div class="mt-6 animate-slideUp delay-300">
-    <a href="register.html#registerForm" 
-       class="inline-block px-6 py-3 bg-green-700 dark:bg-yellow-400 text-white dark:text-slate-900 font-semibold rounded-xl shadow-lg hover:bg-green-800 dark:hover:bg-yellow-300 transition transform hover:scale-105">
-       Register Now
-    </a>
-  </div>
-</div>
+      <!-- Subtitle / Info -->
+      <p class="text-slate-600 dark:text-slate-300 mt-2 text-lg leading-relaxed animate-slideUp delay-150">
+        Sustainable Development Goals Evaluation Conference
+        <br>
+        <span class="text-sm text-slate-500 dark:text-slate-400 block mt-1">
+          📅 Date: December 9th - 11th, 2025 • 📍 Ibom LED (formerly Ibom e-Library), IBB Way, Uyo, Akwa Ibom State,
+          Nigeria | ⏰ 10:00 AM Daily
+        </span>
+      </p>
+
+      <!-- Call to Action -->
+      <div class="mt-6 animate-slideUp delay-300">
+        <a href="register.html#registerForm"
+          class="inline-block px-6 py-3 bg-green-700 dark:bg-yellow-400 text-white dark:text-slate-900 font-semibold rounded-xl shadow-lg hover:bg-green-800 dark:hover:bg-yellow-300 transition transform hover:scale-105">
+          Register Now
+        </a>
+      </div>
+    </div>
 
 
 
