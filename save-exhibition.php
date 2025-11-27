@@ -1,7 +1,10 @@
 <?php
-header("Content-Type: application/json");
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php-errors.log');
 error_reporting(E_ALL);
+header("Content-Type: application/json");
+
 
 // DB connection
 $mysqli = new mysqli("localhost", "u968639263_SUDGEC", "MaLaChy@2000#", "u968639263_SUDGEC");
