@@ -1,78 +1,95 @@
 <?php
 header("Content-Type: application/json");
-
-// Read JSON input
 $data = json_decode(file_get_contents("php://input"), true);
 
-// DB Connection
+// DB connection
 $mysqli = new mysqli("localhost", "DB_USER", "DB_PASS", "u968639263_SUDGEC");
-
 if ($mysqli->connect_errno) {
     echo json_encode(["status" => "error", "message" => $mysqli->connect_error]);
     exit;
 }
 
-// Extract payment returned by Flutterwave
-$payment = $data["payment"];
+// Extract payment info (may be null)
+$payment = $data["payment"] ?? [];
 $transaction_id = $payment["transaction_id"] ?? $payment["tx_ref"] ?? null;
-$payment_status = $payment["status"] ?? "successful";
+$payment_status = $payment["status"] ?? "pending";
 
-// Determine payment amount & category
-$fee_category = "";
-$amount_value = floatval($data["fee"]);
+// Fee and category
+$amount_value = isset($data["fee"]) ? floatval($data["fee"]) : 0;
+$fee_category = $amount_value <= 20 ? "International Exhibitor (USD)" : "Nigerian Exhibitor (NGN)";
 
-if ($amount_value <= 20) {
-    $fee_category = "International Exhibitor (USD)";
-} else {
-    $fee_category = "Nigerian Exhibitor (NGN)";
+// Optional fields
+$position = $data["position"] ?? null;
+$website = $data["website"] ?? null;
+$org_type = $data["org_type"] ?? null;
+$focus_area = $data["focus_area"] ?? null;
+$products = $data["products"] ?? null;
+$booth = $data["booth"] ?? null;
+$signature = $data["contact_person"] ?? null;
+$agreed_terms = 1;
+$agreed_disclaimer = 1;
+
+// Check if updating existing record
+if (!empty($data["record_id"])) {
+    $stmt = $mysqli->prepare("
+        UPDATE exhibition_applicants SET 
+            payment_status=?, 
+            transaction_id=?, 
+            amount=?, 
+            fee_category=?
+        WHERE id=?
+    ");
+    $stmt->bind_param(
+        "ssdsi",
+        $payment_status,
+        $transaction_id,
+        $amount_value,
+        $fee_category,
+        $data["record_id"]
+    );
+    $stmt->execute();
+    $stmt->close();
+
+    echo json_encode(["status"=>"success","message"=>"Payment info updated"]);
+    exit;
 }
 
-// Prepare SQL for exhibition_applicants
+// New form submission
 $stmt = $mysqli->prepare("
     INSERT INTO exhibition_applicants (
         organization_name, contact_person, position_title, phone, email,
         website, postal_address, organization_type, focus_area, products_services,
         booth_size, fee_category, amount, payment_status, transaction_id,
         payment_option, agreed_terms, agreed_disclaimer, signature
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
-
-// Bind values
 $stmt->bind_param(
-    "sssssssssssssssssss",
-    $data["company_name"],         // organization_name
-    $data["contact_person"],       // contact_person
-    $data["position"],             // position_title
-    $data["phone"],                // phone
-    $data["email"],                // email
-    $data["website"],              // website
-    $data["address"],              // postal_address
-    $data["org_type"],             // organization_type
-    $data["focus_area"],           // focus_area
-    $data["products"],             // products_services
-    $data["booth"],                // booth_size
-    $fee_category,                 // fee_category
-    $amount_value,                 // amount
-    $payment_status,               // payment_status
-    $transaction_id,               // transaction_id
-    "Flutterwave",                 // payment_option
-    1,                             // agreed_terms
-    1,                             // agreed_disclaimer
-    $data["contact_person"]        // signature (placeholder)
+    "sssssssssssdsssisiss",
+    $data["company_name"],
+    $data["contact_person"],
+    $position,
+    $data["phone"],
+    $data["email"],
+    $website,
+    $data["address"],
+    $org_type,
+    $focus_area,
+    $products,
+    $booth,
+    $fee_category,
+    $amount_value,
+    $payment_status,
+    $transaction_id,
+    "Flutterwave",
+    $agreed_terms,
+    $agreed_disclaimer,
+    $signature
 );
 
-// Execute and return result
-if ($stmt->execute()) {
-    echo json_encode([
-        "status" => "success",
-        "message" => "Application saved successfully!"
-    ]);
+if($stmt->execute()){
+    echo json_encode(["status"=>"success","message"=>"Application saved successfully!","record_id"=>$stmt->insert_id]);
 } else {
-    echo json_encode([
-        "status" => "error",
-        "message" => $stmt->error
-    ]);
+    echo json_encode(["status"=>"error","message"=>$stmt->error]);
 }
 
 $stmt->close();

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SUDGEC 2025 • Business Exhibition Application</title>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- AOS Animations -->
@@ -15,20 +15,20 @@
   <!-- Flutterwave -->
   <script src="https://checkout.flutterwave.com/v3.js"></script>
 
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
     body {
       background: url('/assets/img/ex-1.jpg') center/cover no-repeat fixed;
       overflow-x: hidden;
     }
-
     .overlay {
       background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.65));
     }
-
     input, textarea, select {
       transition: 0.3s ease;
     }
-
     input:focus, textarea:focus, select:focus {
       border-color: #0a3d07;
       box-shadow: 0 0 8px #0a3d07aa;
@@ -37,36 +37,33 @@
   </style>
 </head>
 
-<body class="text-slate-100">
+<body class="text-slate-100 dark:text-slate-200">
 
-<!-- MAIN BG OVERLAY -->
 <div class="overlay min-h-screen pb-10">
 
   <!-- HEADER -->
-  <header class="py-10 text-center  rounded-xl shadow-md backdrop-blur-sm transform transition hover:-translate-y-1 hover:shadow-lg p-10" data-aos="fade-down">
+  <header class="py-10 text-center rounded-xl shadow-md backdrop-blur-sm transform transition hover:-translate-y-1 hover:shadow-lg p-10" data-aos="fade-down">
     <img src="/assets/img/logo.BpdcY0v0.png" class="w-24 mx-auto mb-4 drop-shadow-xl" />
-    <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg ">
+    <h1 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg">
       SUDGEC 2025 • Business Exhibition Application
     </h1>
     <p class="opacity-90 text-green-200">
-      Sustainable Development Goals Evaluation Conference & Awards  
+      Sustainable Development Goals Evaluation Conference & Awards
     </p>
-
     <p class="text-sm mt-1 opacity-80 text-gray-200">
-      📅 December <b>9th – 11th</b>, 2025  
-      • 📍 Ibom Led (formerly Ibom E-Library), Uyo, Nigeria  
+      📅 December <b>9th – 11th</b>, 2025 • 📍 Ibom Led (formerly Ibom E-Library), Uyo, Nigeria
     </p>
-
     <p class="text-xs mt-2 text-red-300 font-semibold animate-pulse">
       Registration closes November 30th, 2025 ⚠️
     </p>
   </header>
 
   <!-- FORM WRAPPER -->
-  <div class="max-w-4xl mx-auto bg-white/90 backdrop-blur-md shadow-2xl mt-10 p-10 rounded-2xl border border-green-200"
-       data-aos="fade-up">
-        <div class="block  mb-3">
-      <img src="/assets/img/ex-3.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center">
+  <div id="formWrapper" class="max-w-4xl mx-auto bg-white/90 backdrop-blur-md shadow-2xl mt-10 p-10 rounded-2xl border border-green-200" data-aos="fade-up">
+
+    <!-- Banner Image -->
+    <div class="block mb-3">
+      <img src="/assets/img/ex-3.png" alt="SUDGEC Conference" class="w-full h-auto object-cover object-center rounded-lg">
     </div>
 
     <h2 class="text-3xl font-bold text-[#0a3d07] mb-8"> Applicant Information</h2>
@@ -152,69 +149,142 @@
         </select>
       </div>
 
-      <!-- Payment -->
-      <h2 class="text-3xl font-bold text-[#0a3d07] mt-10">💳 Payment</h2>
+      <!-- Payment Section -->
+      <div id="paymentSection" class="mt-10 hidden">
+        <h2 class="text-3xl font-bold text-[#0a3d07] mb-4">💳 Payment</h2>
+        <p class="mb-4 text-gray-700 dark:text-gray-300">Your registration was successful! Please proceed to payment.</p>
 
-      <div>
-        <label class="font-semibold text-gray-800">Select Payment Category</label>
-        <select name="fee" id="feeSelect" class="w-full px-4 py-2 border rounded-lg text-gray-800" required>
-          <optgroup label="International Exhibitors">
-            <option value="10">Application Form – $10</option>
-          </optgroup>
-          <optgroup label="Nigerian Exhibitors">
-            <option value="5000">Application Form – ₦5,000</option>
-          </optgroup>
-        </select>
+        <div>
+          <label class="font-semibold text-gray-800">Select Payment Category</label>
+          <select name="fee" id="feeSelect" class="w-full px-4 py-2 border rounded-lg text-gray-800" required>
+            <optgroup label="International Exhibitors">
+              <option value="10">Application Form – $10</option>
+            </optgroup>
+            <optgroup label="Nigerian Exhibitors">
+              <option value="5000">Application Form – ₦5,000</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <button type="button" onclick="payNow()" class="mt-6 w-full py-3 bg-[#0a3d07] text-white font-semibold rounded-lg shadow-lg hover:bg-green-900 transition transform hover:scale-[1.02] active:scale-95">
+          Proceed to Payment
+        </button>
       </div>
 
-      <button type="button"
-        onclick="payNow()"
-        class="mt-6 w-full py-3 bg-[#0a3d07] text-white font-semibold rounded-lg shadow-lg hover:bg-green-900 transition transform hover:scale-[1.02] active:scale-95">
-        Proceed to Payment
+      <!-- Submit Form Button -->
+      <button type="submit" id="submitBtn" class="mt-6 w-full py-3 bg-green-700 text-white font-semibold rounded-lg shadow hover:bg-green-800 transition transform hover:scale-[1.02] active:scale-95">
+        Submit Form
       </button>
 
     </form>
   </div>
-
 </div>
 
 <script>
-AOS.init({ duration: 1200 });
+  AOS.init({ duration: 1200 });
+
+const form = document.getElementById("exhibitionForm");
+const paymentSection = document.getElementById("paymentSection");
+const submitBtn = document.getElementById("submitBtn");
+
+let recordId = null; // store record ID after form submission
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    fetch("save-exhibition.php", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(response => {
+        if(response.status === "success"){
+            alert("Form submitted successfully!");
+            submitBtn.textContent = "Submitted ✅";
+            submitBtn.classList.add("bg-gray-400");
+            paymentSection.classList.remove("hidden");
+            window.scrollTo({ top: paymentSection.offsetTop - 50, behavior: "smooth" });
+            recordId = response.record_id; // save record ID
+        } else {
+            throw new Error(response.message);
+        }
+    })
+    .catch(err => {
+        alert("Error submitting form: " + err.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Form";
+        console.error(err);
+    });
+});
 
 function payNow() {
+    if(!recordId) return alert("Please submit the form first!");
 
-  const form = document.getElementById("exhibitionForm");
-  const data = Object.fromEntries(new FormData(form).entries());
-  let amount = document.getElementById("feeSelect").value;
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.record_id = recordId; // attach record ID for update
+    let amount = document.getElementById("feeSelect").value;
 
-  FlutterwaveCheckout({
-    public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X",
-    tx_ref: "SUDGECEXPO_" + Date.now(),
-    amount: amount,
-    currency: amount > 20 ? "NGN" : "USD",
-    customer: {
-      email: data.email,
-      phone_number: data.phone,
-      name: data.contact_person
-    },
-    callback: function (response) {
-      fetch("save-exhibition.php", {
-        method: "POST",
-        body: JSON.stringify({ ...data, payment: response }),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => res.text())
-      .then(msg => alert("Registration Successful!\n" + msg));
-    },
-    customizations: {
-      title: "SUDGEC 2025 Exhibition Registration",
-      description: "Business Exhibition Application Payment",
-      logo: "/assets/img/logo.png"
-    }
-  });
+    FlutterwaveCheckout({
+        public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X",
+        tx_ref: "SUDGECEXPO_" + Date.now(),
+        amount: amount,
+        currency: amount > 20 ? "NGN" : "USD",
+        customer: {
+            email: data.email,
+            phone_number: data.phone,
+            name: data.contact_person
+        },
+        callback: function (response) {
+            // Update record with payment info
+            fetch("save-exhibition.php", {
+                method: "POST",
+                body: JSON.stringify({ ...data, payment: response }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(res => res.json())
+            .then(msg => {
+                if(msg.status === "success") {
+                    alert("Payment Successful!");
+                    generatePDFReceipt(data, response);
+                } else {
+                    alert("Payment update failed: " + msg.message);
+                }
+            });
+        },
+        customizations: {
+            title: "SUDGEC 2025 Exhibition Registration",
+            description: "Business Exhibition Application Payment",
+            logo: "/assets/img/logo.png"
+        }
+    });
 }
-</script>
 
+// PDF Generation
+function generatePDFReceipt(formData, paymentData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("SUDGEC 2025 • Business Exhibition Receipt", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Name: ${formData.contact_person}`, 20, 40);
+    doc.text(`Organization: ${formData.company_name}`, 20, 50);
+    doc.text(`Email: ${formData.email}`, 20, 60);
+    doc.text(`Phone: ${formData.phone}`, 20, 70);
+    doc.text(`Booth Size: ${formData.booth}`, 20, 80);
+    doc.text(`Payment Amount: ${paymentData.amount} ${paymentData.currency}`, 20, 90);
+    doc.text(`Transaction ID: ${paymentData.transaction_id}`, 20, 100);
+    doc.text(`Date: ${new Date().toLocaleString()}`, 20, 110);
+
+    doc.save(`SUDGEC_Receipt_${formData.contact_person}.pdf`);
+}
+
+</script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 </body>
