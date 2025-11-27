@@ -1,15 +1,24 @@
 <?php
 header("Content-Type: application/json");
-$data = json_decode(file_get_contents("php://input"), true);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // DB connection
-$mysqli = new mysqli("localhost", "DB_USER", "DB_PASS", "u968639263_SUDGEC");
+$mysqli = new mysqli("localhost", "u968639263_SUDGEC", "MaLaChy@2000#", "u968639263_SUDGEC");
 if ($mysqli->connect_errno) {
-    echo json_encode(["status" => "error", "message" => $mysqli->connect_error]);
+    echo json_encode(["status" => "error", "message" => "Database connection failed: " . $mysqli->connect_error]);
     exit;
 }
 
-// Extract payment info (may be null)
+// Read input
+$rawInput = file_get_contents("php://input");
+$data = json_decode($rawInput, true);
+if (!$data) {
+    echo json_encode(["status"=>"error","message"=>"Invalid or empty JSON input", "raw"=>$rawInput]);
+    exit;
+}
+
+// Extract payment info
 $payment = $data["payment"] ?? [];
 $transaction_id = $payment["transaction_id"] ?? $payment["tx_ref"] ?? null;
 $payment_status = $payment["status"] ?? "pending";
@@ -29,7 +38,7 @@ $signature = $data["contact_person"] ?? null;
 $agreed_terms = 1;
 $agreed_disclaimer = 1;
 
-// Check if updating existing record
+// Updating existing record (payment update)
 if (!empty($data["record_id"])) {
     $stmt = $mysqli->prepare("
         UPDATE exhibition_applicants SET 
@@ -39,18 +48,19 @@ if (!empty($data["record_id"])) {
             fee_category=?
         WHERE id=?
     ");
-    $stmt->bind_param(
-        "ssdsi",
-        $payment_status,
-        $transaction_id,
-        $amount_value,
-        $fee_category,
-        $data["record_id"]
-    );
-    $stmt->execute();
-    $stmt->close();
+    if (!$stmt) {
+        echo json_encode(["status"=>"error","message"=>"Prepare failed: " . $mysqli->error]);
+        exit;
+    }
 
-    echo json_encode(["status"=>"success","message"=>"Payment info updated"]);
+    $stmt->bind_param("ssdsi", $payment_status, $transaction_id, $amount_value, $fee_category, $data["record_id"]);
+    if($stmt->execute()) {
+        echo json_encode(["status"=>"success","message"=>"Payment info updated"]);
+    } else {
+        echo json_encode(["status"=>"error","message"=>"Update failed: " . $stmt->error]);
+    }
+    $stmt->close();
+    $mysqli->close();
     exit;
 }
 
@@ -63,8 +73,13 @@ $stmt = $mysqli->prepare("
         payment_option, agreed_terms, agreed_disclaimer, signature
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
+if (!$stmt) {
+    echo json_encode(["status"=>"error","message"=>"Prepare failed: " . $mysqli->error]);
+    exit;
+}
+
 $stmt->bind_param(
-    "sssssssssssdsssisiss",
+    "ssssssssssssdsssis",
     $data["company_name"],
     $data["contact_person"],
     $position,
@@ -87,11 +102,14 @@ $stmt->bind_param(
 );
 
 if($stmt->execute()){
-    echo json_encode(["status"=>"success","message"=>"Application saved successfully!","record_id"=>$stmt->insert_id]);
+    echo json_encode([
+        "status"=>"success",
+        "message"=>"Application saved successfully!",
+        "record_id"=>$stmt->insert_id
+    ]);
 } else {
-    echo json_encode(["status"=>"error","message"=>$stmt->error]);
+    echo json_encode(["status"=>"error","message"=>"Insert failed: " . $stmt->error]);
 }
 
 $stmt->close();
 $mysqli->close();
-?>

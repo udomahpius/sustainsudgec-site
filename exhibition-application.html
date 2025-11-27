@@ -180,8 +180,9 @@
   </div>
 </div>
 
+
 <script>
-  AOS.init({ duration: 1200 });
+AOS.init({ duration: 1200 });
 
 const form = document.getElementById("exhibitionForm");
 const paymentSection = document.getElementById("paymentSection");
@@ -189,21 +190,39 @@ const submitBtn = document.getElementById("submitBtn");
 
 let recordId = null; // store record ID after form submission
 
-form.addEventListener("submit", function(e) {
+// Helper to handle fetch and parse JSON safely
+async function postJSON(url, data) {
+    try {
+        const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        // check HTTP status
+        if (!res.ok) {
+            const text = await res.text(); // get raw response
+            throw new Error(`Server returned ${res.status}: ${text}`);
+        }
+
+        const json = await res.json();
+        return json;
+    } catch (err) {
+        throw new Error("Fetch/JSON Error: " + err.message);
+    }
+}
+
+// Form submission
+form.addEventListener("submit", async function(e) {
     e.preventDefault();
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
 
     const data = Object.fromEntries(new FormData(form).entries());
 
-    fetch("save-exhibition.php", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(res => res.json())
-    .then(response => {
-        if(response.status === "success"){
+    try {
+        const response = await postJSON("save-exhibition.php", data);
+        if(response.status === "success") {
             alert("Form submitted successfully!");
             submitBtn.textContent = "Submitted ✅";
             submitBtn.classList.add("bg-gray-400");
@@ -211,22 +230,22 @@ form.addEventListener("submit", function(e) {
             window.scrollTo({ top: paymentSection.offsetTop - 50, behavior: "smooth" });
             recordId = response.record_id; // save record ID
         } else {
-            throw new Error(response.message);
+            throw new Error(response.message || "Unknown error");
         }
-    })
-    .catch(err => {
+    } catch (err) {
         alert("Error submitting form: " + err.message);
         submitBtn.disabled = false;
         submitBtn.textContent = "Submit Form";
         console.error(err);
-    });
+    }
 });
 
-function payNow() {
+// Payment handler
+async function payNow() {
     if(!recordId) return alert("Please submit the form first!");
 
     const data = Object.fromEntries(new FormData(form).entries());
-    data.record_id = recordId; // attach record ID for update
+    data.record_id = recordId;
     let amount = document.getElementById("feeSelect").value;
 
     FlutterwaveCheckout({
@@ -239,22 +258,18 @@ function payNow() {
             phone_number: data.phone,
             name: data.contact_person
         },
-        callback: function (response) {
-            // Update record with payment info
-            fetch("save-exhibition.php", {
-                method: "POST",
-                body: JSON.stringify({ ...data, payment: response }),
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(res => res.json())
-            .then(msg => {
+        callback: async function(response) {
+            try {
+                const msg = await postJSON("save-exhibition.php", { ...data, payment: response });
                 if(msg.status === "success") {
                     alert("Payment Successful!");
                     generatePDFReceipt(data, response);
                 } else {
                     alert("Payment update failed: " + msg.message);
                 }
-            });
+            } catch(err) {
+                alert("Error updating payment: " + err.message);
+            }
         },
         customizations: {
             title: "SUDGEC 2025 Exhibition Registration",
@@ -283,8 +298,8 @@ function generatePDFReceipt(formData, paymentData) {
 
     doc.save(`SUDGEC_Receipt_${formData.contact_person}.pdf`);
 }
-
 </script>
+
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 </body>
