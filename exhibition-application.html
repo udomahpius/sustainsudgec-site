@@ -187,10 +187,9 @@ AOS.init({ duration: 1200 });
 const form = document.getElementById("exhibitionForm");
 const paymentSection = document.getElementById("paymentSection");
 const submitBtn = document.getElementById("submitBtn");
+let recordId = null; // will store record ID after submission
 
-let recordId = null; // store record ID after form submission
-
-// Helper to handle fetch and parse JSON safely
+// Helper function to POST JSON safely
 async function postJSON(url, data) {
     try {
         const res = await fetch(url, {
@@ -199,21 +198,28 @@ async function postJSON(url, data) {
             body: JSON.stringify(data)
         });
 
-        // check HTTP status
-        if (!res.ok) {
-            const text = await res.text(); // get raw response
-            throw new Error(`Server returned ${res.status}: ${text}`);
+        const text = await res.text(); // get raw response
+        let json;
+        try {
+            json = JSON.parse(text);
+        } catch (err) {
+            throw new Error("Invalid JSON returned from server:\n" + text);
         }
 
-        const json = await res.json();
+        if (!res.ok) {
+            throw new Error(`Server returned ${res.status}: ${JSON.stringify(json)}`);
+        }
+
         return json;
     } catch (err) {
         throw new Error("Fetch/JSON Error: " + err.message);
     }
 }
 
-// Form submission
-form.addEventListener("submit", async function(e) {
+// ----------------------------
+// Form Submission
+// ----------------------------
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting...";
@@ -222,16 +228,18 @@ form.addEventListener("submit", async function(e) {
 
     try {
         const response = await postJSON("save-exhibition.php", data);
-        if(response.status === "success") {
+
+        if (response.status === "success") {
             alert("Form submitted successfully!");
             submitBtn.textContent = "Submitted ✅";
             submitBtn.classList.add("bg-gray-400");
             paymentSection.classList.remove("hidden");
             window.scrollTo({ top: paymentSection.offsetTop - 50, behavior: "smooth" });
-            recordId = response.record_id; // save record ID
+            recordId = response.record_id;
         } else {
-            throw new Error(response.message || "Unknown error");
+            throw new Error(response.message || "Unknown server error");
         }
+
     } catch (err) {
         alert("Error submitting form: " + err.message);
         submitBtn.disabled = false;
@@ -240,12 +248,15 @@ form.addEventListener("submit", async function(e) {
     }
 });
 
-// Payment handler
+// ----------------------------
+// Payment Handling
+// ----------------------------
 async function payNow() {
-    if(!recordId) return alert("Please submit the form first!");
+    if (!recordId) return alert("Please submit the form first!");
 
     const data = Object.fromEntries(new FormData(form).entries());
     data.record_id = recordId;
+
     let amount = document.getElementById("feeSelect").value;
 
     FlutterwaveCheckout({
@@ -261,13 +272,13 @@ async function payNow() {
         callback: async function(response) {
             try {
                 const msg = await postJSON("save-exhibition.php", { ...data, payment: response });
-                if(msg.status === "success") {
+                if (msg.status === "success") {
                     alert("Payment Successful!");
                     generatePDFReceipt(data, response);
                 } else {
                     alert("Payment update failed: " + msg.message);
                 }
-            } catch(err) {
+            } catch (err) {
                 alert("Error updating payment: " + err.message);
             }
         },
@@ -279,7 +290,9 @@ async function payNow() {
     });
 }
 
+// ----------------------------
 // PDF Generation
+// ----------------------------
 function generatePDFReceipt(formData, paymentData) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
