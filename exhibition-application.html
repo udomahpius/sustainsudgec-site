@@ -187,9 +187,11 @@ AOS.init({ duration: 1200 });
 const form = document.getElementById("exhibitionForm");
 const paymentSection = document.getElementById("paymentSection");
 const submitBtn = document.getElementById("submitBtn");
-let recordId = null; // will store record ID after submission
+let recordId = null; // store record ID after submission
 
-// Helper function to POST JSON safely
+// ----------------------------
+// Helper function to POST JSON
+// ----------------------------
 async function postJSON(url, data) {
     try {
         const res = await fetch(url, {
@@ -198,7 +200,7 @@ async function postJSON(url, data) {
             body: JSON.stringify(data)
         });
 
-        const text = await res.text(); // get raw response
+        const text = await res.text();
         let json;
         try {
             json = JSON.parse(text);
@@ -257,7 +259,7 @@ async function payNow() {
     const data = Object.fromEntries(new FormData(form).entries());
     data.record_id = recordId;
 
-    let amount = document.getElementById("feeSelect").value;
+    const amount = document.getElementById("feeSelect").value;
 
     FlutterwaveCheckout({
         public_key: "FLWPUBK_TEST-db94a44d6815da7110d5d7da3a3f48ec-X",
@@ -272,9 +274,15 @@ async function payNow() {
         callback: async function(response) {
             try {
                 const msg = await postJSON("save-exhibition.php", { ...data, payment: response });
+
                 if (msg.status === "success") {
                     alert("Payment Successful!");
-                    generatePDFReceipt(data, response);
+
+                    // Open the server-generated PDF receipt
+                    if (msg.pdf_url) {
+                        window.open(msg.pdf_url, "_blank");
+                    }
+
                 } else {
                     alert("Payment update failed: " + msg.message);
                 }
@@ -288,28 +296,6 @@ async function payNow() {
             logo: "/assets/img/logo.png"
         }
     });
-}
-
-// ----------------------------
-// PDF Generation
-// ----------------------------
-function generatePDFReceipt(formData, paymentData) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.setFontSize(18);
-    doc.text("SUDGEC 2025 • Business Exhibition Receipt", 20, 20);
-    doc.setFontSize(12);
-    doc.text(`Name: ${formData.contact_person}`, 20, 40);
-    doc.text(`Organization: ${formData.company_name}`, 20, 50);
-    doc.text(`Email: ${formData.email}`, 20, 60);
-    doc.text(`Phone: ${formData.phone}`, 20, 70);
-    doc.text(`Booth Size: ${formData.booth}`, 20, 80);
-    doc.text(`Payment Amount: ${paymentData.amount} ${paymentData.currency}`, 20, 90);
-    doc.text(`Transaction ID: ${paymentData.transaction_id}`, 20, 100);
-    doc.text(`Date: ${new Date().toLocaleString()}`, 20, 110);
-
-    doc.save(`SUDGEC_Receipt_${formData.contact_person}.pdf`);
 }
 </script>
 
