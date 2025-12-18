@@ -10,59 +10,75 @@ const PDFDocument = require("pdfkit");
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-const UPLOADS_DIR = process.env.UPLOADS_DIR || "uploads";
-const PDFS_DIR = process.env.PDFS_DIR || "pdfs";
-
 // ---------------- Middleware ----------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static(path.join(__dirname, UPLOADS_DIR)));
-app.use("/pdfs", express.static(path.join(__dirname, PDFS_DIR)));
+
+// Serve uploads and pdfs directories
+app.use(`/${process.env.UPLOADS_DIR}`, express.static(path.join(__dirname, process.env.UPLOADS_DIR)));
+app.use(`/${process.env.PDFS_DIR}`, express.static(path.join(__dirname, process.env.PDFS_DIR)));
 
 // ---------------- CORS ----------------
 const allowedOrigins = [process.env.FRONTEND_LOCAL, process.env.FRONTEND_LIVE];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
-  }
-}));
+app.use(cors({ origin: allowedOrigins }));
 
 // ---------------- MySQL ----------------
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3306
+  port: process.env.DB_PORT || 3306,
+  connectTimeout: 10000,
 });
 
 db.connect(err => {
   if (err) {
-    console.error("❌ MySQL connection error:", err.message);
+    console.error("❌ MySQL connection failed!");
+    console.error("Error code:", err.code);
+    console.error("Error message:", err.message);
+    console.error("Host:", process.env.DB_HOST);
+    console.error("User:", process.env.DB_USER);
     process.exit(1);
+  } else {
+    console.log("✅ Connected to MySQL successfully!");
   }
-  console.log("✅ Connected to MySQL");
 });
 
 // ---------------- Multer Upload ----------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR);
-    cb(null, UPLOADS_DIR);
+    const dir = process.env.UPLOADS_DIR;
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + "-" + file.originalname.replace(/\s+/g, "_"));
   }
 });
 const upload = multer({ storage });
 
 // ---------------- Save Contractor ----------------
-app.post("/save_registration", upload.array("documents[]"), async (req, res) => {
+app.post("/save_registration", upload.array("documents[]"), (req, res) => {
   try {
-    const { company_name, company_address, contact_person, phone, email, category, contract_value, payment_details, signature, date } = req.body;
+    const {
+      company_name,
+      company_address,
+      contact_person,
+      phone,
+      email,
+      category,
+      contract_value,
+      payment_details,
+      signature,
+      date
+    } = req.body;
 
-    const documents = (req.files || []).map(f => `/${UPLOADS_DIR}/${f.filename}`).join(", ");
+    if (!company_name || !contact_person || !email) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    const documents = (req.files || []).map(f => `/${process.env.UPLOADS_DIR}/${f.filename}`).join(", ");
 
     const sql = `
       INSERT INTO contractor_registrations
@@ -71,12 +87,28 @@ app.post("/save_registration", upload.array("documents[]"), async (req, res) => 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [company_name, company_address, contact_person, phone, email, category, contract_value, payment_details, signature, date, documents], (err, result) => {
-      if (err) return res.status(500).json({ success: false, message: "Database insert failed" });
+    db.query(sql, [
+      company_name,
+      company_address,
+      contact_person,
+      phone,
+      email,
+      category,
+      contract_value,
+      payment_details,
+      signature,
+      date,
+      documents
+    ], (err, result) => {
+      if (err) {
+        console.error("❌ DB insert error:", err.message);
+        return res.status(500).json({ success: false, message: "Database insert failed" });
+      }
 
-      // Generate PDF
-      if (!fs.existsSync(PDFS_DIR)) fs.mkdirSync(PDFS_DIR);
-      const pdfPath = path.join(PDFS_DIR, `receipt-${result.insertId}.pdf`);
+      // Generate PDF receipt
+      const pdfDir = process.env.PDFS_DIR;
+      if (!fs.existsSync(pdfDir)) fs.mkdirSync(pdfDir, { recursive: true });
+      const pdfPath = path.join(pdfDir, `receipt-${result.insertId}.pdf`);
       const doc = new PDFDocument();
       doc.pipe(fs.createWriteStream(pdfPath));
       doc.fontSize(20).text("SUDGEC Contractor Registration Receipt", { align: "center" });
@@ -93,14 +125,17 @@ app.post("/save_registration", upload.array("documents[]"), async (req, res) => 
       res.json({
         success: true,
         record_id: result.insertId,
-        pdf_url: `/${PDFS_DIR}/receipt-${result.insertId}.pdf`
+        pdf_url: `/${process.env.PDFS_DIR}/receipt-${result.insertId}.pdf`
       });
     });
+
   } catch (err) {
-    console.error(err);
+    console.error("❌ Server error:", err.message);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
 
 // ---------------- Start Server ----------------
-app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
