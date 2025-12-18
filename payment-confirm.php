@@ -5,7 +5,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 // DB Connection
 $host = "localhost";
 $user = "u968639263_SUDGEC";
-$pass = "MaLaChy@2000#";
+$pass = "Sudgec002**";
 $dbname = "u968639263_SUDGEC";
 $conn = new mysqli($host, $user, $pass, $dbname);
 

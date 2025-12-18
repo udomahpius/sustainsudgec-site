@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploads and pdfs directories
+// Serve uploads and PDFs
 app.use(`/${process.env.UPLOADS_DIR}`, express.static(path.join(__dirname, process.env.UPLOADS_DIR)));
 app.use(`/${process.env.PDFS_DIR}`, express.static(path.join(__dirname, process.env.PDFS_DIR)));
 
@@ -22,7 +22,7 @@ app.use(`/${process.env.PDFS_DIR}`, express.static(path.join(__dirname, process.
 const allowedOrigins = [process.env.FRONTEND_LOCAL, process.env.FRONTEND_LIVE];
 app.use(cors({ origin: allowedOrigins }));
 
-// ---------------- MySQL ----------------
+// ---------------- MySQL (Hostinger) ----------------
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -41,7 +41,7 @@ db.connect(err => {
     console.error("User:", process.env.DB_USER);
     process.exit(1);
   } else {
-    console.log("✅ Connected to MySQL successfully!");
+    console.log("✅ Connected to Hostinger MySQL successfully!");
   }
 });
 
