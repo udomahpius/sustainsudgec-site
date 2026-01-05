@@ -574,50 +574,39 @@
   const form = document.getElementById('contractorForm');
   const downloadPDF = document.getElementById('downloadPDF');
 
-  // Choose backend URL dynamically
-  const backendURL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
-    ? 'http://127.0.0.1:3000/submit' // local
-    : 'https://sustainsudgecorg.org/submit'; // live
+  // ===== DYNAMIC BACKEND URL =====
+  const backendURL = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
+    ? 'http://127.0.0.1:3000/submit'
+    : 'https://sustainsudgecorg.org/submit';
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
 
     try {
-      // ===== SEND DATA TO BACKEND =====
-      const res = await fetch(backendURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      if (!res.ok) throw new Error('Server error');
-      const result = await res.json();
-      if (!result.success) throw new Error('Submission failed');
-
-      // ===== SHOW SUCCESS MODAL =====
-      successModal.classList.remove('hidden');
-      successModal.classList.add('flex');
-
-      // ===== GENERATE PROFESSIONAL PDF =====
+      // ===== 1. GENERATE PROFESSIONAL PDF =====
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      const logoUrl = '/assets/img/logo.png'; // Replace with your logo path
+      const logoUrl = '/assets/img/logo.png'; // Adjust path to your logo
       const img = new Image();
       img.src = logoUrl;
-      img.onload = () => {
+
+      img.onload = async () => {
         doc.addImage(img, 'PNG', 10, 10, 40, 40);
 
+        // --- Title ---
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(0, 102, 204);
         doc.text("SUDGEC Project Contractor Registration", 60, 25);
 
+        // --- Line under title ---
         doc.setDrawColor(0, 102, 204);
         doc.setLineWidth(1);
         doc.line(10, 55, 200, 55);
 
+        // --- Form Data ---
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(12);
         let y = 65;
@@ -626,13 +615,13 @@
 
         for (const [key, value] of Object.entries(data)) {
           if (toggle) {
-            doc.setFillColor(230, 240, 255); // light blue
+            doc.setFillColor(230, 240, 255); // light blue row
             doc.rect(10, y - 6, 190, boxHeight, 'F');
           }
           toggle = !toggle;
 
           doc.setTextColor(0, 0, 0);
-          doc.text(`${key}:`, 12, y);
+          doc.text(`${key.replace('_',' ')}:`, 12, y);
           doc.setTextColor(50, 50, 50);
           doc.text(`${value}`, 60, y);
           y += 10;
@@ -642,20 +631,42 @@
           doc.line(10, y - 3, 200, y - 3);
         }
 
+        // --- Footer ---
         doc.setFontSize(10);
         doc.setTextColor(100, 100, 100);
         doc.text("Generated from sustainsudgecorg.org", 10, 280);
 
+        // --- Set download link ---
         const pdfBlob = doc.output('blob');
         const pdfUrl = URL.createObjectURL(pdfBlob);
         if (downloadPDF) downloadPDF.href = pdfUrl;
 
+        // ===== 2. SEND DATA TO BACKEND =====
+        const res = await fetch(backendURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!res.ok) throw new Error('Server error');
+        const result = await res.json();
+        if (!result.success) throw new Error('Submission failed');
+
+        // ===== SHOW SUCCESS MODAL =====
+        successModal.classList.remove('hidden');
+        successModal.classList.add('flex');
+
+        // Reset form
         form.reset();
+      };
+
+      img.onerror = () => {
+        alert('Logo could not be loaded. PDF will still be generated without logo.');
       };
 
     } catch (err) {
       console.error(err);
-      alert('Submission failed. Make sure the backend is running.');
+      alert('Submission failed. Make sure the backend is running and CORS is configured correctly.');
     }
   });
 
