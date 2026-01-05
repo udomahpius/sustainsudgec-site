@@ -575,7 +575,7 @@
   const downloadPDF = document.getElementById('downloadPDF');
 
   // Detect backend URL dynamically
-  const backendURL = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
+  const backendURL = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'srv1817.hstgr.io')
     ? 'http://127.0.0.1:3000/submit'  // local
     : 'https://sustainsudgecorg.org/submit'; // live
 
@@ -605,8 +605,8 @@
 
       // --- Logo path (dynamic for local & live) ---
       const logoUrl = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')
-        ? './assets/img/logo.png' // local
-        : 'https://sustainsudgecorg.org/assets/img/logo.png'; // live
+        ? './assets/img/logo.BpdcY0v0.png' // local
+        : 'https://sustainsudgecorg.org/assets/logo.BpdcY0v0.png'; // live
 
       const img = new Image();
       img.src = logoUrl;
