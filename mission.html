@@ -580,11 +580,13 @@
 
     try {
       // ===== SEND TO BACKEND =====
-      const res = await fetch('https://sustainsudgecorg.org/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+    const corsOptions = {
+  origin: ['https://sustainsudgecorg.org', 'http://127.0.0.1:5500'], 
+  methods: ['GET','POST'],
+  allowedHeaders: ['Content-Type']
+};
+
+app.use(cors(corsOptions));
       if (!res.ok) throw new Error('Server error');
       const result = await res.json();
       if (!result.success) throw new Error('Submission failed');
