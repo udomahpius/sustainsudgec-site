@@ -574,19 +574,23 @@
   const form = document.getElementById('contractorForm');
   const downloadPDF = document.getElementById('downloadPDF');
 
+  // Choose backend URL dynamically
+  const backendURL = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+    ? 'http://127.0.0.1:3000/submit' // local
+    : 'https://sustainsudgecorg.org/submit'; // live
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
 
     try {
-      // ===== SEND TO BACKEND =====
-    const corsOptions = {
-  origin: ['https://sustainsudgecorg.org', 'http://127.0.0.1:5500'], 
-  methods: ['GET','POST'],
-  allowedHeaders: ['Content-Type']
-};
+      // ===== SEND DATA TO BACKEND =====
+      const res = await fetch(backendURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
 
-app.use(cors(corsOptions));
       if (!res.ok) throw new Error('Server error');
       const result = await res.json();
       if (!result.success) throw new Error('Submission failed');
@@ -599,25 +603,21 @@ app.use(cors(corsOptions));
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      // --- Add Logo ---
-      const logoUrl = '/assets/img/logo.png'; // replace with your logo
+      const logoUrl = '/assets/img/logo.png'; // Replace with your logo path
       const img = new Image();
       img.src = logoUrl;
       img.onload = () => {
-        doc.addImage(img, 'PNG', 10, 10, 40, 40); // x, y, width, height
+        doc.addImage(img, 'PNG', 10, 10, 40, 40);
 
-        // --- Add Title ---
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(0, 102, 204);
         doc.text("SUDGEC Project Contractor Registration", 60, 25);
 
-        // --- Horizontal line under title ---
         doc.setDrawColor(0, 102, 204);
         doc.setLineWidth(1);
         doc.line(10, 55, 200, 55);
 
-        // --- Add Form Data ---
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(12);
         let y = 65;
@@ -625,7 +625,6 @@ app.use(cors(corsOptions));
         let toggle = true;
 
         for (const [key, value] of Object.entries(data)) {
-          // Alternate row color
           if (toggle) {
             doc.setFillColor(230, 240, 255); // light blue
             doc.rect(10, y - 6, 190, boxHeight, 'F');
@@ -638,18 +637,15 @@ app.use(cors(corsOptions));
           doc.text(`${value}`, 60, y);
           y += 10;
 
-          // Draw thin line under row
           doc.setDrawColor(200, 200, 200);
           doc.setLineWidth(0.3);
           doc.line(10, y - 3, 200, y - 3);
         }
 
-        // --- Footer ---
         doc.setFontSize(10);
         doc.setTextColor(100, 100, 100);
         doc.text("Generated from sustainsudgecorg.org", 10, 280);
 
-        // --- PDF download link ---
         const pdfBlob = doc.output('blob');
         const pdfUrl = URL.createObjectURL(pdfBlob);
         if (downloadPDF) downloadPDF.href = pdfUrl;

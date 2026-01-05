@@ -6,10 +6,20 @@ const PDFDocument = require('pdfkit');
 const { v4: uuid } = require('uuid');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// ===== CORS =====
+const corsOptions = {
+  origin: ['https://sustainsudgecorg.org', 'http://127.0.0.1:5500'], 
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+};
+app.use(cors(corsOptions));
+
+// ===== Body Parser =====
 app.use(express.json());
+
+// ===== PDF Folder =====
 app.use('/pdf', express.static(path.join(__dirname, 'pdf')));
 
 app.post('/submit', (req, res) => {
@@ -21,19 +31,24 @@ app.post('/submit', (req, res) => {
     const doc = new PDFDocument({ size: 'A4', margin: 50 });
     doc.pipe(fs.createWriteStream(pdfPath));
 
-    doc.fontSize(18).text('SUDGEC 2025 – Contractor Application', { align: 'center' });
+    doc.fontSize(18).fillColor('#2c3e50').text('SUDGEC 2025 – Contractor Application', { align: 'center' });
     doc.moveDown();
 
     Object.entries(data).forEach(([key, value]) => {
-      doc.fontSize(12).text(`${key.replace('_', ' ')}: ${value}`);
+      doc.fontSize(12).fillColor('#34495e').text(`${key.replace('_', ' ')}: ${value}`);
       doc.moveDown(0.5);
     });
 
     doc.end();
 
+    // ===== Dynamic URL for local or live =====
+    const protocol = req.protocol;
+    const host = req.get('host');
+    const pdfUrl = `${protocol}://${host}/pdf/${id}.pdf`;
+
     res.json({
       success: true,
-      pdf_url: `http://localhost:${PORT}/pdf/${id}.pdf`
+      pdf_url: pdfUrl
     });
 
   } catch (err) {
@@ -43,5 +58,5 @@ app.post('/submit', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`Backend running on ${PORT}`);
 });
