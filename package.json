@@ -1,10 +1,22 @@
 {
+  "name": "sudgec-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+
   "dependencies": {
+    "body-parser": "^2.2.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "multer": "^2.0.2",
     "mysql2": "^3.16.0",
-    "pdfkit": "^0.17.2"
+    "pdfkit": "^0.17.2",
+    "uuid": "^13.0.0"
+    
   }
+ 
+
 }

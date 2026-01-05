@@ -312,13 +312,13 @@
         </div>
 
         <!-- Upload Section -->
-        <div>
+        <!-- <div>
           <label class="block font-semibold text-green-700 dark:text-yellow-400 mb-2">
             Upload Required Documents (ZIP or PDF)
           </label>
           <input name="documents[]" type="file" multiple required
             class="p-3 border rounded-md w-full bg-white/90 dark:bg-slate-800 border-slate-300 dark:text-white focus:ring-2 focus:ring-green-500" />
-        </div>
+        </div> -->
 
         <!-- Declaration -->
         <div class="mt-6">
@@ -471,6 +471,7 @@
     </div>
   </section>
 
+
   <!-- 🌱 Footer -->
   <footer class="bg-slate-900 text-slate-200 py-10">
     <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6">
@@ -500,145 +501,176 @@
   <script src="assets/js/main.js"></script>
 
   <!-- Scroll Animation Script -->
-  <script>
-    const elements = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.15 });
-    elements.forEach(el => observer.observe(el));
-  </script>
-  <script>
-    const openFormBtn = document.getElementById('openFormBtn');
-    const closeFormBtn = document.getElementById('closeFormBtn');
-    const formOverlay = document.getElementById('formOverlay');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(() => {
+  // ===== 1. DARK/LIGHT MODE TOGGLE =====
+  const darkToggle = document.getElementById('darkToggle');
+  const darkToggleMobile = document.getElementById('darkToggleMobile');
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  }
+  if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+  darkToggle?.addEventListener('click', toggleDarkMode);
+  darkToggleMobile?.addEventListener('click', toggleDarkMode);
 
-    // Open form modal
-    openFormBtn.addEventListener('click', () => {
-      formOverlay.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    });
+  // ===== 2. MOBILE MENU TOGGLE =====
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  mobileToggle?.addEventListener('click', () => mobileNav.classList.toggle('hidden'));
 
-    // Close modal
-    closeFormBtn.addEventListener('click', () => {
+  // ===== 3. CONTRACTOR MODAL =====
+  const openFormBtn = document.getElementById('openFormBtn');
+  const closeFormBtn = document.getElementById('closeFormBtn');
+  const formOverlay = document.getElementById('formOverlay');
+  openFormBtn?.addEventListener('click', () => {
+    formOverlay.classList.remove('hidden');
+    formOverlay.classList.add('flex');
+  });
+  closeFormBtn?.addEventListener('click', () => {
+    formOverlay.classList.add('hidden');
+    formOverlay.classList.remove('flex');
+  });
+  formOverlay?.addEventListener('click', e => {
+    if (e.target === formOverlay) {
       formOverlay.classList.add('hidden');
-      document.body.style.overflow = '';
-    });
-
-
-  </script>
-  <script>
-    const form = document.getElementById('contractorForm');
-    const toggleBtn = document.getElementById('toggleBankInfo');
-    const bankInfo = document.getElementById('bankInfo');
-    const successModal = document.getElementById('successModal');
-    const downloadPDF = document.getElementById('downloadPDF');
-
-    // 🔁 Toggle Bank Info
-    toggleBtn.addEventListener('click', () => {
-      bankInfo.classList.toggle('hidden');
-      toggleBtn.textContent = bankInfo.classList.contains('hidden')
-        ? 'View Bank Payment Info ▼'
-        : 'Hide Bank Payment Info ▲';
-    });
-
-    // 📨 Form Submission
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch('save_registration.php', {
-          method: 'POST',
-          body: formData
-        });
-        const result = await response.json();
-
-        if (result.success) {
-          document.getElementById('formOverlay').classList.add('hidden');
-          document.body.style.overflow = '';
-
-          successModal.classList.remove('hidden');
-          successModal.classList.add('flex');
-          downloadPDF.href = result.pdf_url;
-
-          // 🎊 Confetti burst
-          launchConfetti();
-        } else {
-          alert('❌ Error: ' + result.message);
-        }
-      } catch (err) {
-        alert('⚠️ Network or server error: ' + err.message);
-      }
-    });
-
-    // ❌ Close modal
-    successModal.addEventListener('click', (e) => {
-      if (e.target.id === 'successModal' || e.target.classList.contains('closeSuccess')) {
-        successModal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-    });
-
-    // 🎉 Confetti Animation
-    function launchConfetti() {
-      const duration = 2500;
-      const animationEnd = Date.now() + duration;
-      const defaults = { spread: 360, startVelocity: 45, ticks: 60, zIndex: 1000 };
-
-      function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      (function frame() {
-        const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) return;
-
-        const particleCount = 12 * (timeLeft / duration);
-        const angle = randomInRange(55, 125);
-        const originX = Math.random();
-
-        createConfetti(particleCount, angle, originX);
-        requestAnimationFrame(frame);
-      })();
+      formOverlay.classList.remove('flex');
     }
+  });
 
-    // 💫 Simple Confetti Generator
-    function createConfetti(count, angle, originX) {
-      for (let i = 0; i < count; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.position = 'fixed';
-        confetti.style.width = '8px';
-        confetti.style.height = '14px';
-        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        confetti.style.left = `${originX * 100}%`;
-        confetti.style.top = '0';
-        confetti.style.opacity = '0.8';
-        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-        document.body.appendChild(confetti);
+  // ===== 4. BANK INFO TOGGLE =====
+  const toggleBankInfo = document.getElementById('toggleBankInfo');
+  const bankInfo = document.getElementById('bankInfo');
+  toggleBankInfo?.addEventListener('click', () => {
+    bankInfo.classList.toggle('hidden');
+    toggleBankInfo.textContent = bankInfo.classList.contains('hidden')
+      ? 'View Bank Payment Info ▼'
+      : 'Hide Bank Payment Info ▲';
+  });
 
-        const fallDuration = 2 + Math.random() * 2;
-        const horizontalMove = (Math.random() - 0.5) * 200;
+  // ===== 5. FOOTER YEAR =====
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-        confetti.animate(
-          [
-            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-            { transform: `translate(${horizontalMove}px, 100vh) rotate(720deg)`, opacity: 0.8 }
-          ],
-          {
-            duration: fallDuration * 1000,
-            easing: 'ease-out',
-            iterations: 1,
+  // ===== 6. SUCCESS MODAL CLOSE =====
+  const successModal = document.getElementById('successModal');
+  const closeSuccessBtns = document.querySelectorAll('.closeSuccess');
+  closeSuccessBtns.forEach(btn => btn.addEventListener('click', () => {
+    successModal.classList.add('hidden');
+    successModal.classList.remove('flex');
+  }));
+
+  // ===== 7. FADE-UP SCROLL ANIMATION =====
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // ===== 8. CONTRACTOR FORM SUBMISSION + PROFESSIONAL PDF =====
+  const form = document.getElementById('contractorForm');
+  const downloadPDF = document.getElementById('downloadPDF');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      // ===== SEND TO BACKEND =====
+      const res = await fetch('https://sustainsudgecorg.org/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Server error');
+      const result = await res.json();
+      if (!result.success) throw new Error('Submission failed');
+
+      // ===== SHOW SUCCESS MODAL =====
+      successModal.classList.remove('hidden');
+      successModal.classList.add('flex');
+
+      // ===== GENERATE PROFESSIONAL PDF =====
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // --- Add Logo ---
+      const logoUrl = '/assets/img/logo.png'; // replace with your logo
+      const img = new Image();
+      img.src = logoUrl;
+      img.onload = () => {
+        doc.addImage(img, 'PNG', 10, 10, 40, 40); // x, y, width, height
+
+        // --- Add Title ---
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(18);
+        doc.setTextColor(0, 102, 204);
+        doc.text("SUDGEC Project Contractor Registration", 60, 25);
+
+        // --- Horizontal line under title ---
+        doc.setDrawColor(0, 102, 204);
+        doc.setLineWidth(1);
+        doc.line(10, 55, 200, 55);
+
+        // --- Add Form Data ---
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(12);
+        let y = 65;
+        const boxHeight = 8;
+        let toggle = true;
+
+        for (const [key, value] of Object.entries(data)) {
+          // Alternate row color
+          if (toggle) {
+            doc.setFillColor(230, 240, 255); // light blue
+            doc.rect(10, y - 6, 190, boxHeight, 'F');
           }
-        );
+          toggle = !toggle;
 
-        setTimeout(() => confetti.remove(), fallDuration * 1000);
-      }
+          doc.setTextColor(0, 0, 0);
+          doc.text(`${key}:`, 12, y);
+          doc.setTextColor(50, 50, 50);
+          doc.text(`${value}`, 60, y);
+          y += 10;
+
+          // Draw thin line under row
+          doc.setDrawColor(200, 200, 200);
+          doc.setLineWidth(0.3);
+          doc.line(10, y - 3, 200, y - 3);
+        }
+
+        // --- Footer ---
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100);
+        doc.text("Generated from sustainsudgecorg.org", 10, 280);
+
+        // --- PDF download link ---
+        const pdfBlob = doc.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        if (downloadPDF) downloadPDF.href = pdfUrl;
+
+        form.reset();
+      };
+
+    } catch (err) {
+      console.error(err);
+      alert('Submission failed. Make sure the backend is running.');
     }
-  </script>
+  });
+
+  // ===== 9. SAFE PDF PRINT FUNCTION =====
+  window.printPDF = function () {
+    if (downloadPDF && downloadPDF.href) {
+      window.open(downloadPDF.href).print();
+    } else {
+      alert('No PDF available yet.');
+    }
+  };
+})();
+</script>
 
 </body>
 
