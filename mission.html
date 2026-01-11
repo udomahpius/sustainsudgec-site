@@ -489,7 +489,7 @@
       </div>
       <div>
         <h4 class="font-semibold mb-2">Contact</h4>
-        <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br /> 08134657311 <br> 08039441487 <br> 08138833415  <br> 7th floor, churchgate towers , central busines district abuja, fed. secreteriate and house of assembly complex @  PH, River, Abia, Delta, Akwa lbom Cross river state
+        <p class="text-sm text-slate-300">info@sustainsudgecorg.org<br /> 0707 599 4055 <br> 0906 401 3208 <br>0815 299 2219 <br> 7th floor, churchgate towers , central busines district abuja, fed. secreteriate and house of assembly complex @  PH, River, Abia, Delta, Akwa lbom Cross river state
         </p>
       </div>
     </div>
@@ -575,10 +575,14 @@
   const downloadPDF = document.getElementById('downloadPDF');
 
   // Detect backend URL dynamically
-  const backendURL = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'srv1817.hstgr.io')
-    ? 'http://127.0.0.1:3000/submit'  // local
-    : 'https://sustainsudgecorg.org/submit'; // live
+const isLocal =
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1';
 
+const backendURL = isLocal
+  ? 'http://localhost:3000/submit'
+  : 'https://sustainsudgecorg.org/submit';
+  
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form).entries());
